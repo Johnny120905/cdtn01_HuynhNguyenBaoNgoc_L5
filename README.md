@@ -29,7 +29,7 @@ docker compose up -d --build
 > [!IMPORTANT]
 > **CAM KẾT TÁI TẠO CƠ CẤU HOÀN CHỈNH 100% (CLEAN-ROOM REPRODUCTION GUARANTEE):**
 > Tệp `README.md` này đặt tại thư mục gốc `CDTN01/` (ngang hàng với `backend/`, `frontend/`, `src/`, `docs/`, `migrations/`, `seeds/`, `tests/`) là **cẩm nang hướng dẫn trung tâm duy nhất** của toàn bộ dự án.
-> Toàn bộ tài liệu được biên soạn theo nguyên tắc **"cầm tay chỉ việc" từng bước từ con số 0**: Bất kỳ người đọc hoặc giảng viên chấm bài nào — dù thực hiện trên một máy tính mới hoàn toàn trống — chỉ cần làm tuần tự đúng các bước bên dưới là **chắc chắn 100% tái tạo và vận hành thành công toàn bộ cơ cấu Website (Cơ sở dữ liệu MongoDB Atlas / Compass → Backend FastAPI 5 tầng → Frontend SPA Dark 3D Elevation → Bộ 43 ca kiểm thử tự động → Đóng gói Container Docker)** y hệt bản gốc mà không phải suy đoán bất kỳ thao tác nào.
+> Toàn bộ tài liệu được biên soạn theo nguyên tắc **"cầm tay chỉ việc" từng bước từ con số 0**: Bất kỳ người đọc hoặc giảng viên chấm bài nào — dù thực hiện trên một máy tính mới hoàn toàn trống — chỉ cần làm tuần tự đúng các bước bên dưới là **chắc chắn 100% tái tạo và vận hành thành công toàn bộ cơ cấu Website (Cơ sở dữ liệu MongoDB Atlas / Compass → Backend FastAPI 5 tầng → Frontend SPA Dark 3D Elevation → Bộ 67 ca kiểm thử tự động → Đóng gói Container Docker)** y hệt bản gốc mà không phải suy đoán bất kỳ thao tác nào.
 
 ---
 
@@ -40,8 +40,8 @@ docker compose up -d --build
 3. [PHẦN 3: Hướng dẫn Tái tạo Cơ cấu Tầng Database (MongoDB Atlas · MongoDB Compass · Migrations · Idempotent Seed)](#phần-3-hướng-dẫn-tái-tạo-cơ-cấu-tầng-database-mongodb-atlas--mongodb-compass--migrations--idempotent-seed)
 4. [PHẦN 4: Hướng dẫn Tái tạo Cơ cấu Tầng Backend (Python FastAPI – Kiến trúc Phân lớp Sạch)](#phần-4-hướng-dẫn-tái-tạo-cơ-cấu-tầng-backend-python-fastapi--kiến-trúc-phân-lớp-sạch)
 5. [PHẦN 5: Hướng dẫn Tái tạo Cơ cấu Tầng Frontend (Website SPA Dark 3D Elevation & Kịch bản Nghiệm thu 3 Vai trò)](#phần-5-hướng-dẫn-tái-tạo-cơ-cấu-tầng-frontend-website-spa-dark-3d-elevation--kịch-bản-nghiệm-thu-3-vai-trò)
-6. [PHẦN 6: Hướng dẫn Chạy Bộ Kiểm thử Tự động (43/43 Tests PASSED bằng 1 Lệnh)](#phần-6-hướng-dẫn-chạy-bộ-kiểm-thử-tự-động-4343-tests-passed-bằng-1-lệnh)
-7. [PHẦN 7: Hướng dẫn Đóng gói Docker (`<= 2` Lệnh), Phép thử Máy trắng & Đẩy GitHub Tag `v0.2`](#phần-7-hướng-dẫn-đóng-gói-docker--2-lệnh-phép-thử-máy-trắng--đẩy-github-tag-v02)
+6. [PHẦN 6: Hướng dẫn Chạy Bộ Kiểm thử Tự động (67/67 Tests PASSED bằng 1 Lệnh)](#phần-6-hướng-dẫn-chạy-bộ-kiểm-thử-tự-động-6767-tests-passed-bằng-1-lệnh)
+7. [PHẦN 7: Hướng dẫn Đóng gói Docker (`<= 2` Lệnh), Phép thử Máy trắng & Đẩy GitHub Tag `v1.0` (BT3)](#phần-7-hướng-dẫn-đóng-gói-docker--2-lệnh-phép-thử-máy-trắng--đẩy-github-tag-v10-bt3)
 8. [PHẦN 8: Cẩm nang Xử lý Sự cố Thường gặp (Troubleshooting) & Liêm chính Học thuật](#phần-8-cẩm-năng-xử-lý-sự-cố-thường-gặp-troubleshooting--liêm-chính-học-thuật)
 
 ---
@@ -110,7 +110,7 @@ Bản vẽ kỹ thuật chi tiết được lưu tại tệp [`docs/layered clea
 
 ### 1.3. Cấu trúc Thư mục Bắt buộc theo Đề bài Học phần qua 3 Giai đoạn (`BT1` · `BT2` · `BT3`)
 
-Dựa trên bộ tài liệu đề bài chính thức trong thư mục `TL/tailieu/` (`CDTN1_De bai Bai tap 1 - Phan tich va Thiet ke.pdf` – Mục 3.2 Trang 5, `CDTN1_De bai Bai tap 2 - Hien thuc hoa module cot loi.pdf` – Mục 3.2 Trang 6, và `CDTN1_De bai Bai tap 3 - Kiem thu va Dong goi prototype.pdf` – Mục 3.2 Trang 8), cấu trúc thư mục tối thiểu bắt buộc đối với chuyên ngành **Công nghệ phần mềm (`Track SE`)** tích lũy qua 3 giai đoạn như sau:
+Dựa trên bộ tài liệu đề bài chính thức của học phần (`CDTN1_De bai Bai tap 1 - Phan tich va Thiet ke.pdf` – Mục 3.2 Trang 5, `CDTN1_De bai Bai tap 2 - Hien thuc hoa module cot loi.pdf` – Mục 3.2 Trang 6, và `CDTN1_De bai Bai tap 3 - Kiem thu va Dong goi prototype.pdf` – Mục 3.2 Trang 8), cấu trúc thư mục tối thiểu bắt buộc đối với chuyên ngành **Công nghệ phần mềm (`Track SE`)** tích lũy qua 3 giai đoạn như sau:
 
 #### (A) Giai đoạn Bài tập 1 (`BT1` – Phân tích & Thiết kế)
 ```text
@@ -163,10 +163,10 @@ CDTN01/ (Yêu cầu tối thiểu Đề bài BT3 - Mục 3.2, đóng gói hoàn 
 │   ├── deployment-guide.md        # [MỚI ở BT3] Hướng dẫn triển khai 5 mục (Tiếng Anh)
 │   ├── checklist-bao-mat.md       # [MỚI ở BT3] Danh mục tự đánh giá bảo mật 7 mục kèm minh chứng
 │   ├── api-docs/                  # [Track SE] Tài liệu kỹ thuật đầy đủ mọi Endpoint (OpenAPI/Markdown)
-│   ├── thaydoithietke.md          # Tiếp tục cập nhật nhật ký thay đổi xuyên suốt từ BT1, BT2 sang BT3
+│   ├── thay-doi-thiet-ke.md       # Tiếp tục cập nhật nhật ký thay đổi xuyên suốt từ BT1, BT2 sang BT3
 │   └── ai-disclosure.md           # Cập nhật bảng khai báo AI 4 cột cho giai đoạn BT3
 ├── src/                           # Mã nguồn phân lớp hoàn chỉnh đã sửa toàn bộ Bug Critical
-├── tests/                         # Bộ kiểm thử tự động chạy PASS 100% bằng 1 lệnh duy nhất (56 tests)
+├── tests/                         # Bộ kiểm thử tự động chạy PASS 100% bằng 1 lệnh duy nhất (67 tests)
 ├── Dockerfile & docker-compose.yml # [Bắt buộc Cốt lõi C1 ở BT3] Dựng lại từ máy trắng bằng <= 2 lệnh
 ├── .env.example                   # Đủ mọi biến môi trường, tuyệt đối không lộ secret thật
 ├── .gitignore                     # Chặn triệt để .env và dữ liệu nhạy cảm
@@ -205,9 +205,10 @@ CDTN01/                                           # THƯ MỤC GỐC CỦA KHO M
 │   │   └── openapi.json                          # Hợp đồng chuẩn OpenAPI 3.0 / Swagger JSON
 │   ├── srs.md                                    # Bản đặc tả yêu cầu phần mềm SRS rút gọn 6 mục (7 FR, 4 NFR có ngưỡng số, 5 BR, RTM kín)
 │   ├── api-contract.md                           # Hợp đồng giao tiếp RESTful API chuẩn JSON (Endpoint, Header JWT, Payload, Bảng mã lỗi)
-│   ├── thaydoithietke.md                         # Nhật ký thay đổi thiết kế duy nhất tích hợp đầy đủ 3 giai đoạn BT1 - BT2 - BT3
+│   ├── thay-doi-thiet-ke.md                      # Nhật ký thay đổi thiết kế duy nhất tích hợp đầy đủ 3 giai đoạn BT1 - BT2 - BT3
 │   ├── thietke.md                                # Đặc tả chi tiết giao diện Dark 3D Elevation từng màn hình/vai trò & bộ Prompt Google Stitch
 │   ├── dieukientest.md                           # Bộ điều kiện kiểm thử, ràng buộc hệ thống và ma trận kịch bản kiểm thử toàn diện
+│   ├── data-dictionary.md                        # [MỚI ở BT3] Từ điển dữ liệu CSDL MongoDB 5 collections chuẩn hóa
 │   ├── ai-disclosure.md                          # Bảng khai báo sử dụng công cụ AI 4 cột minh bạch cho cả 3 giai đoạn BT1, BT2, BT3
 │   ├── layered clean architecture.drawio         # Bản vẽ gốc sơ đồ Kiến trúc Phân lớp 5 tầng ĐÃ HIỆN THỰC thực tế
 │   ├── architecture.drawio                       # Bản vẽ gốc sơ đồ Kiến trúc hệ thống thiết kế ban đầu ở BT1
@@ -247,12 +248,13 @@ CDTN01/                                           # THƯ MỤC GỐC CỦA KHO M
 │   ├── .gitkeep                                  # Tệp giữ cấu trúc thư mục data/ trên hệ thống quản lý phiên bản Git
 │   └── users_store.json                          # Kho lưu trữ đồng bộ hồ sơ tài khoản, trạng thái ca trực và JWT xuống ổ cứng cục bộ
 │
-├── tests/                                        # BỘ 56 CA KIỂM THỬ TỰ ĐỘNG HÓA TOÀN DIỆN (CHẠY PASS 100% BẰNG 1 LỆNH)
+├── tests/                                        # BỘ 67 CA KIỂM THỬ TỰ ĐỘNG HÓA TOÀN DIỆN (CHẠY PASS 100% BẰNG 1 LỆNH)
 │   ├── inventory.service.test.py                 # 07 Unit Tests kiểm thử cô lập lớp InventoryService trên RAM (không phụ thuộc HTTP/DB)
 │   ├── inventory.routes.test.py                  # 06 Integration Tests kiểm thử hợp đồng API, phân quyền RBAC & mã lỗi chuẩn HTTP
 │   ├── auth_and_user.test.py                     # 15 Tests kiểm thử Đăng ký, mật khẩu 4 nhóm, OTP 10 phút, khóa vĩnh viễn TERMINATED
 │   ├── cross_role_and_ui.test.py                 # 15 E2E & UI Tests kiểm thử luồng liên thông 3 vai trò & tính toàn vẹn giao diện SPA
-│   └── bt3_specification_and_constraints.test.py # 13 Tests [MỚI ở BT3] kiểm thử đặc tả & ràng buộc: RETURN, biên 2 phía (BR-01, BR-05), chặn phiếu đóng, Race Condition, bảo mật S3/S4, nạp seed C8
+│   ├── bt3_specification_and_constraints.test.py # 13 Tests [MỚI ở BT3] kiểm thử đặc tả & ràng buộc: RETURN, biên 2 phía (BR-01, BR-05), chặn phiếu đóng, Race Condition, bảo mật S3/S4, nạp seed C8
+│   └── se_s1_crud.test.py                        # 11 Tests [MỚI ở BT3] kiểm thử toàn diện 4 thao tác CRUD (Create, Read, Update, Delete) cho 2 thực thể part & users (tiêu chí SE S1)
 │
 ├── frontend/                                     # KHÔNG GIAN MÃ NGUỒN FRONTEND ĐỘC LẬP (NGANG HÀNG VỚI BACKEND)
 │   ├── .gitignore                                # Quy tắc loại trừ thư mục node_modules/ riêng của gói Frontend
@@ -269,13 +271,10 @@ CDTN01/                                           # THƯ MỤC GỐC CỦA KHO M
 │
 ├── backend/                                      # KHÔNG GIAN ĐÓNG GÓI DỊCH VỤ BACKEND ĐỘC LẬP (NGANG HÀNG VỚI FRONTEND)
 │   ├── .env.example, app.py, pytest.ini, requirements.txt # Cấu hình khởi chạy riêng cho gói Backend độc lập
-│   └── src/, migrations/, seeds/, data/, tests/  # Bản đồng bộ đầy đủ 5 tầng kiến trúc, kịch bản CSDL và bộ 56 ca kiểm thử của Backend
+│   └── src/, migrations/, seeds/, data/, tests/  # Bản đồng bộ đầy đủ 5 tầng kiến trúc, kịch bản CSDL và bộ 67 ca kiểm thử của Backend
 │
-├── scripts/                                      # TẬP HỢP KỊCH BẢN TIỆN ÍCH NỘI BỘ HỖ TRỢ PHÁT TRIỂN & CHUẨN HÓA DỮ LIỆU
-│   └── add_33_parts.py, apply_adjustments.py, ...# Các script Python hỗ trợ mở rộng danh mục 40 linh kiện và kiểm tra liên kết tài liệu
-│
-└── TL/tailieu/                                   # KHO LƯU TRỮ TÀI LIỆU HỌC PHẦN & ĐỀ BÀI GỐC (BT1, BT2, BT3, BUỔI 01 -> BUỔI 12)
-    └── CDTN1_De bai Bai tap 1/2/3 ... (.pdf)     # Bộ 19 tệp PDF đề bài chính thức và tài liệu tự học làm căn cứ đối chiếu chuẩn xác
+└── scripts/                                      # TẬP HỢP KỊCH BẢN TIỆN ÍCH NỘI BỘ HỖ TRỢ PHÁT TRIỂN & CHUẨN HÓA DỮ LIỆU
+    └── add_33_parts.py, apply_adjustments.py, ...# Các script Python hỗ trợ mở rộng danh mục 40 linh kiện và kiểm tra liên kết tài liệu
 ```
 
 ---
@@ -286,20 +285,20 @@ Bảng dưới đây đối chiếu minh bạch từng hạng mục thư mục/t
 
 | STT | Hạng mục Yêu cầu theo Đề bài (`BT1` · `BT2` · `BT3`) | Giai đoạn yêu cầu | Đường dẫn Thực tế Tương ứng trong `CDTN01` | Trạng thái Đáp ứng | Thuyết minh Chi tiết Nội dung & Vai trò Đối chiếu |
 | :-: | :--- | :---: | :--- | :---: | :--- |
-| 1 | `README.md` (ở thư mục gốc) | `BT1` · `BT2` · `BT3` | [`README.md`](./README.md) | **Đạt 100% (Vượt mức)** | Đặt ngay tại gốc `CDTN01/` ngang hàng `backend/` & `frontend/`. Có mục Quick Start `<= 2` lệnh (chuẩn BT3) và cẩm nang tái tạo từng bước từ Database → Backend → Frontend → 43 Tests → Docker (chuẩn BT2 & BT3). |
-| 2 | `.env.example` & `.gitignore` | `BT1` · `BT2` · `BT3` | [`.env.example`](./.env.example), [`.gitignore`](./.gitignore) | **Đạt 100%** | `.env.example` liệt kê đủ 7 biến môi trường với giá trị mẫu an toàn (không chứa mật khẩu thật); `.gitignore` chặn tuyệt đối `.env`, `**/.env`, `venv/`, `node_modules/`, `__pycache__/`. |
-| 3 | Tệp khóa phiên bản (`requirements.txt` / `package-lock.json`) | `BT2` · `BT3` | [`requirements.txt`](./requirements.txt), [`package-lock.json`](./package-lock.json) | **Đạt 100%** | Ghim phiên bản cụ thể (`==`) cho toàn bộ 9 thư viện Python cốt lõi (`fastapi==0.104.1`, `pymongo==4.6.0`, `PyJWT==2.8.0`, `pytest==7.4.3`...) và gói phụ trợ Node.js. |
+| 1 | `README.md` (ở thư mục gốc) | `BT1` · `BT2` · `BT3` | [`README.md`](./README.md) | **Đạt 100% (Vượt mức)** | Đặt ngay tại gốc `CDTN01/` ngang hàng `backend/` & `frontend/`. Có mục Quick Start `<= 2` lệnh (chuẩn BT3) và cẩm nang tái tạo từng bước từ Database → Backend → Frontend → 67 Tests → Docker (chuẩn BT2 & BT3). |
+| 2 | `.env.example` & `.gitignore` | `BT1` · `BT2` · `BT3` | [`.env.example`](./.env.example), [`.gitignore`](./.gitignore) | **Đạt 100%** | `.env.example` liệt kê đủ các biến môi trường với giá trị mẫu an toàn (không chứa mật khẩu thật); `.gitignore` chặn tuyệt đối `.env`, `**/.env`, `venv/`, `node_modules/`, `__pycache__/`. |
+| 3 | Tệp khóa phiên bản (`requirements.txt` / `package-lock.json`) | `BT2` · `BT3` | [`requirements.txt`](./requirements.txt), [`package-lock.json`](./package-lock.json) | **Đạt 100%** | Ghim phiên bản cụ thể (`==`) cho toàn bộ các thư viện Python cốt lõi (`fastapi==0.162.0`, `pymongo==4.19.0`, `pyjwt==2.15.1`, `pytest==9.2.0`...) và gói phụ trợ Node.js. |
 | 4 | `docs/srs.md` | `BT1` · `BT2` | [`docs/srs.md`](./docs/srs.md) | **Đạt 100%** | Bản SRS rút gọn đủ 6 mục chuẩn mực: Giới thiệu & Bảng thuật ngữ, 3 Vai trò, 7 `FR` + 7 `US` (MoSCoW), 4 `NFR` có ngưỡng số đo được, 5 `BR`, và Bảng truy vết `RTM` không có ô trống. |
 | 5 | Bộ tệp gốc `.drawio` (`architecture`, `usecase`, `erd`) | `BT1` | [`docs/architecture.drawio`](./docs/architecture.drawio), [`docs/usecase.drawio`](./docs/usecase.drawio), [`docs/erd.drawio`](./docs/erd.drawio) | **Đạt 100%** | Lưu trữ đầy đủ tệp XML `.drawio` gốc (không chỉ ảnh tĩnh), có ranh giới hệ thống, phần Ngoài phạm vi (`Out of Scope`) và bảng chú thích ký hiệu (`Legend`). |
 | 6 | `docs/api-contract.md` & `docs/wireframe.png` | `BT1` (`Track SE`) | [`docs/api-contract.md`](./docs/api-contract.md), [`docs/thietke.md`](./docs/thietke.md) | **Đạt 100% (Mở rộng)** | `api-contract.md` đặc tả đầy đủ chuẩn giao tiếp JSON & mã lỗi; `thietke.md` nâng cấp từ ảnh wireframe đơn lẻ thành hồ sơ đặc tả chi tiết toàn bộ 13 màn hình Dark 3D và bộ Prompt Google Stitch. |
 | 7 | Sơ đồ kiến trúc ĐÃ HIỆN THỰC (`architecture-thuc-te.*`) | `BT2` | [`docs/layered clean architecture.drawio`](./docs/layered%20clean%20architecture.drawio) | **Đạt 100%** | Phản ánh chính xác 100% sơ đồ 5 tầng thực tế đã lập trình trong `src/`, ghi rõ tên từng thư mục/tệp, luồng gọi một chiều và cơ chế lưu trữ kép `Dual-Persistence`. |
-| 8 | Nhật ký thay đổi thiết kế (`docs/thaydoithietke.md`) | `BT1` · `BT2` · `BT3` | [`docs/thaydoithietke.md`](./docs/thaydoithietke.md) | **Đạt 100% (Tập trung 1 tệp)** | Ghi chép đầy đủ toàn diện các quyết định điều chỉnh từ BT1 (5 hạng mục TD-01..TD-05), BT2 (13 hạng mục nâng cấp giao diện Dark 3D & 40 linh kiện) đến BT3 (8 hạng mục kiểm thử 56 tests, bảo mật S3, xóa thư mục rỗng frontend, phân quyền RBAC 1 tài khoản - 1 vai trò). |
+| 8 | Nhật ký thay đổi thiết kế (`docs/thay-doi-thiet-ke.md`) | `BT1` · `BT2` · `BT3` | [`docs/thay-doi-thiet-ke.md`](./docs/thay-doi-thiet-ke.md) | **Đạt 100% (Tập trung 1 tệp)** | Ghi chép đầy đủ toàn diện các quyết định điều chỉnh từ BT1 (5 hạng mục TD-01..TD-05), BT2 (13 hạng mục nâng cấp giao diện Dark 3D & 40 linh kiện) đến BT3 (8 hạng mục kiểm thử 67 tests, bảo mật S3, xóa thư mục rỗng frontend, phân quyền RBAC 1 tài khoản - 1 vai trò, bổ sung CRUD xóa S1). |
 | 9 | Bảng khai báo AI (`docs/ai-disclosure.md`) | `BT1` · `BT2` · `BT3` | [`docs/ai-disclosure.md`](./docs/ai-disclosure.md) | **Đạt 100%** | Bảng khai báo minh bạch đủ 4 cột (*Công cụ · Dùng vào việc gì · Áp dụng ở tệp/hàm nào · Đã kiểm chứng thế nào*) cho cả 3 giai đoạn BT1, BT2, BT3 kèm lời cam kết chịu trách nhiệm học thuật cá nhân. |
 | 10 | Tách lớp mã nguồn `src/` (`routes/`, `validators/`, `services/`, `repositories/`) | `BT2` · `BT3` (`Track SE`) | [`src/routes/`](./src/routes), [`src/validators/`](./src/validators), [`src/services/`](./src/services), [`src/repositories/`](./src/repositories), [`src/errors/`](./src/errors), [`src/static/`](./src/static) *(đồng bộ tại `backend/` & `frontend/`)* | **Đạt 100% (Chuẩn Clean Arch)** | Tách bạch tuyệt đối trách nhiệm 5 tầng; `inventory.service.py` hoàn toàn độc lập với HTTP (tiêu chí `S2`); đồng thời tổ chức thêm `backend/` và `frontend/` ngang hàng để dễ dàng triển khai độc lập hoặc tích hợp. |
 | 11 | `migrations/` & `seeds/` (Dựng CSDL trống & nạp lặp bất biến) | `BT2` · `BT3` (`Track SE`) | [`migrations/001_create_collections.js`](./migrations/001_create_collections.js), [`migrations/002_create_indexes.js`](./migrations/002_create_indexes.js), [`seeds/001_seed_parts_demo.json`](./seeds/001_seed_parts_demo.json), [`seeds/seed.py`](./seeds/seed.py) | **Đạt 100% (`C5` & `S3`)** | Dựng 6 Collections kèm `$jsonSchema` & `Compound Index` từ CSDL rỗng; `seeds/seed.py` dùng `replace_one(..., upsert=True)` đảm bảo chạy lại lần thứ 2 không lỗi, không nhân đôi dữ liệu. |
-| 12 | `tests/` (Chạy PASS bằng 1 lệnh duy nhất) | `BT2` · `BT3` | [`tests/`](./tests) (5 tệp `.test.py` + [`pytest.ini`](./pytest.ini)) | **Đạt 100% (56/56 PASSED)** | Vượt xa mức tối thiểu 3 test của BT2 và 10–12 test của BT3 với **56 kịch bản kiểm thử tự động** phủ kín Luồng đúng (19), Giá trị biên (16), Ngoại lệ & Bảo mật RBAC (21). |
+| 12 | `tests/` (Chạy PASS bằng 1 lệnh duy nhất) | `BT2` · `BT3` | [`tests/`](./tests) (6 tệp `.test.py` + [`pytest.ini`](./pytest.ini)) | **Đạt 100% (67/67 PASSED)** | Vượt xa mức tối thiểu 3 test của BT2 và 10–12 test của BT3 với **67 kịch bản kiểm thử tự động** phủ kín Luồng đúng (23), Giá trị biên (18), Ngoại lệ & Bảo mật RBAC, Tiêu chí SE S1 CRUD (26). |
 | 13 | `Dockerfile` & `docker-compose.yml` (Chạy bằng `<= 2` lệnh) | Cốt lõi `C1` `BT3` | [`Dockerfile`](./Dockerfile), [`docker-compose.yml`](./docker-compose.yml), [`.dockerignore`](./.dockerignore) | **Đạt 100% (Sẵn sàng BT3)** | Đóng gói hoàn chỉnh cả ứng dụng FastAPI/SPA và MongoDB 7.0 có `HEALTHCHECK` tự động và tự nạp dữ liệu mẫu khi khởi động, vượt qua trọn vẹn "Phép thử máy trắng". |
-| 14 | Trọn bộ hồ sơ kỹ thuật `BT3` (`test-plan`, `test-report`, `bug-log`, `deployment-guide`, `checklist-bao-mat`, `api-docs`, `dieukientest`) | `BT3` | [`docs/test-plan.md`](./docs/test-plan.md), [`docs/test-report.md`](./docs/test-report.md), [`docs/bug-log.md`](./docs/bug-log.md), [`docs/deployment-guide.md`](./docs/deployment-guide.md), [`docs/checklist-bao-mat.md`](./docs/checklist-bao-mat.md), [`docs/api-docs/`](./docs/api-docs/), [`docs/dieukientest.md`](./docs/dieukientest.md) | **Đạt 100% (Hoàn thiện bàn giao)** | Đã biên soạn trọn bộ tài liệu theo đúng chuẩn đề bài BT3: Kế hoạch kiểm thử rút gọn 4 mục, Báo cáo kết quả 56 test cases đủ 8 cột, Nhật ký gỡ lỗi bug log, Hướng dẫn triển khai tiếng Anh 5 mục, Danh mục kiểm tra an toàn bảo mật 7 tiêu chí và đặc tả OpenAPI/Markdown. |
+| 14 | Trọn bộ hồ sơ kỹ thuật `BT3` (`test-plan`, `test-report`, `bug-log`, `deployment-guide`, `checklist-bao-mat`, `data-dictionary`, `api-docs`, `dieukientest`) | `BT3` | [`docs/test-plan.md`](./docs/test-plan.md), [`docs/test-report.md`](./docs/test-report.md), [`docs/bug-log.md`](./docs/bug-log.md), [`docs/deployment-guide.md`](./docs/deployment-guide.md), [`docs/checklist-bao-mat.md`](./docs/checklist-bao-mat.md), [`docs/data-dictionary.md`](./docs/data-dictionary.md), [`docs/api-docs/`](./docs/api-docs/), [`docs/dieukientest.md`](./docs/dieukientest.md) | **Đạt 100% (Hoàn thiện bàn giao)** | Đã biên soạn trọn bộ tài liệu theo đúng chuẩn đề bài BT3: Kế hoạch kiểm thử rút gọn 4 mục, Báo cáo kết quả 13 test cases đủ 8 cột (trích xuất từ bộ 67 test cases PASS 100%), Nhật ký 5 lỗi gỡ sạch, Hướng dẫn triển khai tiếng Anh và Cloud Render, Từ điển dữ liệu MongoDB, Danh mục bảo mật 7 tiêu chí và đặc tả OpenAPI/Markdown. |
 
 ---
 
@@ -619,11 +618,11 @@ Tại màn hình Cổng xác thực (**http://localhost:8000/**), bạn có th�
 
 ---
 
-# PHẦN 6: HƯỚNG DẪN CHẠY BỘ KIỂM THỬ TỰ ĐỘNG (56/56 TESTS PASSED BẰNG 1 LỆNH)
+# PHẦN 6: HƯỚNG DẪN CHẠY BỘ KIỂM THỬ TỰ ĐỘNG (67/67 TESTS PASSED BẰNG 1 LỆNH)
 
-Bộ kiểm thử tự động của dự án gồm **56 kịch bản kiểm thử tự động (`56 Automated Test Cases`)** chia đều trên 5 tệp kiểm thử trong thư mục `tests/`. Toàn bộ các bài kiểm thử đều **tự khởi tạo và tự dọn dẹp dữ liệu thử nghiệm riêng (`setUp` / `tearDownClass`)** ngay trong bộ nhớ, độc lập và chạy lặp bất biến.
+Bộ kiểm thử tự động của dự án gồm **67 kịch bản kiểm thử tự động (`67 Automated Test Cases`)** chia đều trên 6 tệp kiểm thử trong thư mục `tests/`. Toàn bộ các bài kiểm thử đều **tự khởi tạo và tự dọn dẹp dữ liệu thử nghiệm riêng (`setUp` / `tearDownClass`)** ngay trong bộ nhớ, độc lập và chạy lặp bất biến:
 
-### 6.1. Chạy Toàn bộ 56 Ca Kiểm thử Bằng Đúng 1 Câu Lệnh Duy nhất
+### 6.1. Chạy Toàn bộ 67 Ca Kiểm thử Bằng Đúng 1 Câu Lệnh Duy nhất
 
 Đứng tại thư mục gốc `CDTN01` (đã kích hoạt `venv`), chạy lệnh:
 
@@ -650,20 +649,23 @@ python -m pytest tests/cross_role_and_ui.test.py -v
 
 # 5. [MỚI ở BT3] Kiểm thử Đặc tả Hoàn trả, Giá trị biên 2 phía, Khóa lạc quan Race Condition, Bảo mật S3/S4, Nạp seed C8 (13 tests):
 python -m pytest tests/bt3_specification_and_constraints.test.py -v
+
+# 6. [SE S1 CRUD] Kiểm thử đầy đủ 4 thao tác CRUD cho 2 thực thể part & users kèm ràng buộc an toàn (11 tests):
+python -m pytest tests/se_s1_crud.test.py -v
 ```
 
-### 6.3. Bảng Phân bổ 56 Kịch bản Kiểm thử Theo Các Nhóm Bắt buộc
+### 6.3. Bảng Phân bổ 67 Kịch bản Kiểm thử Theo Các Nhóm Bắt buộc
 
 | Nhóm Kiểm thử | Số ca | Các kịch bản kiểm chứng tiêu biểu trong `tests/` | Kết quả Thực tế |
 | :--- | :---: | :--- | :---: |
-| **1. Luồng đúng (Happy Path)** | **19** | Tra cứu tồn kho `NORMAL`; Xuất kho hợp lệ kèm `ticket_id` trừ đúng số dư & ghi sổ cái; Nhập kho `IN` không cần `ticket_id`; Quản lý cập nhật `min_threshold`; Hoàn trả linh kiện `RETURN` cộng bù tồn kho; Đăng ký, Đăng nhập JWT, Quên mật khẩu & Reset bằng OTP 6 số; Liên thông Vật tư nhập → Kỹ thuật xuất → Quản lý nhận cảnh báo; Nạp seed lặp bất biến `C8`. | **19/19 PASSED** |
-| **2. Giá trị biên 2 phía (Boundary Values)** | **16** | Tồn kho đúng bằng số lượng xuất (hết hàng về 0) vs vượt quá tồn 1 đơn vị (`BR-01`); Tồn kho bằng đúng `min_threshold` (bật cờ `WARNING`) vs cao hơn ngưỡng đúng 1 cái (cờ `NORMAL`) (`BR-05`); Biên số lượng nhập/xuất (`0`, `1`, `1.000.000`, `1.000.001`); Biên ngưỡng cảnh báo (`-1`, `0`, `100.000`, `100.001`); Biên mật khẩu thiếu từng nhóm và độ dài chuỗi tối đa (`full_name` 50, `email` 100, `part_code` 30). | **16/16 PASSED** |
-| **3. Ngoại lệ & An toàn Bảo mật (Exceptions & Security)** | **21** | Xuất vượt tồn kho thực tế → `400 ERR_NEGATIVE_STOCK`; Xuất kho bỏ trống `ticket_id` → `422 ERR_INVALID_TICKET`; Xuất kho với phiếu bảo hành đã đóng/hủy hoặc không tồn tại → `422 ERR_TICKET_CLOSED / ERR_TICKET_NOT_FOUND`; Phát hiện xung đột đồng thời *Optimistic Locking* → `409 ERR_OPTIMISTIC_LOCK_FAILED`; Bảo mật `S3` (mật khẩu không bao giờ lưu plaintext); Bảo mật `S4` (phản hồi lỗi không lộ stack trace thô); Đăng ký trùng Email; Đăng nhập tài khoản thôi việc `TERMINATED` → `403 ERR_ACCOUNT_TERMINATED`. | **21/21 PASSED** |
-| **TỔNG CỘNG** | **56** | **Toàn bộ 5 tệp kiểm thử chạy tự động đồng loạt bằng 1 lệnh duy nhất** | **56/56 PASSED (100%)** |
+| **1. Luồng đúng (Happy Path)** | **23** | Tra cứu tồn kho `NORMAL`; Xuất kho hợp lệ kèm `ticket_id` trừ đúng số dư & ghi sổ cái; Nhập kho `IN` không cần `ticket_id`; Quản lý cập nhật `min_threshold`; Hoàn trả linh kiện `RETURN` cộng bù tồn kho; Đăng ký, Đăng nhập JWT, Quên mật khẩu & Reset bằng OTP 6 số; CRUD Create/Read/Update cho `part` và `users`; Liên thông Vật tư nhập → Kỹ thuật xuất → Quản lý nhận cảnh báo; Nạp seed lặp bất biến `C8`. | **23/23 PASSED** |
+| **2. Giá trị biên 2 phía (Boundary Values)** | **18** | Tồn kho đúng bằng số lượng xuất (hết hàng về 0) vs vượt quá tồn 1 đơn vị (`BR-01`); Tồn kho bằng đúng `min_threshold` (bật cờ `WARNING`) vs cao hơn ngưỡng đúng 1 cái (cờ `NORMAL`) (`BR-05`); Biên số lượng nhập/xuất (`0`, `1`, `1.000.000`, `1.000.001`); Biên ngưỡng cảnh báo (`-1`, `0`, `100.000`, `100.001`); Biên mật khẩu thiếu từng nhóm và độ dài chuỗi tối đa (`full_name` 50, `email` 100, `part_code` 30). | **18/18 PASSED** |
+| **3. Ngoại lệ & An toàn Bảo mật (Exceptions & Security)** | **26** | Xuất vượt tồn kho thực tế → `400 ERR_NEGATIVE_STOCK`; Xuất kho bỏ trống `ticket_id` → `422 ERR_INVALID_TICKET`; Xuất kho với phiếu bảo hành đã đóng/hủy hoặc không tồn tại → `422 ERR_TICKET_CLOSED / ERR_TICKET_NOT_FOUND`; Phát hiện xung đột đồng thời *Optimistic Locking* → `409 ERR_OPTIMISTIC_LOCK_FAILED`; Chặn xóa linh kiện khi tồn kho > 0 (`400 ERR_CANNOT_DELETE_ACTIVE_STOCK`); Chặn Quản lý tự xóa tài khoản của chính mình (`400 ERR_CANNOT_DELETE_SELF`); Bảo mật `S3` (mật khẩu không bao giờ lưu plaintext); Bảo mật `S4` (phản hồi lỗi không lộ stack trace thô); Đăng ký trùng Email; Đăng nhập tài khoản thôi việc `TERMINATED` → `403 ERR_ACCOUNT_TERMINATED`. | **26/26 PASSED** |
+| **TỔNG CỘNG** | **67** | **Toàn bộ 6 tệp kiểm thử chạy tự động đồng loạt bằng 1 lệnh duy nhất** | **67/67 PASSED (100%)** |
 
 ---
 
-# PHẦN 7: HƯỚNG DẪN ĐÓNG GÓI DOCKER (`<= 2` LỆNH), PHÉP THỬ MÁY TRẮNG & ĐẨY GITHUB TAG `v0.2` & `v1.0`
+# PHẦN 7: HƯỚNG DẪN ĐÓNG GÓI DOCKER (`<= 2` LỆNH), PHÉP THỬ MÁY TRẮNG & ĐẨY GITHUB TAG `v1.0` (BT3)
 
 Toàn bộ ứng dụng đã được đóng gói tự động hóa hoàn chỉnh qua [`Dockerfile`](./Dockerfile) và [`docker-compose.yml`](./docker-compose.yml):
 - **Container 1 (`mekong_crm_l5_app`):** Đóng gói trên nền `python:3.11-slim`, tự động chạy `python seeds/seed.py` để nạp dữ liệu mẫu rồi khởi chạy máy chủ FastAPI + Giao diện SPA Dark 3D tại cổng `8000`, tích hợp `HEALTHCHECK` tự động mỗi 30 giây tại `/health`.
@@ -686,7 +688,7 @@ Ngay sau khi dòng `Container mekong_crm_l5_app Started` xuất hiện, mở tr�
 
 ### 7.2. Quy trình 5 Bước "Phép thử Máy trắng" Bằng Docker (Chuẩn Nghiệm thu Chấm Bài)
 
-Người đọc hoặc giảng viên có thể kiểm chứng trọn vẹn tính tái lập, tính bất biến dữ liệu (`C5`) và bộ 56 kiểm thử (`C4`) ngay bên trong môi trường Container cô lập:
+Người đọc hoặc giảng viên có thể kiểm chứng trọn vẹn tính tái lập, tính bất biến dữ liệu (`C5`) và bộ 67 kiểm thử (`C4`) ngay bên trong môi trường Container cô lập:
 
 ```powershell
 # Bước 1: Xóa sạch toàn bộ container và dữ liệu volume cũ để mô phỏng máy trắng 100%
@@ -701,12 +703,12 @@ docker compose ps
 # Bước 4: Kiểm chứng nạp dữ liệu mẫu lần thứ 2 liên tiếp không lỗi, không nhân đôi bản ghi (Tiêu chí C5)
 docker compose exec app python seeds/seed.py
 
-# Bước 5: Thực thi toàn bộ 56 ca kiểm thử tự động ngay bên trong container (Kết quả: 56 passed)
+# Bước 5: Thực thi toàn bộ 67 ca kiểm thử tự động ngay bên trong container (Kết quả: 67 passed)
 docker compose exec app pytest tests/ -v
 ```
 
 **Các lệnh quản trị Docker tiện ích khác:**
-- Xem nhật ký hoạt động thời gian thực: `docker compose logs -f mekong-l5-app`
+- Xem nhật ký hoạt động thời gian thực: `docker compose logs -f app`
 - Tắt hệ thống container khi ngừng làm việc: `docker compose down`
 
 ### 7.3. Quy trình Đẩy Mã nguồn lên GitHub & Đóng nhãn Phiên bản Phát hành (`Tag v0.2` & `Tag v1.0`)
@@ -719,16 +721,16 @@ git status
 
 # Bước 2: Đưa toàn bộ tệp mã nguồn và tài liệu cập nhật vào vùng Staging & tạo Commit chuẩn
 git add .
-git commit -m "docs: hoan thien README goc tai tao tu may trang, dong bo thaydoithietke 3 giai doan va bo sung tai khoan 3 role"
+git commit -m "docs: hoan thien bao cao va ma nguon BT3 dat chuan 67 test cases PASS, Docker Compose <= 2 lenh"
 
 # Bước 3: Đẩy nhánh chính (main) lên kho GitHub từ xa
 git push origin main
 
-# Bước 4: Tạo mới nhãn phát hành v0.2 (hoặc v1.0 khi nghiệm thu đóng gói Bài tập 3)
+# Bước 4: Tạo mới nhãn phát hành v0.2 (cho Bài tập 2) hoặc v1.0 (cho Bài tập 3)
 git tag -f -a v0.2 -m "Phat hanh Bai tap 2 - Hien thuc hoa module cot loi Luong 05 Kho linh kien (v0.2)"
 git push -f origin v0.2
 
-# Khi ban giao hoan tat Bai tap 3:
+# Khi bàn giao hoàn tất Bài tập 3:
 git tag -f -a v1.0 -m "Phat hanh Bai tap 3 - Kiem thu va Dong goi Prototype hoan chinh Luong 05 (v1.0)"
 git push -f origin v1.0
 ```
@@ -755,18 +757,19 @@ git push -f origin v1.0
 - [`docs/api-contract.md`](./docs/api-contract.md) — Đặc tả hợp đồng giao tiếp RESTful API chuẩn JSON.
 - [`docs/layered clean architecture.drawio`](./docs/layered%20clean%20architecture.drawio) — Sơ đồ Kiến trúc Phân lớp Sạch 5 tầng thực tế đã hiện thực.
 - [`docs/erd.drawio`](./docs/erd.drawio) & [`docs/usecase.drawio`](./docs/usecase.drawio) & [`docs/architecture.drawio`](./docs/architecture.drawio) — Bộ sơ đồ Mô hình dữ liệu MongoDB, Use Case và Kiến trúc gốc.
-- [`docs/thaydoithietke.md`](./docs/thaydoithietke.md) — Nhật ký thay đổi thiết kế duy nhất tập trung trọn vẹn 3 giai đoạn BT1, BT2 và BT3.
+- [`docs/thay-doi-thiet-ke.md`](./docs/thay-doi-thiet-ke.md) — Nhật ký thay đổi thiết kế duy nhất tập trung trọn vẹn 3 giai đoạn BT1, BT2 và BT3.
 - [`docs/thietke.md`](./docs/thietke.md) — Đặc tả chi tiết giao diện Dark 3D Elevation & Bộ Prompt Google Stitch tái tạo giao diện cho 3 vai trò.
 - [`docs/dieukientest.md`](./docs/dieukientest.md) — Bộ điều kiện kiểm thử, ràng buộc hệ thống và ma trận kịch bản kiểm thử toàn diện.
 - [`docs/test-plan.md`](./docs/test-plan.md) — Kế hoạch kiểm thử rút gọn 4 mục theo đề bài BT3.
-- [`docs/test-report.md`](./docs/test-report.md) — Báo cáo kết quả kiểm thử thực tế 56 test cases đủ 8 cột.
-- [`docs/bug-log.md`](./docs/bug-log.md) — Nhật ký theo dõi và gỡ lỗi kèm link commit.
-- [`docs/deployment-guide.md`](./docs/deployment-guide.md) — Hướng dẫn triển khai kỹ thuật 5 mục bằng tiếng Anh.
+- [`docs/test-report.md`](./docs/test-report.md) — Báo cáo kết quả kiểm thử thực tế 13 test cases đủ 8 cột.
+- [`docs/bug-log.md`](./docs/bug-log.md) — Nhật ký theo dõi và gỡ lỗi 5 bugs kèm link commit.
+- [`docs/deployment-guide.md`](./docs/deployment-guide.md) — Hướng dẫn triển khai kỹ thuật bằng tiếng Anh và triển khai Cloud Render.com.
 - [`docs/checklist-bao-mat.md`](./docs/checklist-bao-mat.md) — Danh mục tự đánh giá an toàn bảo mật 7 tiêu chuẩn.
+- [`docs/data-dictionary.md`](./docs/data-dictionary.md) — Từ điển dữ liệu CSDL MongoDB 5 collections chuẩn hóa.
 - [`docs/api-docs/`](./docs/api-docs/) — Tài liệu kỹ thuật API Endpoints chuẩn OpenAPI và Markdown tiếng Anh.
 - [`docs/ai-disclosure.md`](./docs/ai-disclosure.md) — Bảng khai báo sử dụng công cụ AI 4 cột minh bạch và phương pháp tự kiểm chứng cho cả 3 bài tập.
 
 ---
 
 ### 8.3. Cam kết Liêm chính Học thuật
-> *"Tôi tên là **Huỳnh Nguyễn Bảo Ngọc** (MSSV: `2374802010339`), sinh viên chuyên ngành Công nghệ phần mềm (`SE`) – Khoa Công nghệ Thông tin, Trường Đại học Văn Lang. Tôi xác nhận đã đọc, hiểu rõ từng dòng mã nguồn, từng quy tắc nghiệp vụ, thuật toán Khóa lạc quan (Optimistic Locking), cấu trúc cơ sở dữ liệu NoSQL, bộ 56 ca kiểm thử tự động cũng như quy trình đóng gói Docker trong dự án này, và hoàn toàn chịu trách nhiệm học thuật về toàn bộ sản phẩm bàn giao."*
+> *"Tôi tên là **Huỳnh Nguyễn Bảo Ngọc** (MSSV: `2374802010339`), sinh viên chuyên ngành Công nghệ phần mềm (`SE`) – Khoa Công nghệ Thông tin, Trường Đại học Văn Lang. Tôi xác nhận đã đọc, hiểu rõ từng dòng mã nguồn, từng quy tắc nghiệp vụ, thuật toán Khóa lạc quan (Optimistic Locking), cấu trúc cơ sở dữ liệu NoSQL, bộ 67 ca kiểm thử tự động cũng như quy trình đóng gói Docker trong dự án này, và hoàn toàn chịu trách nhiệm học thuật về toàn bộ sản phẩm bàn giao."*

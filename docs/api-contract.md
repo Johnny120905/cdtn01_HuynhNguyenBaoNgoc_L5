@@ -115,3 +115,102 @@
   "message": "Tài khoản của bạn không có quyền sửa đổi thông số này."
 }
 ```
+
+---
+
+### API 4: Xác thực & Cấp quyền (Auth Endpoints)
+- **Mô tả:** Đăng ký, Đăng nhập cấp Bearer JWT Token 24h, Quên mật khẩu và Đặt lại mật khẩu bằng mã OTP 10 phút.
+
+#### 4.1. Đăng nhập hệ thống (Login)
+- **Method:** `POST`
+- **Endpoint:** `/auth/login`
+- **Request Body:**
+```json
+{
+  "email": "kythuat.test@gmail.com",
+  "password": "Password123@"
+}
+```
+- **Response - Thành công (200 OK):**
+```json
+{
+  "status": "success",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "email": "kythuat.test@gmail.com",
+    "full_name": "Kỹ thuật viên Test",
+    "role": "TECH_STAFF",
+    "center_id": "L5-WH-890"
+  }
+}
+```
+
+#### 4.2. Quên mật khẩu & Gửi mã OTP (Forgot Password)
+- **Method:** `POST`
+- **Endpoint:** `/auth/forgot-password`
+- **Request Body:** `{"email": "kythuat.test@gmail.com"}`
+- **Response (200 OK):** `{"status": "success", "message": "Mã OTP đã được tạo, hiệu lực trong 10 phút."}`
+
+#### 4.3. Đặt lại mật khẩu với OTP (Reset Password)
+- **Method:** `POST`
+- **Endpoint:** `/auth/reset-password`
+- **Request Body:**
+```json
+{
+  "email": "kythuat.test@gmail.com",
+  "otp": "123456",
+  "new_password": "NewPassword123@"
+}
+```
+- **Response (200 OK):** `{"status": "success", "message": "Mật khẩu đã được cập nhật thành công."}`
+- **Lỗi hết hạn OTP (400 Bad Request):** `{"error_code": "ERR_OTP_EXPIRED", "message": "Mã OTP đã hết thời gian hiệu lực 10 phút."}`
+
+---
+
+### API 5: Quản lý Danh mục Linh kiện (CRUD Part — Tiêu chí [SE] S1)
+- **Mô tả:** Đáp ứng đầy đủ 4 thao tác CRUD (**C**reate, **R**ead, **U**pdate, **D**elete) cho thực thể `part` với ràng buộc an toàn: Không cho phép xóa linh kiện nếu còn tồn kho $> 0$.
+
+| Thao tác | Method | Endpoint Path | Quyền (RBAC) | Mô tả & Ràng buộc bảo vệ |
+| :---: | :---: | :--- | :---: | :--- |
+| **Create** | `POST` | `/parts` | `MANAGER`, `MATERIAL` | Tạo linh kiện mới vào danh mục (`part_code` duy nhất, `cost_price > 0`). |
+| **Read (All)** | `GET` | `/parts` | Mọi vai trò | Lấy toàn bộ danh mục 40 linh kiện kèm thông tin danh mục, đơn giá. |
+| **Read (Detail)**| `GET` | `/parts/{part_code}` | Mọi vai trò | Xem chi tiết 1 linh kiện theo mã `part_code`. |
+| **Update** | `PUT` | `/parts/{part_code}` | `MANAGER`, `MATERIAL` | Cập nhật thông tin linh kiện (tên, giá bán, danh mục, trạng thái). |
+| **Delete** | `DELETE`| `/parts/{part_code}` | `MANAGER` | **Xóa an toàn:** Bị chặn với HTTP 400 `ERR_CANNOT_DELETE_ACTIVE_STOCK` nếu tồn kho $> 0$; chỉ xóa khi tồn kho $= 0$. |
+
+---
+
+### API 6: Quản trị Tài khoản Nhân sự (CRUD User — Tiêu chí [SE] S1)
+- **Mô tả:** Đáp ứng đầy đủ 4 thao tác CRUD cho thực thể `users` với ràng buộc an toàn: Quản lý không được phép tự xóa tài khoản của chính mình.
+
+| Thao tác | Method | Endpoint Path | Quyền (RBAC) | Mô tả & Ràng buộc bảo vệ |
+| :---: | :---: | :--- | :---: | :--- |
+| **Create** | `POST` | `/users` | `MANAGER` | Tạo tài khoản nhân sự mới (`email` duy nhất, mật khẩu 4 nhóm ký tự băm Bcrypt). |
+| **Read (All)** | `GET` | `/users` | `MANAGER` | Xem danh sách toàn bộ nhân sự trong chi nhánh. |
+| **Read (Detail)**| `GET` | `/users/{email}` | `MANAGER` / Chính chủ | Xem hồ sơ chi tiết người dùng. |
+| **Update** | `PUT` | `/users/{email}` | `MANAGER` | Cập nhật thông tin nhân viên (họ tên, vai trò, trạng thái `ACTIVE`/`OFF_SHIFT`/`TERMINATED`). |
+| **Delete** | `DELETE`| `/users/{email}` | `MANAGER` | **Xóa an toàn:** Bị chặn với HTTP 400 `ERR_CANNOT_DELETE_SELF` nếu email trùng người đang đăng nhập. |
+
+---
+
+### API 7: Báo cáo & Cảnh báo Ngưỡng Tồn kho (Low Stock Alerts)
+- **Method:** `GET`
+- **Endpoint:** `/alerts/threshold`
+- **Mô tả:** Trả về danh sách tất cả các linh kiện có số lượng tồn kho khả dụng chạm hoặc dưới ngưỡng an toàn tối thiểu ($quantity \le min\_threshold$) kèm cờ `WARNING` phục vụ Dashboard Quản lý kho.
+- **Response - Thành công (200 OK):**
+```json
+{
+  "status": "success",
+  "alerts_count": 3,
+  "data": [
+    {
+      "center_id": "L5-WH-890",
+      "part_code": "SCR-IP14-01",
+      "part_name": "Màn hình OLED iPhone 14 Pro Max",
+      "quantity": 8,
+      "min_threshold": 15,
+      "status_flag": "WARNING"
+    }
+  ]
+}
+```

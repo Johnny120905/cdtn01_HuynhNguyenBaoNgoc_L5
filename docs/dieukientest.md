@@ -78,8 +78,8 @@ Hệ thống quản lý kho linh kiện thay thế hoạt động theo nguyên t
 ## HỆ THỐNG SMART CRM – MEKONG MOBILE (LUỒNG 05: KHO LINH KIỆN THAY THẾ)
 **Chuyên đề tốt nghiệp 1 (Kỹ thuật Phần mềm - SE)**  
 **Chi nhánh triển khai:** Chi nhánh Quận 1  
-**Môi trường thử nghiệm:** Python 3.11.5, FastAPI, Pytest 9.1.1, MongoDB Atlas (`mekong_mobile_l5`), SPA JavaScript Be Vietnam Pro  
-**Tài liệu liên quan:** [thietke.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/thietke.md) | [thaydoithietke.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/thaydoithietke.md) | [README.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/README.md) | [BT2.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/BT2.md)
+**Môi trường thử nghiệm:** Python 3.11.5, FastAPI 0.162.0, Pytest 9.2.0 (67 test cases PASS 100%), MongoDB 7.0 Container / Atlas, SPA JavaScript Be Vietnam Pro  
+**Tài liệu liên quan:** [thietke.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/thietke.md) | [thay-doi-thiet-ke.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/thay-doi-thiet-ke.md) | [README.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/README.md) | [test-plan.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/test-plan.md) | [test-report.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/test-report.md)
 
 ---
 

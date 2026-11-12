@@ -153,6 +153,7 @@ As specified in Assignment 3 (Section 3.3 & Session 16 Guideline), deploying the
    - Click **Deploy Web Service**.
    - Deployment logs will display successful package installation and Uvicorn server startup.
    - Once deployment status changes to **Live**, open the public URL provided by Render: `https://<your-service-name>.onrender.com/`.
+   - **Official Live Production URL for Assignment 3:** **https://cdtn01.onrender.com** *(Pre-deployed and tested with resilient seed fallback and Dark 3D SPA Portal for +1.0 bonus point consideration)*.
 
 ### 6.3. Free Tier Caveats & Best Practices
 - **Auto-Sleep Behavior:** Render free tier instances spin down after 15 minutes of inactivity. The first HTTP request after spin-down may take 30-50 seconds to wake up the service.

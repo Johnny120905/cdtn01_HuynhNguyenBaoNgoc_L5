@@ -51,6 +51,8 @@
 | **`FR-05`** | **Xem nhật ký giao dịch (Audit Log)** | `ACT-03` (`MANAGER`) | Truy xuất lịch sử giao dịch bất biến (`IN`/`OUT`/`RETURN`) sắp xếp giảm dần theo thời gian thực để phục vụ hậu kiểm và đối soát. | **`SHOULD`** |
 | **`FR-06`** | **Thiết lập ngưỡng an toàn** | `ACT-03` (`MANAGER`) | Cho phép duy nhất Quản lý kho cấu hình giá trị `min_threshold` (`>= 0`) cho từng mã linh kiện trong danh mục `part`. | **`MUST`** |
 | **`FR-07`** | **Hiển thị cảnh báo thiếu hàng** | `ACT-03` (`MANAGER`) | Tự động đánh giá và hiển thị danh sách linh kiện có tồn kho chạm hoặc thấp hơn ngưỡng an toàn (`quantity <= min_threshold`). | **`SHOULD`** |
+| **`FR-08`** | **Quản lý danh mục linh kiện (CRUD Part)** | `ACT-03` (`MANAGER`) | Đầy đủ 4 thao tác Create, Read, Update, Delete linh kiện; chặn xóa linh kiện nếu còn tồn kho $> 0$ (Tiêu chí `[SE] S1`). | **`MUST`** |
+| **`FR-09`** | **Quản trị tài khoản nhân sự (CRUD User)** | `ACT-03` (`MANAGER`) | Đầy đủ 4 thao tác Create, Read, Update, Delete nhân sự; chặn Quản lý tự xóa chính mình (Tiêu chí `[SE] S1`). | **`MUST`** |
 
 ---
 
@@ -58,7 +60,7 @@
 
 | Mã NFR | Thuộc tính chất lượng | Chỉ số đo lường & Ngưỡng nghiệm thu kỹ thuật |
 | :---: | :--- | :--- |
-| **`NFR-01`** | **Tính Tái lập & Triển khai (*Deployability*)** | Hệ thống phải được dựng và khởi chạy thành công từ môi trường sạch bằng tối đa **4 câu lệnh (`<= 4 commands`)** trên Terminal (hoặc 1 lệnh `docker compose up -d --build`). **100%** biến cấu hình nhạy cảm đọc từ `.env`, không hardcode secret trong mã nguồn. |
+| **`NFR-01`** | **Tính Tái lập & Triển khai (*Deployability*)** | Hệ thống phải được dựng và khởi chạy thành công từ môi trường sạch bằng tối đa **2 câu lệnh (`<= 2 commands`)** trên Terminal (hoặc 1 lệnh `docker compose up -d --build`). **100%** biến cấu hình nhạy cảm đọc từ `.env`, không hardcode secret trong mã nguồn. |
 | **`NFR-02`** | **Hiệu năng & Thời gian phản hồi (*Performance*)** | Thời gian phản hồi của các API tra cứu tồn kho và giao dịch cốt lõi đạt mức **`< 500ms`** ở tải trọng `10.000` bản ghi nhờ đánh chỉ mục phức hợp (`idx_stock_lookup` trên `{center_id: 1, part_code: 1}` và `idx_transaction_history` trên `{center_id: 1, created_at: -1}`). |
 | **`NFR-03`** | **Tính Toàn vẹn Dữ liệu Đồng thời (*Concurrency & Integrity*)** | Sai lệch số lượng tồn kho bằng **`0`** (`quantity >= 0` tuyệt đối) ngay cả khi có **`>= 50` requests** xuất kho đồng thời nhờ cơ chế Khóa lạc quan (*Optimistic Locking* qua trường `version`). Lịch sử giao dịch tuân thủ `Insert-only` với **`0%`** quyền sửa/xóa. |
 | **`NFR-04`** | **Tính Khả dụng & Trải nghiệm (*Usability*)** | Kỹ thuật viên hoàn thành thao tác Tra cứu & Xuất kho trong tối đa **3 thao tác (`<= 3 clicks`)**; thông báo lỗi Tiếng Việt trực quan, tỷ lệ phơi bày lỗi thô `500 Internal Server Error` ra giao diện người dùng bằng **`0%`**. |
@@ -88,3 +90,5 @@
 | **FR-05:** Xem Nhật ký Giao dịch | `US-05` | `UC-05` | `BR-03`, `BR-04` | **`SHOULD`** |
 | **FR-06:** Thiết lập Ngưỡng an toàn | `US-06` | `UC-06` | `BR-05` | **`MUST`** |
 | **FR-07:** Hiển thị Cảnh báo | `US-07` | `UC-07` | `BR-04`, `BR-05` | **`SHOULD`** |
+| **FR-08:** Quản lý Danh mục Linh kiện (CRUD) | `US-08` | `UC-08` | `BR-01` (Chặn xóa tồn > 0) | **`MUST`** |
+| **FR-09:** Quản trị Tài khoản Nhân sự (CRUD) | `US-09` | `UC-09` | RBAC, Chặn tự xóa chính mình | **`MUST`** |
