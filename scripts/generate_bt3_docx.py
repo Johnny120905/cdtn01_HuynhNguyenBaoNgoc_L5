@@ -272,15 +272,16 @@ def build_bt3_docx():
         "• Hình 7.4: Phép thử máy trắng Bước 4a — Thực thi kiểm thử tự động toàn diện (Phần 1: 1% đến 49%) (Trang 16)\n"
         "• Hình 7.5: Phép thử máy trắng Bước 4b — Hoàn thành 100% kiểm thử 67/67 Test Cases PASSED (Trang 16)\n"
         "• Hình 7.6: Minh chứng Kiểm chứng BUG-01 — Mật khẩu mã hóa Bcrypt một chiều (test_09 PASSED) (Trang 17)\n"
-        "• Hình 7.7: Minh chứng Kiểm chứng BUG-03 — Nạp dữ liệu hạt giống Seed Data lũy đẳng (seeds.seed) (Trang 17)\n"
-        "• Hình 7.8: Minh chứng Kiểm chứng BUG-04 — Luồng cảnh báo thiếu hụt kho kích hoạt Quản lý (test_01) (Trang 18)\n"
-        "• Hình 7.9: Minh chứng Kiểm chứng BUG-05 — Đầy đủ 11 bài test tự động cho thao tác XÓA an toàn (Trang 18)\n"
-        "• Hình 7.10: Giao diện Web Prototype — Trạng thái Đang tải dữ liệu (Loading State với Shimmer) (Trang 19)\n"
-        "• Hình 7.11: Giao diện Web Prototype — Trạng thái Rỗng (Empty State khi kho an toàn) (Trang 19)\n"
-        "• Hình 7.12: Giao diện Web Prototype — Trạng thái Lỗi nghiệp vụ (Error State cảnh báo vi phạm tồn) (Trang 20)\n"
-        "• Hình 7.13: Bảng điều khiển Quản lý kho (Manager Inventory Dashboard & Alert Metrics) (Trang 20)\n"
-        "• Hình 7.14: Giao diện lập phiếu nhập kho linh kiện dành cho Nhân viên Vật tư (Material Staff) (Trang 20)\n"
-        "• Hình 7.15: Giao diện tra cứu và lập phiếu xuất kho gắn mã bảo hành dành cho Kỹ thuật viên (Trang 20)"
+        "• Hình 7.7: Minh chứng Kiểm chứng BUG-02 — Thời hạn mã OTP quên mật khẩu có giới hạn 10 phút (test_06 PASSED) (Trang 17)\n"
+        "• Hình 7.8: Minh chứng Kiểm chứng BUG-03 — Nạp dữ liệu hạt giống Seed Data lũy đẳng (seeds.seed) (Trang 17)\n"
+        "• Hình 7.9: Minh chứng Kiểm chứng BUG-04 — Luồng cảnh báo thiếu hụt kho kích hoạt Quản lý (test_01) (Trang 18)\n"
+        "• Hình 7.10: Minh chứng Kiểm chứng BUG-05 — Đầy đủ 11 bài test tự động cho thao tác XÓA an toàn (Trang 18)\n"
+        "• Hình 7.11: Giao diện Web Prototype — Trạng thái Đang tải dữ liệu (Loading State với Shimmer) (Trang 19)\n"
+        "• Hình 7.12: Giao diện Web Prototype — Trạng thái Rỗng (Empty State khi kho an toàn) (Trang 19)\n"
+        "• Hình 7.13: Giao diện Web Prototype — Trạng thái Lỗi nghiệp vụ (Error State cảnh báo vi phạm tồn) (Trang 20)\n"
+        "• Hình 7.14: Bảng điều khiển Quản lý kho (Manager Inventory Dashboard & Alert Metrics) (Trang 20)\n"
+        "• Hình 7.15: Giao diện lập phiếu nhập kho linh kiện dành cho Nhân viên Vật tư (Material Staff) (Trang 20)\n"
+        "• Hình 7.16: Giao diện tra cứu và lập phiếu xuất kho gắn mã bảo hành dành cho Kỹ thuật viên (Trang 20)"
     )
     r_lst.font.size = Pt(8.0)
     r_lst.font.name = "Arial"
@@ -694,16 +695,20 @@ def build_bt3_docx():
          "Hình 7.6: Minh chứng Kiểm chứng BUG-01 — Mật khẩu mã hóa Bcrypt một chiều, không lưu Plaintext (test_09 PASSED)",
          "Ảnh chụp terminal thực thi lệnh pytest tests/bt3_specification_and_constraints.test.py -k test_09 -v trên môi trường máy trắng độc lập, xác nhận ca kiểm thử an ninh mật khẩu đạt PASSED 100%, chứng minh mật khẩu không bao giờ lưu trữ dạng rõ trong CSDL."),
 
+        ("bug02_verify_test06.png",
+         "Hình 7.7: Minh chứng Kiểm chứng BUG-02 — Thời hạn mã OTP quên mật khẩu có giới hạn 10 phút (test_06 PASSED)",
+         "Ảnh chụp terminal thực thi lệnh pytest tests/auth_and_user.test.py -k test_06 -v trên máy trắng độc lập, xác nhận quy trình quên mật khẩu nhận mã OTP và đặt lại mật khẩu mới đạt PASSED 100%, kiểm soát thời hạn OTP đúng 10 phút."),
+
         ("bug03_verify_seed.png",
-         "Hình 7.7: Minh chứng Kiểm chứng BUG-03 — Nạp dữ liệu hạt giống Seed Data lũy đẳng (seeds.seed HOÀN TẤT)",
+         "Hình 7.8: Minh chứng Kiểm chứng BUG-03 — Nạp dữ liệu hạt giống Seed Data lũy đẳng (seeds.seed HOÀN TẤT)",
          "Ảnh chụp terminal thực thi lệnh python -m seeds.seed trên máy trắng nạp thành công 40 linh kiện, 75 bản ghi tồn kho và tạo index CSDL mà không phát sinh lỗi trùng lặp khóa chính (Idempotent)."),
 
         ("bug04_verify_alert.png",
-         "Hình 7.8: Minh chứng Kiểm chứng BUG-04 — Luồng cảnh báo thiếu hụt kho kích hoạt cảnh báo Quản lý (test_01 PASSED)",
+         "Hình 7.9: Minh chứng Kiểm chứng BUG-04 — Luồng cảnh báo thiếu hụt kho kích hoạt cảnh báo Quản lý (test_01 PASSED)",
          "Ảnh chụp terminal thực thi lệnh pytest tests/cross_role_and_ui.test.py -k test_01 -v xác nhận ca kiểm thử liên thông đạt PASSED, chứng minh cờ cảnh báo được kích hoạt và hiển thị cho Quản lý khi tồn kho chạm hoặc dưới ngưỡng an toàn."),
 
         ("bug05_verify_11crud.png",
-         "Hình 7.9: Minh chứng Kiểm chứng BUG-05 — Đầy đủ 11 bài test tự động cho thao tác XÓA an toàn (se_s1_crud PASSED)",
+         "Hình 7.10: Minh chứng Kiểm chứng BUG-05 — Đầy đủ 11 bài test tự động cho thao tác XÓA an toàn (se_s1_crud PASSED)",
          "Ảnh chụp terminal thực thi lệnh pytest tests/se_s1_crud.test.py -v hoàn tất trọn vẹn 11/11 bài test PASSED 100% in 0.77s, minh chứng việc thực hiện đầy đủ nhận xét của Thầy trong BT2 về kiểm thử thao tác XÓA an toàn.")
     ]
 
@@ -723,27 +728,27 @@ def build_bt3_docx():
 
     ui_imgs = [
         ("ui_loading_state.png",
-         "Hình 7.10: Giao diện Web Prototype — Trạng thái Đang tải dữ liệu (Loading State với Shimmer)",
+         "Hình 7.11: Giao diện Web Prototype — Trạng thái Đang tải dữ liệu (Loading State với Shimmer)",
          "Ảnh chụp giao diện người dùng hiển thị hiệu ứng skeleton shimmer khi hệ thống đang gọi API bất đồng bộ để tải danh sách linh kiện và số liệu kho, đảm bảo trải nghiệm trực quan mượt mà và ngăn ngừa thao tác trùng lặp từ người dùng."),
 
         ("ui_empty_state.png",
-         "Hình 7.11: Giao diện Web Prototype — Trạng thái Rỗng (Empty State khi không có cảnh báo)",
+         "Hình 7.12: Giao diện Web Prototype — Trạng thái Rỗng (Empty State khi không có cảnh báo)",
          "Ảnh chụp giao diện Quản lý kho khi hệ thống ở trạng thái vận hành tối ưu: không có bất kỳ linh kiện nào chạm hoặc dưới ngưỡng an toàn tối thiểu (0 cảnh báo), hiển thị thông điệp an toàn trực quan kèm nút làm mới dữ liệu."),
 
         ("ui_error_state.png",
-         "Hình 7.12: Giao diện Web Prototype — Trạng thái Lỗi nghiệp vụ (Error State cảnh báo vi phạm tồn)",
+         "Hình 7.13: Giao diện Web Prototype — Trạng thái Lỗi nghiệp vụ (Error State cảnh báo vi phạm tồn)",
          "Ảnh chụp giao diện hiển thị thông báo lỗi màu đỏ nổi bật kèm thông điệp tiếng Việt rõ ràng khi kỹ thuật viên nhập số lượng xuất kho vượt quá số lượng tồn khả dụng (vi phạm quy tắc nghiệp vụ BR-01 chống tồn kho âm)."),
 
         ("ui_quanly_dashboard.png",
-         "Hình 7.13: Bảng điều khiển Quản lý kho (Manager Inventory Dashboard & Alert Metrics)",
+         "Hình 7.14: Bảng điều khiển Quản lý kho (Manager Inventory Dashboard & Alert Metrics)",
          "Ảnh chụp màn hình tổng quan của Quản lý kho: theo dõi cơ cấu danh mục 40 linh kiện, biểu đồ tồn kho theo dòng thiết bị iPhone/iPad, danh sách cảnh báo thiếu hụt và công cụ phân quyền nhân sự chi nhánh."),
 
         ("ui_vattu_nhapkho.png",
-         "Hình 7.14: Giao diện lập phiếu nhập kho linh kiện dành cho Nhân viên Vật tư (Material Staff)",
+         "Hình 7.15: Giao diện lập phiếu nhập kho linh kiện dành cho Nhân viên Vật tư (Material Staff)",
          "Ảnh chụp màn hình nghiệp vụ lập phiếu nhập kho của Nhân viên Vật tư: hỗ trợ tìm kiếm linh kiện thông minh, nhập số lượng nhập và số lô hàng, tự động cập nhật tồn kho tức thì ngay sau khi xác nhận."),
 
         ("ui_kythuat_xuatkho.png",
-         "Hình 7.15: Giao diện tra cứu và lập phiếu xuất kho gắn mã bảo hành dành cho Kỹ thuật viên (Tech Staff)",
+         "Hình 7.16: Giao diện tra cứu và lập phiếu xuất kho gắn mã bảo hành dành cho Kỹ thuật viên (Tech Staff)",
          "Ảnh chụp màn hình thao tác của Kỹ thuật viên: tra cứu nhanh linh kiện tương thích, bắt buộc nhập mã phiếu bảo hành hợp lệ và kiểm soát số lượng xuất thực tế phục vụ sửa chữa cho khách hàng.")
     ]
 

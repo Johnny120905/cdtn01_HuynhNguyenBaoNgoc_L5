@@ -325,43 +325,47 @@ Dưới đây là các ảnh chụp terminal thực tế ghi nhận việc chạ
 > **Hình 7.6: Minh chứng Kiểm chứng BUG-01 — Mật khẩu mã hóa Bcrypt một chiều, không lưu Plaintext (test_09 PASSED)**  
 > *Chú thích: Ảnh chụp terminal thực thi lệnh `pytest tests/bt3_specification_and_constraints.test.py -k test_09 -v` trên môi trường máy trắng độc lập, xác nhận ca kiểm thử an ninh mật khẩu đạt PASSED 100%, chứng minh mật khẩu không bao giờ lưu trữ dạng rõ trong CSDL.*
 
-![Hình 7.7: Minh chứng Kiểm chứng BUG-03](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/bug03_verify_seed.png)
-> **Hình 7.7: Minh chứng Kiểm chứng BUG-03 — Nạp dữ liệu hạt giống Seed Data lũy đẳng (seeds.seed HOÀN TẤT)**  
+![Hình 7.7: Minh chứng Kiểm chứng BUG-02](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/bug02_verify_test06.png)
+> **Hình 7.7: Minh chứng Kiểm chứng BUG-02 — Thời hạn mã OTP quên mật khẩu có giới hạn 10 phút (test_06 PASSED)**  
+> *Chú thích: Ảnh chụp terminal thực thi lệnh `pytest tests/auth_and_user.test.py -k test_06 -v` trên môi trường máy trắng độc lập, xác nhận ca kiểm thử xác thực OTP quên mật khẩu và đặt lại mật khẩu mới đạt PASSED 100%, kiểm soát thời hạn OTP đúng 10 phút.*
+
+![Hình 7.8: Minh chứng Kiểm chứng BUG-03](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/bug03_verify_seed.png)
+> **Hình 7.8: Minh chứng Kiểm chứng BUG-03 — Nạp dữ liệu hạt giống Seed Data lũy đẳng (seeds.seed HOÀN TẤT)**  
 > *Chú thích: Ảnh chụp terminal thực thi lệnh `python -m seeds.seed` trên máy trắng nạp thành công 40 linh kiện, 75 bản ghi tồn kho và tạo index CSDL mà không phát sinh lỗi trùng lặp khóa chính (Idempotent).*
 
-![Hình 7.8: Minh chứng Kiểm chứng BUG-04](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/bug04_verify_alert.png)
-> **Hình 7.8: Minh chứng Kiểm chứng BUG-04 — Luồng cảnh báo thiếu hụt kho kích hoạt cảnh báo Quản lý (test_01 PASSED)**  
+![Hình 7.9: Minh chứng Kiểm chứng BUG-04](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/bug04_verify_alert.png)
+> **Hình 7.9: Minh chứng Kiểm chứng BUG-04 — Luồng cảnh báo thiếu hụt kho kích hoạt cảnh báo Quản lý (test_01 PASSED)**  
 > *Chú thích: Ảnh chụp terminal thực thi lệnh `pytest tests/cross_role_and_ui.test.py -k test_01 -v` xác nhận ca kiểm thử liên thông đạt PASSED, chứng minh cờ cảnh báo được kích hoạt và hiển thị cho Quản lý khi tồn kho chạm hoặc dưới ngưỡng an toàn.*
 
-![Hình 7.9: Minh chứng Kiểm chứng BUG-05](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/bug05_verify_11crud.png)
-> **Hình 7.9: Minh chứng Kiểm chứng BUG-05 — Đầy đủ 11 bài test tự động cho thao tác XÓA an toàn (se_s1_crud PASSED)**  
+![Hình 7.10: Minh chứng Kiểm chứng BUG-05](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/bug05_verify_11crud.png)
+> **Hình 7.10: Minh chứng Kiểm chứng BUG-05 — Đầy đủ 11 bài test tự động cho thao tác XÓA an toàn (se_s1_crud PASSED)**  
 > *Chú thích: Ảnh chụp terminal thực thi lệnh `pytest tests/se_s1_crud.test.py -v` hoàn tất trọn vẹn 11/11 bài test PASSED 100% in 0.77s, minh chứng việc thực hiện đầy đủ nhận xét của Thầy trong BT2 về kiểm thử thao tác XÓA an toàn.*
 
 ### 7.3. Minh chứng Giao diện người dùng Web Prototype và Xử lý 3 Trạng thái (UI States)
 Dưới đây là các ảnh chụp giao diện người dùng thực tế của hệ thống SPA Dark Elevation, minh chứng việc xử lý đầy đủ 3 trạng thái dữ liệu (Loading, Empty, Error) và quy trình tác nghiệp của 3 vai trò Quản lý, Vật tư, Kỹ thuật:
 
-![Hình 7.10: Giao diện Web Prototype — Trạng thái Đang tải dữ liệu](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/ui_loading_state.png)
-> **Hình 7.10: Giao diện Web Prototype — Trạng thái Đang tải dữ liệu (Loading State với Shimmer)**  
+![Hình 7.11: Giao diện Web Prototype — Trạng thái Đang tải dữ liệu](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/ui_loading_state.png)
+> **Hình 7.11: Giao diện Web Prototype — Trạng thái Đang tải dữ liệu (Loading State với Shimmer)**  
 > *Chú thích: Ảnh chụp giao diện người dùng hiển thị hiệu ứng skeleton shimmer khi hệ thống đang gọi API bất đồng bộ để tải danh sách linh kiện và số liệu kho, đảm bảo trải nghiệm trực quan mượt mà và ngăn ngừa thao tác trùng lặp từ người dùng.*
 
-![Hình 7.11: Giao diện Web Prototype — Trạng thái Rỗng](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/ui_empty_state.png)
-> **Hình 7.11: Giao diện Web Prototype — Trạng thái Rỗng (Empty State khi không có cảnh báo)**  
+![Hình 7.12: Giao diện Web Prototype — Trạng thái Rỗng](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/ui_empty_state.png)
+> **Hình 7.12: Giao diện Web Prototype — Trạng thái Rỗng (Empty State khi không có cảnh báo)**  
 > *Chú thích: Ảnh chụp giao diện Quản lý kho khi hệ thống ở trạng thái vận hành tối ưu: không có bất kỳ linh kiện nào chạm hoặc dưới ngưỡng an toàn tối thiểu (0 cảnh báo), hiển thị thông điệp an toàn trực quan kèm nút làm mới dữ liệu.*
 
-![Hình 7.12: Giao diện Web Prototype — Trạng thái Lỗi nghiệp vụ](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/ui_error_state.png)
-> **Hình 7.12: Giao diện Web Prototype — Trạng thái Lỗi nghiệp vụ (Error State cảnh báo vi phạm tồn)**  
+![Hình 7.13: Giao diện Web Prototype — Trạng thái Lỗi nghiệp vụ](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/ui_error_state.png)
+> **Hình 7.13: Giao diện Web Prototype — Trạng thái Lỗi nghiệp vụ (Error State cảnh báo vi phạm tồn)**  
 > *Chú thích: Ảnh chụp giao diện hiển thị thông báo lỗi màu đỏ nổi bật kèm thông điệp tiếng Việt rõ ràng khi kỹ thuật viên nhập số lượng xuất kho vượt quá số lượng tồn khả dụng (vi phạm quy tắc nghiệp vụ BR-01 chống tồn kho âm).*
 
-![Hình 7.13: Bảng điều khiển Quản lý kho](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/ui_quanly_dashboard.png)
-> **Hình 7.13: Bảng điều khiển Quản lý kho (Manager Inventory Dashboard & Alert Metrics)**  
+![Hình 7.14: Bảng điều khiển Quản lý kho](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/ui_quanly_dashboard.png)
+> **Hình 7.14: Bảng điều khiển Quản lý kho (Manager Inventory Dashboard & Alert Metrics)**  
 > *Chú thích: Ảnh chụp màn hình tổng quan của Quản lý kho: theo dõi cơ cấu danh mục 40 linh kiện, biểu đồ tồn kho theo dòng thiết bị iPhone/iPad, danh sách cảnh báo thiếu hụt và công cụ phân quyền nhân sự chi nhánh.*
 
-![Hình 7.14: Giao diện lập phiếu nhập kho linh kiện dành cho Nhân viên Vật tư](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/ui_vattu_nhapkho.png)
-> **Hình 7.14: Giao diện lập phiếu nhập kho linh kiện dành cho Nhân viên Vật tư (Material Staff)**  
+![Hình 7.15: Giao diện lập phiếu nhập kho linh kiện dành cho Nhân viên Vật tư](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/ui_vattu_nhapkho.png)
+> **Hình 7.15: Giao diện lập phiếu nhập kho linh kiện dành cho Nhân viên Vật tư (Material Staff)**  
 > *Chú thích: Ảnh chụp màn hình nghiệp vụ lập phiếu nhập kho của Nhân viên Vật tư: hỗ trợ tìm kiếm linh kiện thông minh, nhập số lượng nhập và số lô hàng, tự động cập nhật tồn kho tức thì ngay sau khi xác nhận.*
 
-![Hình 7.15: Giao diện tra cứu và lập phiếu xuất kho gắn mã bảo hành dành cho Kỹ thuật viên](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/ui_kythuat_xuatkho.png)
-> **Hình 7.15: Giao diện tra cứu và lập phiếu xuất kho gắn mã bảo hành dành cho Kỹ thuật viên (Tech Staff)**  
+![Hình 7.16: Giao diện tra cứu và lập phiếu xuất kho gắn mã bảo hành dành cho Kỹ thuật viên](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/screenshots/ui_kythuat_xuatkho.png)
+> **Hình 7.16: Giao diện tra cứu và lập phiếu xuất kho gắn mã bảo hành dành cho Kỹ thuật viên (Tech Staff)**  
 > *Chú thích: Ảnh chụp màn hình thao tác của Kỹ thuật viên: tra cứu nhanh linh kiện tương thích, bắt buộc nhập mã phiếu bảo hành hợp lệ và kiểm soát số lượng xuất thực tế phục vụ sửa chữa cho khách hàng.*
 
 ---
