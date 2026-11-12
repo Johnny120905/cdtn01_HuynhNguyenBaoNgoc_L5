@@ -163,6 +163,14 @@ class TestAuthAndUserManagement(unittest.TestCase):
 
     def test_06_forgot_password_and_reset_with_otp(self):
         """Quy trình quên mật khẩu: nhận mã OTP 6 số và đặt lại mật khẩu mới >= 8 ký tự."""
+        # 0. Đảm bảo tài khoản tồn tại (tiền điều kiện độc lập cho test case)
+        self.client.post("/api/v1/auth/register", json={
+            "full_name": "Kỹ thuật viên Test OTP",
+            "email": "test.kythuat.new@gmail.com",
+            "password": "Password123@",
+            "role": "TECH_STAFF",
+            "center_id": "L5-WH-890"
+        })
         # 1. Gửi yêu cầu quên mật khẩu
         forgot_res = self.client.post("/api/v1/auth/forgot-password", json={"email": "test.kythuat.new@gmail.com"})
         self.assertEqual(forgot_res.status_code, 200)
