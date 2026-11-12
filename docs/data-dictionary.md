@@ -95,3 +95,4 @@ Liên kết giữa quy trình bảo hành của Kỹ thuật viên và việc xu
 | `fault_description`| String | Có | Mô tả lỗi | Hiện trạng hỏng hóc cần thay thế linh kiện |
 | `status` | String | Có | Enum: `OPEN`, `IN_PROGRESS`, `COMPLETED`, `CANCELLED` | Chỉ cho phép xuất linh kiện khi status là `OPEN`/`IN_PROGRESS` |
 | `created_at` | DateTime | Có | UTC Timestamp | Thời điểm mở phiếu |
+
