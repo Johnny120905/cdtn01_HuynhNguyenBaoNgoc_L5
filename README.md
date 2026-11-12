@@ -193,7 +193,7 @@ CDTN01/                                           # THƯ MỤC GỐC CỦA KHO M
 ├── pytest.ini                                    # Cấu hình trình chạy Pytest tự động quét mọi tệp *.test.py trong tests/
 ├── package.json & package-lock.json              # Khóa phiên bản gói công cụ Node.js hỗ trợ tại thư mục gốc
 ├── render.yaml                                   # Kịch bản cấu hình triển khai tự động (Blueprint Infrastructure) trên đám mây Render.com
-├── BT1_2374802010339_HuynhNguyenBaoNgoc (Bảng cũ).pdf # Hồ sơ báo cáo hoàn chỉnh Giai đoạn 1 (Bài tập 1 - Phân tích & Thiết kế)
+├── BT1_2374802010339_HuynhNguyenBaoNgoc.pdf      # Hồ sơ báo cáo hoàn chỉnh Giai đoạn 1 (Bài tập 1 - Phân tích & Thiết kế)
 ├── BT2_2374802010339_HuynhNguyenBaoNgoc.pdf      # Hồ sơ báo cáo hoàn chỉnh Giai đoạn 2 (Bài tập 2 - Hiện thực hóa Module cốt lõi)
 ├── BT3_2374802010339_HuynhNguyenBaoNgoc.pdf      # Hồ sơ báo cáo hoàn chỉnh Giai đoạn 3 (Bài tập 3 - Kiểm thử & Đóng gói Prototype)
 ├── test_bug1.bat .. test_bug5.bat                # Bộ 5 tập lệnh batch Windows kiểm thử hồi quy độc lập cho 5 lỗi kỹ thuật BUG-01..05
