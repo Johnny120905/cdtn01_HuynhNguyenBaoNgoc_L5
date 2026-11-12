@@ -7,7 +7,7 @@
 - **Sinh viên thực hiện:** Huỳnh Nguyễn Bảo Ngọc — **MSSV:** `2374802010339`
 - **Lớp học phần:** `261_71ITGR40203_06`
 - **Giảng viên hướng dẫn:** TS. Nguyễn Trí Hải
-- **Kho mã nguồn GitHub:** https://github.com/Johnny120905/CDTN01.git
+- **Kho mã nguồn GitHub:** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git
 
 ---
 

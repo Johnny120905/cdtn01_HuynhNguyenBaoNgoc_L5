@@ -4,7 +4,7 @@
 - **Track:** Software Engineering (`SE`)
 - **Student Name:** Huynh Nguyen Bao Ngoc — **Student ID:** `2374802010339` | **Class:** `261_71ITGR40203_06`
 - **Supervisor:** Dr. Nguyen Tri Hai — Faculty of Information Technology, Van Lang University
-- **Repository:** https://github.com/Johnny120905/CDTN01.git (Tag `v1.0`)
+- **Repository:** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git (Tag `v1.0`)
 
 ---
 
@@ -131,7 +131,7 @@ As specified in Assignment 3 (Section 3.3 & Session 16 Guideline), deploying the
    - Log in to [Render Dashboard](https://dashboard.render.com/) with your GitHub account.
 2. **Create New Web Service:**
    - Click **New +** $\rightarrow$ **Web Service**.
-   - Select **Build and deploy from a Git repository** and grant access to repository: `https://github.com/Johnny120905/CDTN01`.
+   - Select **Build and deploy from a Git repository** and grant access to repository: `https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5`.
 3. **Configure Service Parameters:**
    - **Name:** `mekong-mobile-inventory` (or custom name)
    - **Region:** `Singapore` (optimal network latency for Southeast Asia / Vietnam)

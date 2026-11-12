@@ -118,8 +118,8 @@ def build_bt3_docx():
         ("Mã số sinh viên (MSSV):", "2374802010339 (Lớp: 261_71ITGR40203_06 - K27)"),
         ("Giảng viên hướng dẫn:", "TS. Nguyễn Trí Hải"),
         ("Ngày hoàn thành nộp bài:", "12/11/2026"),
-        ("GitHub Repository (Public):", "https://github.com/Johnny120905/CDTN01.git"),
-        ("Git Release Tag chính thức:", "v1.0  (https://github.com/Johnny120905/CDTN01/releases/tag/v1.0)"),
+        ("GitHub Repository (Public):", "https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git"),
+        ("Git Release Tag chính thức:", "v1.0  (https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/releases/tag/v1.0)"),
         ("Link Deploy thử (Điểm cộng):", "https://mekong-mobile-inventory.onrender.com (Render.com)")
     ]
     for idx, (label, val) in enumerate(info_data):
@@ -324,7 +324,7 @@ def build_bt3_docx():
          "Khi đăng ký hoặc đổi mật khẩu, CSDL và file JSON xuất hiện trường password: 'Password123@' dạng rõ.",
          "Gán user_doc['password'] = raw_pwd để kiểm thử nhanh ban đầu mà quên xóa trước khi lưu trữ xuống đĩa.",
          "Xóa bỏ hoàn toàn trường password thô khỏi từ điển lưu trữ; chỉ lưu password_hash (SHA-256); dọn sạch dữ liệu cũ.",
-         "https://github.com/Johnny120905/CDTN01/commit/23a7755 (và bbb5232).",
+         "https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/commit/23a7755 (và bbb5232).",
          "test_09_security_s3_password_never_stored_as_plaintext đạt kết quả PASSED."),
 
         ("BUG-02: Bỏ quên kiểm tra thời gian hết hạn 10 phút của mã OTP",
@@ -333,7 +333,7 @@ def build_bt3_docx():
          "Mã OTP quá 10 phút nhưng khi gửi request reset-password hệ thống vẫn cho phép đổi mật khẩu thành công.",
          "Hàm verify_otp và reset_password chỉ so khớp mã chuỗi mà không so sánh otp_expires_at với datetime.utcnow().",
          "Bổ sung kiểm tra if datetime.utcnow() > exp_dt: raise AppError(400, 'ERR_OTP_EXPIRED') và $unset mã sau khi dùng.",
-         "https://github.com/Johnny120905/CDTN01/commit/23a7755 (và bbb5232).",
+         "https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/commit/23a7755 (và bbb5232).",
          "test_06_forgot_password_and_reset_with_otp đạt kết quả PASSED."),
 
         ("BUG-03: Docker Compose thiếu Healthcheck MongoDB và thiếu nạp seed tự động",
@@ -342,7 +342,7 @@ def build_bt3_docx():
          "Container mongodb không hiển thị trạng thái (healthy); CSDL MongoDB trống trơn nếu không chạy script seed.",
          "docker-compose.yml chưa khai báo healthcheck cho service mongodb và Dockerfile chưa tự chạy seed khi khởi động.",
          "Bổ sung healthcheck mongosh --eval 'db.adminCommand(\"ping\")'; đổi CMD Dockerfile tự chạy seeds/seed.py khi start.",
-         "https://github.com/Johnny120905/CDTN01/commit/23f1563 (và bbb5232).",
+         "https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/commit/23f1563 (và bbb5232).",
          "docker compose ps hiển thị cả 2 container đều Up ... (healthy), API có đủ 40 linh kiện ngay lập tức."),
 
         ("BUG-04: Cột Tồn kho hiển thị 'undefined' trên Bảng cảnh báo thiếu hàng Quản lý kho",
@@ -351,7 +351,7 @@ def build_bt3_docx():
          "Dashboard Quản lý kho hiển thị dòng chữ: 'Tồn hiện tại: undefined / Ngưỡng: 15'.",
          "Dòng 1848 app.js truy cập thuộc tính a.current_stock trong khi API trả về tên trường chuẩn là quantity.",
          "Sửa thành toán tử nullish coalescing: const currentQty = a.quantity ?? a.current_stock ?? 0;.",
-         "https://github.com/Johnny120905/CDTN01/commit/23f1563.",
+         "https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/commit/23f1563.",
          "Giao diện Dashboard hiển thị số tồn kho chính xác, tỷ lệ chữ undefined trên toàn hệ thống bằng 0%."),
 
         ("BUG-05: Hệ thống thiếu hoàn toàn thao tác Xóa (DELETE), không đạt tiêu chí SE S1",
@@ -360,7 +360,7 @@ def build_bt3_docx():
          "Hệ thống không có endpoint DELETE nào; khi gọi DELETE /api/v1/inventory/parts/{code} bị trả về HTTP 405.",
          "Chưa hiện thực hóa đủ 4 thao tác CRUD cho 2 thực thể cốt lõi part và users theo barem chấm điểm SE S1.",
          "Hiện thực đủ CRUD và thao tác DELETE có ràng buộc an toàn tại cả 4 tầng; viết test suite tests/se_s1_crud.test.py.",
-         "https://github.com/Johnny120905/CDTN01/commit/04a015b.",
+         "https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/commit/04a015b.",
          "11/11 ca kiểm thử trong tests/se_s1_crud.test.py đạt PASSED 100%. Đạt chuẩn tiêu chí [SE] S1.")
     ]
 
@@ -401,7 +401,7 @@ def build_bt3_docx():
 
     doc.add_heading("4.2. Clone & Environment Configuration", level=2)
     doc.add_paragraph(
-        "git clone https://github.com/Johnny120905/CDTN01.git\n"
+        "git clone https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git\n"
         "cd CDTN01\n"
         "cp .env.example .env"
     )

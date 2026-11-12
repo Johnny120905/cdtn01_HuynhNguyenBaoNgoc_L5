@@ -11,9 +11,9 @@
 - **Lớp học phần:** `261_71ITGR40203_06` (Khóa: K27 – Công nghệ thông tin)
 - **Giảng viên hướng dẫn:** TS. Nguyễn Trí Hải
 - **Ngày hoàn thành bài nộp:** 12/11/2026
-- **Link GitHub Repository (PUBLIC):** https://github.com/Johnny120905/CDTN01.git
+- **Link GitHub Repository (PUBLIC):** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git
 - **Git Release Tag chính thức:** `v1.0`
-  - **Link Tag Release trên GitHub:** https://github.com/Johnny120905/CDTN01/releases/tag/v1.0
+  - **Link Tag Release trên GitHub:** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/releases/tag/v1.0
 - **Chuẩn đầu ra được đánh giá:** CLO3 (Kiểm thử & Gỡ lỗi 40%), CLO4 (Đóng gói & Tài liệu kỹ thuật tiếng Anh 40%), CLO5 (Bảo mật & Liêm chính AI 20%).
 - **Link bản deploy thử (Điểm cộng tự chọn Render.com):** https://mekong-mobile-inventory.onrender.com *(hoặc URL service sau khi bấm deploy)*
 
@@ -98,7 +98,7 @@ Bộ kiểm thử tự động gồm **67 ca kiểm thử (100% PASSED)** đư�
 3. **Triệu chứng:** Khi đăng ký hoặc đặt lại mật khẩu, bản ghi CSDL và tệp JSON xuất hiện trường `password: "Password123@"` dạng rõ.
 4. **Nguyên nhân gốc rễ:** Trong `register()` tại `inventory.routes.py` và `create_user()` tại `inventory.repository.py`, lập trình viên gán `user_doc["password"] = raw_pwd` để test nhanh mà quên loại bỏ trước khi lưu.
 5. **Cách sửa:** Xóa bỏ hoàn toàn trường `password` thô; chỉ lưu `password_hash` (SHA-256); dọn sạch dữ liệu cũ trong `data/users_store.json`.
-6. **Link commit:** https://github.com/Johnny120905/CDTN01/commit/23a7755 (và `bbb5232`).
+6. **Link commit:** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/commit/23a7755 (và `bbb5232`).
 7. **Test case phòng ngừa:** `test_09_security_s3_password_never_stored_as_plaintext` đạt **PASS**.
 
 ### BUG-02: Bỏ quên kiểm tra thời gian hết hạn của mã OTP khi khôi phục mật khẩu
@@ -107,7 +107,7 @@ Bộ kiểm thử tự động gồm **67 ca kiểm thử (100% PASSED)** đư�
 3. **Triệu chứng:** Mã OTP sinh ra đã quá 10 phút nhưng gọi `/reset-password` hệ thống vẫn chấp nhận cho đổi mật khẩu.
 4. **Nguyên nhân gốc rễ:** Các hàm `verify_otp_endpoint()` và `reset_password()` chỉ so khớp mã OTP mà không so sánh `otp_expires_at` với `datetime.utcnow()`.
 5. **Cách sửa:** Bổ sung kiểm tra `if datetime.utcnow() > exp_dt: raise AppError(400, "ERR_OTP_EXPIRED", "Mã OTP đã hết thời gian hiệu lực 10 phút.")` và `$unset` mã sau khi dùng.
-6. **Link commit:** https://github.com/Johnny120905/CDTN01/commit/23a7755 (và `bbb5232`).
+6. **Link commit:** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/commit/23a7755 (và `bbb5232`).
 7. **Test case phòng ngừa:** `test_06_forgot_password_and_reset_with_otp` đạt **PASS**.
 
 ### BUG-03: Docker Compose thiếu Healthcheck MongoDB và thiếu nạp seed tự động
@@ -116,7 +116,7 @@ Bộ kiểm thử tự động gồm **67 ca kiểm thử (100% PASSED)** đư�
 3. **Triệu chứng:** Dịch vụ `mongodb` không hiển thị `(healthy)`; CSDL bị trống trơn nếu không chạy script seed thủ công.
 4. **Nguyên nhân gốc rễ:** `docker-compose.yml` thiếu khối `healthcheck:` cho `mongodb` và `Dockerfile` chưa gọi script seed khi khởi động.
 5. **Cách sửa:** Thêm healthcheck `mongosh --eval 'db.adminCommand("ping")'`; đổi CMD Dockerfile thành `python seeds/seed.py || true; uvicorn src.app:app ...`.
-6. **Link commit:** https://github.com/Johnny120905/CDTN01/commit/23f1563 (và `bbb5232`).
+6. **Link commit:** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/commit/23f1563 (và `bbb5232`).
 7. **Xác nhận:** `docker compose ps` hiển thị cả 2 container đều `Up ... (healthy)`, truy vấn API có đủ 40 linh kiện ngay.
 
 ### BUG-04: Cột Tồn kho hiển thị `undefined` trên Bảng cảnh báo thiếu hàng của Quản lý kho
@@ -125,7 +125,7 @@ Bộ kiểm thử tự động gồm **67 ca kiểm thử (100% PASSED)** đư�
 3. **Triệu chứng:** Dashboard Quản lý kho hiển thị dòng chữ: *"Tồn hiện tại: undefined / Ngưỡng: 15"*.
 4. **Nguyên nhân gốc rễ:** Dòng 1848 `src/static/app.js` truy cập thuộc tính `a.current_stock`, trong khi API trả về tên trường chuẩn là `quantity`.
 5. **Cách sửa:** Sửa thành toán tử nullish coalescing: `const currentQty = a.quantity ?? a.current_stock ?? 0;`.
-6. **Link commit:** https://github.com/Johnny120905/CDTN01/commit/23f1563.
+6. **Link commit:** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/commit/23f1563.
 7. **Xác nhận:** Giao diện hiển thị sắc nét *"Tồn hiện tại: 8 / Ngưỡng: 10"*, tỷ lệ chữ `undefined` bằng 0%.
 
 ### BUG-05: Hệ thống thiếu hoàn toàn thao tác Xóa (DELETE), không đạt tiêu chí SE S1
@@ -134,7 +134,7 @@ Bộ kiểm thử tự động gồm **67 ca kiểm thử (100% PASSED)** đư�
 3. **Triệu chứng:** Hệ thống không có endpoint `DELETE` nào; khi gọi `DELETE /api/v1/inventory/parts/{code}` bị trả về HTTP 405.
 4. **Nguyên nhân gốc rễ:** Chưa hiện thực hóa đủ 4 thao tác CRUD cho 2 thực thể cốt lõi `part` và `users`.
 5. **Cách sửa:** Hiện thực đủ CRUD và thao tác `DELETE` có ràng buộc an toàn (cấm xóa khi còn tồn kho $> 0$; cấm tự xóa chính mình) tại cả 4 tầng; viết test suite `tests/se_s1_crud.test.py` (11 tests).
-6. **Link commit:** https://github.com/Johnny120905/CDTN01/commit/04a015b.
+6. **Link commit:** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/commit/04a015b.
 7. **Test case phòng ngừa:** 11/11 tests trong `tests/se_s1_crud.test.py` đạt **PASS 100%**.
 
 ---
@@ -149,7 +149,7 @@ Bộ kiểm thử tự động gồm **67 ca kiểm thử (100% PASSED)** đư�
 
 ### 4.2. Clone & Environment Configuration
 ```bash
-git clone https://github.com/Johnny120905/CDTN01.git
+git clone https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git
 cd CDTN01
 cp .env.example .env
 ```

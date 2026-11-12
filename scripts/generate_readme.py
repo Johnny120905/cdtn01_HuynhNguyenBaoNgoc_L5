@@ -8,7 +8,7 @@ readme_content = r"""# HỆ THỐNG SMART CRM – MEKONG MOBILE
 **Sinh viên thực hiện:** Huỳnh Nguyễn Bảo Ngọc — **MSSV:** 2374802010339  
 **Lớp học phần:** 261_71ITGR40203_06  
 **Giảng viên hướng dẫn:** TS. Nguyễn Trí Hải  
-**Repository GitHub:** [https://github.com/Johnny120905/CDTN01.git](https://github.com/Johnny120905/CDTN01.git)  
+**Repository GitHub:** [https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git](https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git)  
 **Tài liệu kỹ thuật liên quan:**
 - [docs/thietke.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/thietke.md) — Đặc tả Layout & Prompt Stitch tái tạo giao diện 3D chi tiết
 - [docs/thaydoithietke.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/thaydoithietke.md) — Nhật ký chi tiết toàn bộ các thay đổi Backend - Database - Frontend

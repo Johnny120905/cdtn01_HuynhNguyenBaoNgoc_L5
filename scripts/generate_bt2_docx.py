@@ -126,7 +126,7 @@ def build_bt2_docx():
         ("Mã số sinh viên (MSSV):", "2374802010339 (Lớp: K27)"),
         ("Giảng viên hướng dẫn:", "TS. Nguyễn Trí Hải"),
         ("Ngày nộp & Hoàn thiện:", "29/10/2026 (Bản chuẩn hóa cập nhật: 12/11/2026)"),
-        ("GitHub Repository (Public):", "https://github.com/Johnny120905/CDTN01.git"),
+        ("GitHub Repository (Public):", "https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git"),
         ("Git Release Tag BT2:", "v0.2  (Commit: e6698d58737cefbe0776fadaa75115e46cac58c4)")
     ]
     for idx, (label, val) in enumerate(info_data):

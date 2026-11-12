@@ -23,4 +23,4 @@
 ---
 
 ## Cam kết Trung thực về Liêm chính Học thuật
-Tôi xin cam đoan các mục đánh giá an toàn bảo mật trên đều được trực tiếp kiểm chứng thực nghiệm bằng các lệnh chạy thật và tệp mã nguồn trong kho GitHub công khai https://github.com/Johnny120905/CDTN01.git.
+Tôi xin cam đoan các mục đánh giá an toàn bảo mật trên đều được trực tiếp kiểm chứng thực nghiệm bằng các lệnh chạy thật và tệp mã nguồn trong kho GitHub công khai https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git.

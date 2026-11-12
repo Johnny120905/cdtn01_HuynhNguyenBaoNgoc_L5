@@ -12,10 +12,10 @@
 - **Giảng viên hướng dẫn:** TS. Nguyễn Trí Hải
 - **Ngày nộp bài ban đầu:** 29/10/2026
 - **Ngày hoàn thiện cập nhật theo nhận xét:** 12/11/2026
-- **Link GitHub Repository (Public):** https://github.com/Johnny120905/CDTN01.git
+- **Link GitHub Repository (Public):** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git
 - **Git Tag bài nộp BT2:** `v0.2`
   - **Commit Hash:** `e6698d58737cefbe0776fadaa75115e46cac58c4` (xác lập đúng bản nộp ngày 29/10/2026)
-  - **Link Tag trên GitHub:** https://github.com/Johnny120905/CDTN01/releases/tag/v0.2
+  - **Link Tag trên GitHub:** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/releases/tag/v0.2
 
 ---
 

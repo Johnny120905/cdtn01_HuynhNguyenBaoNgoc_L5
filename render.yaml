@@ -26,3 +26,4 @@ services:
         value: mekong_mobile_l5
       - key: API_PORT
         value: 8000
+

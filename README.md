@@ -8,9 +8,9 @@
 - **Sinh viên thực hiện:** Huỳnh Nguyễn Bảo Ngọc — **MSSV:** `2374802010339`
 - **Lớp học phần:** `261_71ITGR40203_06`
 - **Giảng viên hướng dẫn:** TS. Nguyễn Trí Hải
-- **Kho mã nguồn GitHub:** https://github.com/Johnny120905/CDTN01.git
-- **Nhãn phát hành Bài tập 2 (Hiện thực Module cốt lõi):** `v0.2` (https://github.com/Johnny120905/CDTN01/releases/tag/v0.2)
-- **Nhãn phát hành Bài tập 3 (Kiểm thử & Đóng gói Prototype):** `v1.0` (https://github.com/Johnny120905/CDTN01/releases/tag/v1.0)
+- **Kho mã nguồn GitHub:** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git
+- **Nhãn phát hành Bài tập 2 (Hiện thực Module cốt lõi):** `v0.2` (https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/releases/tag/v0.2)
+- **Nhãn phát hành Bài tập 3 (Kiểm thử & Đóng gói Prototype):** `v1.0` (https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/releases/tag/v1.0)
 
 ---
 
@@ -329,7 +329,7 @@ Nếu bạn vừa cài lại hệ điều hành hoặc đang thao tác trên m�
 - Truy cập trang chủ Git: https://git-scm.com/downloads
 - Tải và cài đặt theo các tùy chọn mặc định (bấm *Next* liên tục cho đến khi hoàn tất).
 - *Kiểm tra:* Mở Terminal / PowerShell và gõ: `git --version` (hiển thị `git version 2.x.x`).
-- *(Lưu ý: Nếu máy không tiện cài Git, bạn hoàn toàn có thể vào liên kết GitHub của dự án https://github.com/Johnny120905/CDTN01, bấm nút **Code** màu xanh lá và chọn **Download ZIP**, sau đó giải nén ra thư mục `CDTN01` trên máy).*
+- *(Lưu ý: Nếu máy không tiện cài Git, bạn hoàn toàn có thể vào liên kết GitHub của dự án https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5, bấm nút **Code** màu xanh lá và chọn **Download ZIP**, sau đó giải nén ra thư mục `CDTN01` trên máy).*
 
 #### 3. Cài đặt Docker Desktop (Tùy chọn - Dành cho người muốn chạy tự động bằng 2 lệnh):
 - Nếu máy tính của bạn hỗ trợ ảo hóa và bạn muốn chạy Docker: Tải tại https://www.docker.com/products/docker-desktop/
@@ -343,7 +343,7 @@ Nếu bạn vừa cài lại hệ điều hành hoặc đang thao tác trên m�
 Mở **PowerShell** (Windows) hoặc **Terminal** (macOS/Linux), di chuyển đến thư mục làm việc bạn muốn lưu dự án và chạy các lệnh:
 
 ```powershell
-git clone https://github.com/Johnny120905/CDTN01.git
+git clone https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git
 cd CDTN01
 ```
 
@@ -732,7 +732,7 @@ git push -f origin v0.2
 git tag -f -a v1.0 -m "Phat hanh Bai tap 3 - Kiem thu va Dong goi Prototype hoan chinh Luong 05 (v1.0)"
 git push -f origin v1.0
 ```
-👉 Kiểm tra trực tiếp trên cửa sổ trình duyệt tại: https://github.com/Johnny120905/CDTN01/releases
+👉 Kiểm tra trực tiếp trên cửa sổ trình duyệt tại: https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5/releases
 
 ---
 
