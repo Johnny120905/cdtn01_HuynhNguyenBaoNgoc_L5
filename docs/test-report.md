@@ -34,7 +34,7 @@
 
 ```text
 ============================= test session starts =============================
-platform win32 -- Python 3.11.5, pytest-9.2.0, pluggy-1.7.0
+platform win32 -- Python 3.11.5, pytest-9.1.1, pluggy-1.6.0
 rootdir: D:\Hoc\DH\N4\N4.HK01\Chuyende1\CDTN01
 configfile: pytest.ini
 plugins: anyio-4.15.1
