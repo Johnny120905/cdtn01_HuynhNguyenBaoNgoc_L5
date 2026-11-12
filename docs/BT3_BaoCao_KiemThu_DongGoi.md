@@ -15,6 +15,7 @@
 - **Git Release Tag chính thức:** `v1.0`
   - **Link Tag Release trên GitHub:** https://github.com/Johnny120905/CDTN01/releases/tag/v1.0
 - **Chuẩn đầu ra được đánh giá:** CLO3 (Kiểm thử & Gỡ lỗi 40%), CLO4 (Đóng gói & Tài liệu kỹ thuật tiếng Anh 40%), CLO5 (Bảo mật & Liêm chính AI 20%).
+- **Link bản deploy thử (Điểm cộng tự chọn Render.com):** https://mekong-mobile-inventory.onrender.com *(hoặc URL service sau khi bấm deploy)*
 
 ---
 
@@ -248,3 +249,4 @@ Hệ thống đáp ứng trọn vẹn 4 tiêu chí chuyên ngành Software Engin
 **Sinh viên thực hiện**  
 *(Đã ký)*  
 **Huỳnh Nguyễn Bảo Ngọc**
+

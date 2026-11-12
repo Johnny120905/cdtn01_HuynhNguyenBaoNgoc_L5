@@ -104,7 +104,7 @@ docker compose exec mekong-l5-app pytest tests/ -v
 ```
 **Expected Output:**
 ```text
-======================= 56 passed in 3.89s =======================
+======================= 67 passed in 3.13s =======================
 ```
 
 ### 5.5. Test Idempotency (Re-running Seed)
@@ -112,3 +112,49 @@ docker compose exec mekong-l5-app pytest tests/ -v
 docker compose exec mekong-l5-app python seeds/seed.py
 ```
 **Expected Output:** Exits with `0` errors; the database retains exactly 40 parts and 75 stock records without duplicating records.
+
+---
+
+## 6. Optional Cloud Deployment (Render.com) — Free Tier Bonus
+
+As specified in Assignment 3 (Section 3.3 & Session 16 Guideline), deploying the prototype to a public cloud platform with free tier qualifies for up to **+1.0 bonus point**.
+
+### 6.1. Platform Overview
+- **Hosting Provider:** Render.com (Free Tier Web Service)
+- **Runtime Options Supported:**
+  1. *Native Python Web Service* (Recommended for fast cold starts): Render builds directly via `pip install -r requirements.txt` and executes `uvicorn src.app:app --host 0.0.0.0 --port $PORT`.
+  2. *Docker Web Service*: Render builds and runs the container using the root `Dockerfile`.
+- **Database Strategy:** The backend automatically leverages its resilient offline fallback memory cache (`seeds/001_seed_parts_demo.json` and `data/users_store.json`), allowing complete independent demonstration without requiring an external database cluster. Alternatively, a free MongoDB Atlas connection string can be supplied via `MONGO_URI`.
+
+### 6.2. Step-by-Step Render Deployment Walkthrough
+1. **Sign In & Connect GitHub:**
+   - Log in to [Render Dashboard](https://dashboard.render.com/) with your GitHub account.
+2. **Create New Web Service:**
+   - Click **New +** $\rightarrow$ **Web Service**.
+   - Select **Build and deploy from a Git repository** and grant access to repository: `https://github.com/Johnny120905/CDTN01`.
+3. **Configure Service Parameters:**
+   - **Name:** `mekong-mobile-inventory` (or custom name)
+   - **Region:** `Singapore` (optimal network latency for Southeast Asia / Vietnam)
+   - **Branch:** `main`
+   - **Root Directory:** *(leave blank)*
+   - **Runtime:** `Python 3`
+   - **Build Command:** `pip install --upgrade pip && pip install -r requirements.txt`
+   - **Start Command:** `uvicorn src.app:app --host 0.0.0.0 --port $PORT`
+   - **Instance Type:** `Free` (0.1 CPU, 512 MB RAM)
+4. **Configure Environment Variables:**
+   Under the **Environment Variables** tab, define:
+   - `PYTHON_VERSION`: `3.11.5`
+   - `JWT_SECRET_KEY`: `mekong_mobile_secret_jwt_key_2026_cdtn01`
+   - `DEFAULT_CENTER_ID`: `L5-WH-890`
+   - `DB_NAME`: `mekong_mobile_l5`
+   - `API_PORT`: `8000`
+   *(Optional)* `MONGO_URI`: MongoDB Atlas connection URI if connected to managed cloud database.
+5. **Deploy & Verify:**
+   - Click **Deploy Web Service**.
+   - Deployment logs will display successful package installation and Uvicorn server startup.
+   - Once deployment status changes to **Live**, open the public URL provided by Render: `https://<your-service-name>.onrender.com/`.
+
+### 6.3. Free Tier Caveats & Best Practices
+- **Auto-Sleep Behavior:** Render free tier instances spin down after 15 minutes of inactivity. The first HTTP request after spin-down may take 30-50 seconds to wake up the service.
+- **Pre-evaluation Warmup:** Wake up the service by visiting the public URL 1-2 minutes prior to teacher grading.
+- **Production Secret Isolation:** Real credentials must never be committed to git; use Render's Environment Variables dashboard for injection.

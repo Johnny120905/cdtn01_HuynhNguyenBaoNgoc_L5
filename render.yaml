@@ -1,0 +1,28 @@
+# ==============================================================================
+# File: render.yaml
+# Blueprint configuration for Render.com (Free Tier Cloud Deployment)
+# Project: Smart CRM - Mekong Mobile (Flow 05: Spare Parts Inventory Subsystem)
+# ==============================================================================
+
+services:
+  - type: web
+    name: mekong-mobile-inventory
+    env: python
+    region: singapore
+    plan: free
+    branch: main
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn src.app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.5
+      - key: JWT_SECRET_KEY
+        value: mekong_mobile_secret_jwt_key_2026_cdtn01
+      - key: DEFAULT_CENTER_ID
+        value: L5-WH-890
+      - key: DB_NAME
+        value: mekong_mobile_l5
+      - key: API_PORT
+        value: 8000

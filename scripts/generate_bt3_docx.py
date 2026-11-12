@@ -109,7 +109,7 @@ def build_bt3_docx():
     r_sub.font.italic = True
     r_sub.font.color.rgb = RGBColor(75, 85, 99)
 
-    info_table = doc.add_table(rows=6, cols=2)
+    info_table = doc.add_table(rows=7, cols=2)
     info_table.alignment = WD_TABLE_ALIGNMENT.CENTER
     col_w = [Inches(2.5), Inches(4.3)]
     
@@ -119,7 +119,8 @@ def build_bt3_docx():
         ("Giảng viên hướng dẫn:", "TS. Nguyễn Trí Hải"),
         ("Ngày hoàn thành nộp bài:", "12/11/2026"),
         ("GitHub Repository (Public):", "https://github.com/Johnny120905/CDTN01.git"),
-        ("Git Release Tag chính thức:", "v1.0  (https://github.com/Johnny120905/CDTN01/releases/tag/v1.0)")
+        ("Git Release Tag chính thức:", "v1.0  (https://github.com/Johnny120905/CDTN01/releases/tag/v1.0)"),
+        ("Link Deploy thử (Điểm cộng):", "https://mekong-mobile-inventory.onrender.com (Render.com)")
     ]
     for idx, (label, val) in enumerate(info_data):
         row = info_table.rows[idx]
@@ -432,6 +433,15 @@ def build_bt3_docx():
         "• Fresh database reset: Execute 'docker compose down -v && docker compose up -d --build'."
     )
 
+    doc.add_heading("4.6. Optional Cloud Deployment (Render.com) — Free Tier Bonus (+1.0 Point)", level=2)
+    doc.add_paragraph(
+        "• Platform: Render.com (Web Service Free Tier, Singapore region).\n"
+        "• Build Command: pip install --upgrade pip && pip install -r requirements.txt\n"
+        "• Start Command: uvicorn src.app:app --host 0.0.0.0 --port $PORT\n"
+        "• Environment Variables: JWT_SECRET_KEY, DEFAULT_CENTER_ID=L5-WH-890, DB_NAME=mekong_mobile_l5, PYTHON_VERSION=3.11.5.\n"
+        "• Public URL: https://mekong-mobile-inventory.onrender.com (Tích hợp cơ chế bộ nhớ đệm tự phục hồi)."
+    )
+
     # ==============================================================================
     # MỤC 5: CHECKLIST BẢO MẬT 7 MỤC (1 TRANG)
     # ==============================================================================
@@ -597,3 +607,4 @@ def build_bt3_docx():
 
 if __name__ == "__main__":
     build_bt3_docx()
+
