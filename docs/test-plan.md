@@ -44,11 +44,13 @@ Hệ thống được kiểm thử tự động hóa đa tầng theo mô hình k
      /    \     -----------------------------------------------------------
     /      \    15 ca Auth, RBAC & Boundary Tests (auth_and_user.test.py)
    /        \   -----------------------------------------------------------
-  /          \  06 ca RESTful API Integration Tests (inventory.routes.test.py)
+  /          \  11 ca SE S1 CRUD Tests (se_s1_crud.test.py)
  /            \ -----------------------------------------------------------
-/              \ 20 ca Unit & BT3 Constraint Tests (service & bt3 tests)
+/              \ 06 ca RESTful API Integration Tests (inventory.routes.test.py)
+/                \ ---------------------------------------------------------
+/                  \ 20 ca Unit & BT3 Constraint Tests (service & bt3 tests)
 =============================================================================
-TỔNG CỘNG: 56 TEST CASES TỰ ĐỘNG CHẠY PASS 100% (13 ca chuyên sâu mới ở BT3)
+TỔNG CỘNG: 67 TEST CASES TỰ ĐỘNG CHẠY PASS 100% (Bao gồm 11 ca SE S1 CRUD)
 ```
 
 1. **Tầng Unit Test (Lớp Domain Service & Nghiệp vụ cốt lõi):**
@@ -57,6 +59,7 @@ TỔNG CỘNG: 56 TEST CASES TỰ ĐỘNG CHẠY PASS 100% (13 ca chuyên sâu m
 2. **Tầng Integration Test (Lớp Controller, API Routes & Database):**
    - **06 ca** trong `tests/inventory.routes.test.py`: Kiểm thử hợp đồng API (`GET /stock`, `POST /transactions`, `PUT /threshold`).
    - **06 ca** trong `tests/bt3_specification_and_constraints.test.py`: Xung đột Optimistic Locking (HTTP 409), bảo mật phân quyền chi nhánh A01 OWASP (HTTP 403), băm mật khẩu trong CSDL (S3), che giấu vết ngăn xếp (S4), tính lũy đẳng khi chạy seed lần 2 (C8).
+   - **11 ca** trong `tests/se_s1_crud.test.py`: Kiểm thử toàn diện 4 thao tác CRUD (Create, Read, Update, Delete) cho cả 2 thực thể `part` và `users`, ràng buộc cấm xóa tồn kho > 0 và cấm tự xóa chính mình.
 3. **Tầng Xác thực & Quản trị Nhân sự (Auth & User Management):**
    - **15 ca** trong `tests/auth_and_user.test.py`: Đăng ký, đăng nhập, quên mật khẩu OTP, kiểm định độ phức tạp mật khẩu 4 nhóm ký tự, giới hạn độ dài biên, khóa vĩnh viễn tài khoản `TERMINATED`.
 4. **Tầng Giao diện & Luồng liên vai trò (Cross-Role Flow & UI/UX):**
@@ -70,8 +73,8 @@ Hệ thống được coi là hoàn thành kiểm thử Giai đoạn 3 khi đạ
 
 | Chỉ số kỹ thuật | Ngưỡng cam kết (Target) | Kết quả thực tế đo được | Đánh giá |
 | :--- | :---: | :---: | :---: |
-| **Tỷ lệ vượt qua kiểm thử (Test Pass Rate)** | **100%** | **56 / 56 PASSED (100%)** | **ĐẠT** |
-| **Số lượng lỗi nghiêm trọng (Critical Bugs) đang mở** | **0 lỗi** | **0 lỗi (Đã sửa và ghi Bug Log 4 bug)** | **ĐẠT** |
+| **Tỷ lệ vượt qua kiểm thử (Test Pass Rate)** | **100%** | **67 / 67 PASSED (100%)** | **ĐẠT** |
+| **Số lượng lỗi nghiêm trọng (Critical Bugs) đang mở** | **0 lỗi** | **0 lỗi (Đã sửa và ghi Bug Log 5 bug)** | **ĐẠT** |
 | **Số lượng lỗi lớn (Major Bugs) đang mở** | **0 lỗi** | **0 lỗi** | **ĐẠT** |
 | **Độ bao phủ quy tắc nghiệp vụ cốt lõi (`BR-01..BR-05`)** | **100%** | Mỗi quy tắc có ít nhất 1 test luồng đúng và 1 test biên | **ĐẠT** |
 | **Tỷ lệ lộ mã lỗi thô 500 hoặc vết ngăn xếp (*Stack Trace*)** | **0.0%** | **0.0% (100% lỗi qua AppError Handler)** | **ĐẠT** |

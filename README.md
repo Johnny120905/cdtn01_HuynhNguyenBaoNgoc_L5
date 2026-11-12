@@ -9,7 +9,8 @@
 - **Lớp học phần:** `261_71ITGR40203_06`
 - **Giảng viên hướng dẫn:** TS. Nguyễn Trí Hải
 - **Kho mã nguồn GitHub:** https://github.com/Johnny120905/CDTN01.git
-- **Nhãn phiên bản phát hành (Git Release Tag):** `v0.2` (https://github.com/Johnny120905/CDTN01/releases/tag/v0.2)
+- **Nhãn phát hành Bài tập 2 (Hiện thực Module cốt lõi):** `v0.2` (https://github.com/Johnny120905/CDTN01/releases/tag/v0.2)
+- **Nhãn phát hành Bài tập 3 (Kiểm thử & Đóng gói Prototype):** `v1.0` (https://github.com/Johnny120905/CDTN01/releases/tag/v1.0)
 
 ---
 
@@ -21,7 +22,7 @@ Nếu máy tính đã bật **Docker Desktop**, dựng toàn bộ **Website SPA 
 Copy-Item .env.example .env -ErrorAction SilentlyContinue   # macOS/Linux: cp -n .env.example .env
 docker compose up -d --build
 ```
-👉 Mở trình duyệt truy cập ngay: **http://localhost:8000/** *(Tài liệu Swagger OpenAPI: **http://localhost:8000/docs** — Chạy 43 ca kiểm thử: `docker compose exec mekong-l5-app pytest tests/ -v`)*.
+👉 Mở trình duyệt truy cập ngay: **http://localhost:8000/** *(Tài liệu Swagger OpenAPI: **http://localhost:8000/docs** — Chạy toàn bộ 67 ca kiểm thử tự động: `docker compose exec mekong-l5-app pytest tests/ -v`)*.
 
 ---
 

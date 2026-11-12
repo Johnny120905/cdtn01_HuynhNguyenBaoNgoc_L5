@@ -15,6 +15,7 @@
 | **BUG-02** | **MAJOR** | Lỗ hổng bỏ quên kiểm tra thời hạn hiệu lực 10 phút của mã OTP xác thực khôi phục mật khẩu. | `src/routes/inventory.routes.py` (`verify_otp_endpoint`, `reset_password`) | **ĐÃ SỬA TRIỆT ĐỂ** |
 | **BUG-03** | **MAJOR** | Docker Compose thiếu Healthcheck cho dịch vụ MongoDB và thiếu tự động nạp seed khi khởi dựng máy trắng. | `docker-compose.yml`, `Dockerfile` | **ĐÃ SỬA TRIỆT ĐỂ** |
 | **BUG-04** | **MAJOR** | Bảng cảnh báo thiếu hàng của Quản lý kho hiển thị `undefined` ở cột tồn kho do đọc sai tên thuộc tính. | `src/static/app.js` (`renderManagerDashboard`) | **ĐÃ SỬA TRIỆT ĐỂ** |
+| **BUG-05** | **CRITICAL** | API chưa đủ 4 thao tác CRUD (thiếu hoàn toàn thao tác xóa DELETE), không đạt tiêu chí SE S1. | `src/repositories/inventory.repository.py`, `src/services/inventory.service.py`, `src/routes/inventory.routes.py` | **ĐÃ SỬA TRIỆT ĐỂ** |
 
 ---
 
@@ -91,3 +92,23 @@
 7. **Link commit và xác nhận:**
    - Commit: `23f1563` (Thông điệp: `docs(readme): hoan thien README goc doi chieu BT1-BT2-BT3, sua hien thi canh bao kho va cap nhat ho so (v0.2)`).
    - Xác nhận: Kiểm tra giao diện Dashboard Quản lý kho hiển thị số tồn kho sắc nét (ví dụ: *"Tồn hiện tại: 8 / Ngưỡng: 10"*), tỷ lệ chữ `undefined` trên toàn hệ thống bằng đúng `0%`.
+
+---
+
+### BUG-05: Hệ thống thiếu hoàn toàn thao tác Xóa (DELETE), không đạt tiêu chí SE S1 trong Bảng 4.2 BT2
+1. **Mã và mức độ:** `BUG-05` — **CRITICAL** (Không thỏa mãn tiêu chí kỹ thuật tối thiểu chuyên ngành [SE] S1 theo Bảng 4.2).
+2. **Phát hiện bởi test case nào:** Phát hiện qua phản hồi nhận xét trực tiếp của Giảng viên hướng dẫn (TS. Nguyễn Trí Hải) tại Bài tập 2: *"API chưa đủ bốn thao tác CRUD (không có xoá). Mục kiểm chứng (bảng 4.2) chưa đạt: S1"*.
+3. **Triệu chứng:** Hệ thống chỉ có các phương thức `GET` và `POST`/`PUT` cập nhật ngưỡng; không có bất kỳ endpoint `DELETE` nào để gỡ bỏ linh kiện hư hại lỗi thời hoặc xóa tài khoản nhân sự nghỉ việc. Khi gọi `DELETE /api/v1/inventory/parts/{part_code}` hoặc `DELETE /api/v1/inventory/users/{email}`, máy chủ trả về mã HTTP `405 Method Not Allowed`.
+4. **Cách tái lập:**
+   - Bước 1: Gửi request `DELETE /api/v1/inventory/parts/PRT-IP15-SCR` kèm Bearer Token Quản lý kho.
+   - Bước 2: Quan sát mã trạng thái phản hồi.
+   - Kết quả: Máy chủ trả về HTTP 405 Method Not Allowed do chưa khai báo Route tiếp nhận.
+5. **Nguyên nhân:** Khi hiện thực hóa Sprint 2 ở BT2, nhóm phát triển ưu tiên luồng giao dịch xuất nhập kho nên chỉ hiện thực thao tác Read/Update ngưỡng và Import nhân sự mà chưa xây dựng đầy đủ 4 thao tác CRUD chuẩn hóa cho 2 thực thể cốt lõi `part` và `users`.
+6. **Cách sửa:**
+   - Tại `src/repositories/inventory.repository.py`: Bổ sung `create_part()`, `update_part()`, `delete_part()`, `update_user_profile()`, `delete_user()`.
+   - Tại `src/services/inventory.service.py`: Tích hợp các ràng buộc an toàn: Không cho phép xóa linh kiện nếu còn tồn kho thực tế $> 0$ (`ERR_CANNOT_DELETE_ACTIVE_STOCK`); cấm Quản lý tự xóa tài khoản của chính mình (`ERR_CANNOT_DELETE_SELF`).
+   - Tại `src/routes/inventory.routes.py`: Khai báo đủ 8 endpoints CRUD mới cho `parts` và `users`.
+   - Viết bộ kiểm thử chuyên biệt `tests/se_s1_crud.test.py` với 11 test cases kiểm thử tự động toàn diện.
+7. **Link commit và xác nhận:**
+   - Commit: `04a015b` (Thông điệp: `fix(bt2): khac phuc toan dien nhan xet BT2 - bo sung CRUD S1 (thao tac xoa cho part va users), bao cao chuan 7 muc 8 trang, giu tag v0.2 ban nop 29/10`).
+   - Xác nhận: 11/11 ca kiểm thử trong `tests/se_s1_crud.test.py` đạt **100% PASSED**. Đạt chuẩn tiêu chí `[SE] S1` trong Bảng 4.2.

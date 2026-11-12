@@ -26,6 +26,7 @@
 | **TC-10** *(Bảo mật SE - S2: A01 OWASP)* | Tài khoản đăng nhập mang Token của Chi nhánh Quận 3 (`L5-WH-891`). | 1. Người dùng gửi request kèm `center_id: "L5-WH-890"` để truy vấn kho khác. | `Header Bearer Token center: L5-WH-891`, `body center_id: L5-WH-890`. | HTTP 403 Forbidden, báo lỗi `ERR_UNAUTHORIZED_CENTER`, chặn truy cập chéo. | **CRITICAL** | HTTP 403 `ERR_UNAUTHORIZED_CENTER`, từ chối truy cập ngoài trung tâm. | **PASS** |
 | **TC-11** *(Bảo mật SE - S3: Băm mật khẩu)* | Đăng ký tài khoản mới hoặc yêu cầu khôi phục mật khẩu. | 1. Đăng ký tài khoản với mật khẩu dạng rõ `Password123@`.<br>2. Kiểm tra bản ghi CSDL. | `email: "sec.tech@gmail.com"`, `password: "Password123@"`. | Trong CSDL chỉ có trường `password_hash` (chuỗi hex SHA-256), không có trường `password`. | **CRITICAL** | CSDL chỉ lưu `password_hash`, không lưu plaintext `password`, API không lộ mật khẩu. | **PASS** |
 | **TC-12** *(Tái lập C8: Lũy đẳng Seed)* | Hệ thống đã khởi tạo xong dữ liệu mẫu ban đầu qua script seed. | 1. Chạy lệnh `python seeds/seed.py` lần 1.<br>2. Chạy lại `python seeds/seed.py` lần 2. | File `seeds/001_seed_parts_demo.json` (40 linh kiện, 75 tồn kho). | Lần 2 hoàn thành 100% không báo lỗi, tổng số linh kiện giữ nguyên đúng 40 loại, không nhân đôi. | **CRITICAL** | Lần 2 thực thi thành công, số lượng bản ghi giữ nguyên tuyệt đối (Idempotent). | **PASS** |
+| **TC-13** *(SE - S1: CRUD Part & User)* | Quản lý kho có quyền quản trị danh mục và tài khoản nhân sự. | 1. Tạo mới part/user.<br>2. Đọc chi tiết.<br>3. Cập nhật thông tin.<br>4. Thử xóa khi còn tồn kho / tự xóa chính mình.<br>5. Xóa an toàn khi tồn kho = 0. | `POST`, `GET`, `PUT`, `DELETE` trên `/api/v1/inventory/parts` và `/api/v1/inventory/users`. | Bước 1-3 thành công (201, 200); bước 4 bị chặn an toàn với HTTP 400 (`ERR_CANNOT_DELETE_ACTIVE_STOCK` / `ERR_CANNOT_DELETE_SELF`); bước 5 xóa thành công 200 OK. | **CRITICAL** | Hoàn thành trọn vẹn đủ 4 thao tác CRUD cho 2 thực thể, ràng buộc bảo vệ hoạt động chính xác 100%. | **PASS** |
 
 ---
 
@@ -33,24 +34,18 @@
 
 ```text
 ============================= test session starts =============================
-platform win32 -- Python 3.11.5, pytest-9.2.0, pluggy-1.7.0
+platform win32 -- Python 3.11.5, pytest-9.1.1, pluggy-1.6.0
 rootdir: D:\Hoc\DH\N4\N4.HK01\Chuyende1\CDTN01
 configfile: pytest.ini
-collected 13 items
+plugins: anyio-4.15.1
+collected 67 items
 
-tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints::test_01_return_transaction_happy_path PASSED [  7%]
-tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints::test_02a_boundary_stock_export_exact_available PASSED [ 15%]
-tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints::test_02b_boundary_stock_export_exceed_by_one PASSED [ 23%]
-tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints::test_03a_boundary_threshold_alert_exact_equal PASSED [ 30%]
-tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints::test_03b_boundary_threshold_alert_above_by_one PASSED [ 38%]
-tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints::test_04_boundary_quantity_validator_limits PASSED [ 46%]
-tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints::test_05_boundary_threshold_validator_limits PASSED [ 53%]
-tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints::test_06_reject_export_with_completed_or_cancelled_ticket PASSED [ 61%]
-tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints::test_07_reject_export_with_nonexistent_ticket PASSED [ 69%]
-tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints::test_08_optimistic_locking_race_condition_detection PASSED [ 76%]
-tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints::test_09_security_s3_password_never_stored_as_plaintext PASSED [ 84%]
-tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints::test_10_security_s4_error_response_no_stack_trace PASSED [ 92%]
-tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints::test_11_reproducibility_c8_idempotent_seed_run PASSED [100%]
+tests/auth_and_user.test.py::TestAuthAndUserManagement (15 tests) ............... PASSED [ 22%]
+tests/bt3_specification_and_constraints.test.py::TestBT3SpecificationAndConstraints (13 tests) ............. PASSED [ 41%]
+tests/cross_role_and_ui.test.py::TestCrossRoleAndUI (15 tests) ............... PASSED [ 64%]
+tests/inventory.routes.test.py::TestInventoryRoutes (6 tests) ...... PASSED [ 73%]
+tests/inventory.service.test.py::TestInventoryService (7 tests) ....... PASSED [ 83%]
+tests/se_s1_crud.test.py::TestSES1CRUD (11 tests) ........... PASSED [100%]
 
-============================= 13 passed in 0.39s ==============================
+======================== 67 passed, 1 warning in 3.09s ========================
 ```
