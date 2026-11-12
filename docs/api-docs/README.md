@@ -5,6 +5,7 @@
 - **API Base URL:** `http://localhost:8000/api/v1`
 - **Interactive OpenAPI Documentation:** `http://localhost:8000/docs` (Swagger UI) & `http://localhost:8000/redoc` (ReDoc)
 - **JSON Specification File:** [docs/api-docs/openapi.json](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/api-docs/openapi.json)
+- **Repository:** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git
 
 ---
 

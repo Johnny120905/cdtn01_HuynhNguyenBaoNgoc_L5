@@ -602,8 +602,11 @@ def build_bt3_docx():
     doc.save(out_path_docs)
     print(f"Saved: {out_path_docs}")
     if os.path.exists(os.path.dirname(out_path_tailieu)):
-        doc.save(out_path_tailieu)
-        print(f"Saved: {out_path_tailieu}")
+        try:
+            doc.save(out_path_tailieu)
+            print(f"Saved: {out_path_tailieu}")
+        except PermissionError:
+            print(f"Notice: {out_path_tailieu} is currently open in Word. Skipping overwrite of copy in Tailieu.")
 
 if __name__ == "__main__":
     build_bt3_docx()

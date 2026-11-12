@@ -6,6 +6,7 @@
 - **Track:** Công nghệ phần mềm (SE)
 - **Sinh viên thực hiện:** Huỳnh Nguyễn Bảo Ngọc – `2374802010339`
 - **Giảng viên hướng dẫn:** TS. Nguyễn Trí Hải
+- **Kho mã nguồn GitHub chính thức:** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git
 - **Tài liệu liên quan:** [srs.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/srs.md) | [thietke.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/thietke.md) | [api-contract.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/api-contract.md) | [BT2.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/BT2.md) | [test.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/test.md) | [README.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/README.md)
 
 ---

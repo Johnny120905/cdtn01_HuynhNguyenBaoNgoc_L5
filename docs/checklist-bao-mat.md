@@ -4,6 +4,7 @@
 - **Hệ thống:** Smart CRM – Mekong Mobile | **Luồng 05:** Kho linh kiện thay thế
 - **Chuyên ngành:** Công nghệ phần mềm (`Track SE`)
 - **Sinh viên:** Huỳnh Nguyễn Bảo Ngọc — **MSSV:** `2374802010339` | **Lớp:** `261_71ITGR40203_06`
+- **Kho mã nguồn GitHub chính thức:** https://github.com/Johnny120905/cdtn01_HuynhNguyenBaoNgoc_L5.git
 - **Quy tắc đánh giá:** Mỗi mục chỉ nhận 1 trong 3 trạng thái (`ĐÃ LÀM` / `CHƯA LÀM` / `KHÔNG ÁP DỤNG`) kèm **01 dòng minh chứng cụ thể**.
 
 ---
