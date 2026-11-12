@@ -13,7 +13,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: mekong_crm_l5_app
     restart: unless-stopped
     ports:
       - "8000:8000"
@@ -39,7 +38,6 @@ services:
   # ----------------------------------------------------------------------------
   mongodb:
     image: mongo:7.0
-    container_name: mekong_crm_l5_mongodb
     restart: unless-stopped
     ports:
       - "27017:27017"
