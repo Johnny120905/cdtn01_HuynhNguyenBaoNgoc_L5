@@ -22,7 +22,7 @@ Nếu máy tính đã bật **Docker Desktop**, dựng toàn bộ **Website SPA 
 Copy-Item .env.example .env -ErrorAction SilentlyContinue   # macOS/Linux: cp -n .env.example .env
 docker compose up -d --build
 ```
-👉 Mở trình duyệt truy cập ngay: **http://localhost:8000/** *(Tài liệu Swagger OpenAPI: **http://localhost:8000/docs** — Chạy toàn bộ 67 ca kiểm thử tự động: `docker compose exec mekong-l5-app pytest tests/ -v`)*.
+👉 Mở trình duyệt truy cập ngay: **http://localhost:8000/** *(Tài liệu Swagger OpenAPI: **http://localhost:8000/docs** — Chạy toàn bộ 67 ca kiểm thử tự động: `docker compose exec app pytest tests/ -v`)*.
 
 ---
 
@@ -699,10 +699,10 @@ docker compose up -d --build
 docker compose ps
 
 # Bước 4: Kiểm chứng nạp dữ liệu mẫu lần thứ 2 liên tiếp không lỗi, không nhân đôi bản ghi (Tiêu chí C5)
-docker compose exec mekong-l5-app python seeds/seed.py
+docker compose exec app python seeds/seed.py
 
 # Bước 5: Thực thi toàn bộ 56 ca kiểm thử tự động ngay bên trong container (Kết quả: 56 passed)
-docker compose exec mekong-l5-app pytest tests/ -v
+docker compose exec app pytest tests/ -v
 ```
 
 **Các lệnh quản trị Docker tiện ích khác:**

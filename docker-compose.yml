@@ -9,7 +9,7 @@ services:
   # ----------------------------------------------------------------------------
   # 1. DỊCH VỤ ỨNG DỤNG CHÍNH (FASTAPI BACKEND + SPA DARK 3D FRONTEND)
   # ----------------------------------------------------------------------------
-  mekong-l5-app:
+  app:
     build:
       context: .
       dockerfile: Dockerfile

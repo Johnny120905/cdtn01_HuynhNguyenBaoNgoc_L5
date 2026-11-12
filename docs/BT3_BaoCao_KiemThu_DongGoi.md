@@ -169,7 +169,7 @@ docker compose up -d --build
 3. **API Documentation:** Open `http://localhost:8000/docs` $\rightarrow$ Swagger UI loads with 22 operational endpoints.
 4. **Run Automated Test Suite:**
    ```bash
-   docker compose exec mekong-l5-app pytest tests/ -v
+   docker compose exec app pytest tests/ -v
    # Or locally: pytest tests/ -v
    # Result: 67 passed, 100% PASS in ~3.0 seconds
    ```

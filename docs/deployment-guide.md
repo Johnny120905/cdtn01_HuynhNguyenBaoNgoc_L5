@@ -100,7 +100,7 @@ curl -s http://localhost:8000/health
 
 ### 5.4. Execute Automated Test Suite Inside Container
 ```bash
-docker compose exec mekong-l5-app pytest tests/ -v
+docker compose exec app pytest tests/ -v
 ```
 **Expected Output:**
 ```text
@@ -109,7 +109,7 @@ docker compose exec mekong-l5-app pytest tests/ -v
 
 ### 5.5. Test Idempotency (Re-running Seed)
 ```bash
-docker compose exec mekong-l5-app python seeds/seed.py
+docker compose exec app python seeds/seed.py
 ```
 **Expected Output:** Exits with `0` errors; the database retains exactly 40 parts and 75 stock records without duplicating records.
 
