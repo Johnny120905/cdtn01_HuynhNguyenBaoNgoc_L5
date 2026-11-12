@@ -264,6 +264,90 @@ class InventoryRepository:
                     return True
             return False
 
+    def create_part(self, part_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Tạo mới một linh kiện vào danh mục kho (CRUD: Create - Tiêu chí S1)."""
+        from src.errors.AppError import AppError
+        part_code = part_data["part_code"].strip()
+        existing = self.find_part(part_code)
+        if existing:
+            raise AppError(status_code=400, error_code="ERR_PART_EXISTS", message=f"Mã linh kiện '{part_code}' đã tồn tại trong danh mục.")
+        
+        doc = copy.deepcopy(part_data)
+        doc["part_code"] = part_code
+        if self.is_connected and self.db is not None:
+            self.db.part.insert_one(copy.deepcopy(doc))
+        else:
+            self._memory_store.setdefault("part", []).append(copy.deepcopy(doc))
+        
+        # Tự động khởi tạo tồn kho 0 cái cho linh kiện mới tại chi nhánh mặc định
+        center_id = doc.get("center_id", "L5-WH-890")
+        min_thresh = doc.get("min_threshold", 10)
+        stock_doc = {
+            "center_id": center_id,
+            "part_code": part_code,
+            "quantity": 0,
+            "min_threshold": min_thresh,
+            "version": 1,
+            "updated_at": datetime.utcnow()
+        }
+        if self.is_connected and self.db is not None:
+            self.db.part_stock.replace_one({"center_id": center_id, "part_code": part_code}, stock_doc, upsert=True)
+        else:
+            stocks = self._memory_store.setdefault("part_stock", [])
+            stocks = [s for s in stocks if not (s.get("center_id") == center_id and s.get("part_code") == part_code)]
+            stocks.append(stock_doc)
+            self._memory_store["part_stock"] = stocks
+
+        return doc
+
+    def update_part(self, part_code: str, update_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Cập nhật thông tin linh kiện trong danh mục (CRUD: Update - Tiêu chí S1)."""
+        part_code = part_code.strip()
+        existing = self.find_part(part_code)
+        if not existing:
+            return None
+
+        update_fields = {k: v for k, v in update_data.items() if k not in ["_id", "part_code"]}
+        if not update_fields:
+            return existing
+
+        if self.is_connected and self.db is not None:
+            self.db.part.update_one({"part_code": part_code}, {"$set": update_fields})
+            return self.find_part(part_code)
+        else:
+            for item in self._memory_store.get("part", []):
+                if item.get("part_code") == part_code:
+                    item.update(update_fields)
+                    return copy.deepcopy(item)
+            return None
+
+    def delete_part(self, part_code: str) -> bool:
+        """Xóa linh kiện khỏi danh mục kho (CRUD: Delete - Tiêu chí S1)."""
+        from src.errors.AppError import AppError
+        part_code = part_code.strip()
+        existing = self.find_part(part_code)
+        if not existing:
+            raise AppError(status_code=404, error_code="ERR_PART_NOT_FOUND", message=f"Không tìm thấy linh kiện '{part_code}' để xóa.")
+
+        # Kiểm tra tồn kho thực tế: Nếu tồn kho > 0 tại bất kỳ chi nhánh nào, không cho phép xóa
+        if self.is_connected and self.db is not None:
+            stocks = list(self.db.part_stock.find({"part_code": part_code}))
+            active_stock = any(s.get("quantity", 0) > 0 for s in stocks)
+            if active_stock:
+                raise AppError(status_code=400, error_code="ERR_CANNOT_DELETE_ACTIVE_STOCK",
+                               message=f"Không thể xóa linh kiện '{part_code}' vì vẫn còn tồn kho thực tế > 0. Vui lòng xuất hết tồn kho trước khi xóa.")
+            self.db.part.delete_one({"part_code": part_code})
+            self.db.part_stock.delete_many({"part_code": part_code})
+            return True
+        else:
+            stocks = [s for s in self._memory_store.get("part_stock", []) if s.get("part_code") == part_code]
+            if any(s.get("quantity", 0) > 0 for s in stocks):
+                raise AppError(status_code=400, error_code="ERR_CANNOT_DELETE_ACTIVE_STOCK",
+                               message=f"Không thể xóa linh kiện '{part_code}' vì vẫn còn tồn kho thực tế > 0. Vui lòng xuất hết tồn kho trước khi xóa.")
+            self._memory_store["part"] = [p for p in self._memory_store.get("part", []) if p.get("part_code") != part_code]
+            self._memory_store["part_stock"] = [s for s in self._memory_store.get("part_stock", []) if s.get("part_code") != part_code]
+            return True
+
     # ==============================================================================
     # 3. THAO TÁC TRÊN COLLECTION: ticket (Phiếu bảo hành)
     # ==============================================================================
@@ -571,6 +655,46 @@ class InventoryRepository:
         if imported_count > 0:
             self._save_users_to_disk()
         return imported_count
+
+    def update_user_profile(self, email: str, update_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Cập nhật thông tin nhân sự (CRUD: Update - Tiêu chí S1)."""
+        clean_email = email.strip().lower()
+        existing = self.find_user_by_email(clean_email)
+        if not existing:
+            return None
+
+        update_fields = {k: v for k, v in update_data.items() if k not in ["_id", "email", "password_hash"]}
+        if not update_fields:
+            return existing
+
+        if self.is_connected and self.db is not None:
+            self.db.users.update_one({"email": clean_email}, {"$set": update_fields})
+        
+        for item in self._memory_store.get("users", []):
+            if item.get("email", "").lower() == clean_email:
+                item.update(update_fields)
+                break
+        
+        self._save_users_to_disk()
+        updated_user = self.find_user_by_email(clean_email)
+        if updated_user:
+            updated_user.pop("password_hash", None)
+        return updated_user
+
+    def delete_user(self, email: str) -> bool:
+        """Xóa tài khoản nhân sự khỏi hệ thống (CRUD: Delete - Tiêu chí S1)."""
+        from src.errors.AppError import AppError
+        clean_email = email.strip().lower()
+        existing = self.find_user_by_email(clean_email)
+        if not existing:
+            raise AppError(status_code=404, error_code="ERR_USER_NOT_FOUND", message=f"Không tìm thấy tài khoản '{clean_email}' để xóa.")
+
+        if self.is_connected and self.db is not None:
+            self.db.users.delete_one({"email": clean_email})
+        
+        self._memory_store["users"] = [u for u in self._memory_store.get("users", []) if u.get("email", "").lower() != clean_email]
+        self._save_users_to_disk()
+        return True
 
 
     # ==============================================================================

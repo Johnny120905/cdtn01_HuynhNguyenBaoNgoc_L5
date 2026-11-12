@@ -1,81 +1,1506 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Smart CRM - Mekong Mobile | Spare Parts Inventory Subsystem (L5)",
-    "version": "1.0.0",
-    "description": "RESTful API specification for spare parts stock lookup, transactions, and role management."
+    "title": "Smart CRM - Mekong Mobile | Luồng 05: Quản lý Kho linh kiện",
+    "description": "Hệ thống quản lý kho linh kiện thay thế, tra cứu tồn kho real-time và xuất kho bảo hành.",
+    "version": "1.0.0"
   },
   "paths": {
     "/api/v1/inventory/stock/{part_code}": {
       "get": {
-        "summary": "Query stock by part code",
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Get Stock By Part Code",
+        "description": "Mô tả: Lấy thông tin số lượng tồn kho thực tế của một linh kiện tại trung tâm hiện tại.\nKhớp 100% với đặc tả API 1 trong docs/api-contract.md.\n\nMethod: GET\nEndpoint: /api/v1/inventory/stock/{part_code}\n\nPhản hồi thành công (200 OK):\n  {\n    \"status\": \"success\",\n    \"data\": {\n      \"center_id\": \"L5-WH-890\",\n      \"part_code\": \"SCR-IP14-01\",\n      \"part_name\": \"Màn hình OLED iPhone 14 Pro Max\",\n      \"quantity\": 12,\n      \"min_threshold\": 15,\n      \"status_flag\": \"WARNING\"\n    }\n  }",
+        "operationId": "get_stock_by_part_code_api_v1_inventory_stock__part_code__get",
         "parameters": [
           {
             "name": "part_code",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "title": "Part Code"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful stock retrieval"
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
           },
-          "400": {
-            "description": "Invalid input"
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
           }
         }
       }
     },
     "/api/v1/inventory/transactions": {
       "post": {
-        "summary": "Create inventory transaction",
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Create Transaction Route",
+        "description": "Mô tả: Tạo một giao dịch làm biến động số lượng tồn kho (Nhập / Xuất / Hoàn trả).\nKhớp 100% với đặc tả API 2 trong docs/api-contract.md.\n\nMethod: POST\nEndpoint: /api/v1/inventory/transactions\n\nRequest Body:\n  {\n    \"part_code\": \"SCR-IP14-01\",\n    \"type\": \"OUT\",\n    \"quantity\": 1,\n    \"ticket_id\": \"TK-2026-8892\"\n  }\n  \nPhản hồi thành công (201 Created):\n  {\n    \"status\": \"success\",\n    \"message\": \"Giao dịch thành công, số dư kho đã được cập nhật.\",\n    \"data\": {\n      \"transaction_id\": 884920,\n      \"created_at\": \"2026-10-27T10:42:15Z\"\n    }\n  }",
+        "operationId": "create_transaction_route_api_v1_inventory_transactions_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object"
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Payload"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Transaction created"
-          },
-          "400": {
-            "description": "Negative stock"
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
           },
           "422": {
-            "description": "Invalid ticket"
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Get Transactions Route",
+        "description": "Lấy danh sách Nhật ký giao dịch đối soát (FR-05 Audit Log).",
+        "operationId": "get_transactions_route_api_v1_inventory_transactions_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
           }
         }
       }
     },
     "/api/v1/inventory/parts/{part_code}/threshold": {
       "put": {
-        "summary": "Update safety threshold",
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Update Threshold Route",
+        "description": "Mô tả: Thiết lập lại số lượng tối thiểu trước khi báo động đỏ cho một linh kiện.\nKhớp 100% với đặc tả API 3 trong docs/api-contract.md.\nQuyền này chỉ dành riêng cho Quản lý kho (ACT-03).\n\nMethod: PUT\nEndpoint: /api/v1/inventory/parts/{part_code}/threshold\n\nPhản hồi thành công (200 OK):\n  {\n    \"status\": \"success\",\n    \"message\": \"Đã cập nhật ngưỡng an toàn thành 10 cái.\"\n  }",
+        "operationId": "update_threshold_route_api_v1_inventory_parts__part_code__threshold_put",
         "parameters": [
           {
             "name": "part_code",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "title": "Part Code"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/inventory/parts": {
+      "get": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Get Parts Catalog Route",
+        "description": "Lấy toàn bộ danh mục linh kiện hệ thống phục vụ tìm kiếm và lập giao dịch (CRUD: Read All).",
+        "operationId": "get_parts_catalog_route_api_v1_inventory_parts_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Threshold updated"
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
           },
-          "403": {
-            "description": "Forbidden"
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Create Part Route",
+        "description": "Thêm mới một linh kiện vào danh mục kho (CRUD: Create - Tiêu chí SE S1).\nPhân quyền: MANAGER hoặc MATERIAL_STAFF.",
+        "operationId": "create_part_route_api_v1_inventory_parts_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/inventory/parts/{part_code}": {
+      "get": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Get Part Detail Route",
+        "description": "Tra cứu thông tin chi tiết một linh kiện theo mã (CRUD: Read Detail - Tiêu chí SE S1).",
+        "operationId": "get_part_detail_route_api_v1_inventory_parts__part_code__get",
+        "parameters": [
+          {
+            "name": "part_code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Part Code"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Update Part Route",
+        "description": "Cập nhật thông tin linh kiện trong danh mục kho (CRUD: Update - Tiêu chí SE S1).\nPhân quyền: MANAGER hoặc MATERIAL_STAFF.",
+        "operationId": "update_part_route_api_v1_inventory_parts__part_code__put",
+        "parameters": [
+          {
+            "name": "part_code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Part Code"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Delete Part Route",
+        "description": "Xóa linh kiện khỏi danh mục kho (CRUD: Delete - Tiêu chí SE S1).\nPhân quyền: Chỉ MANAGER.\nRàng buộc an toàn: Không cho phép xóa nếu linh kiện vẫn còn tồn kho thực tế > 0.",
+        "operationId": "delete_part_route_api_v1_inventory_parts__part_code__delete",
+        "parameters": [
+          {
+            "name": "part_code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Part Code"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/inventory/stock": {
+      "get": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Get All Stocks Route",
+        "description": "Lấy toàn bộ danh sách tồn kho vật lý tại trung tâm (có cờ WARNING theo BR-05).",
+        "operationId": "get_all_stocks_route_api_v1_inventory_stock_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/inventory/alerts/threshold": {
+      "get": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Get Alerts Route",
+        "description": "Lấy danh sách các linh kiện đang chạm ngưỡng an toàn hoặc cạn kho (Cờ đỏ).",
+        "operationId": "get_alerts_route_api_v1_inventory_alerts_threshold_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/inventory/alerts": {
+      "get": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Get Alerts Route",
+        "description": "Lấy danh sách các linh kiện đang chạm ngưỡng an toàn hoặc cạn kho (Cờ đỏ).",
+        "operationId": "get_alerts_route_api_v1_inventory_alerts_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/inventory/tickets": {
+      "get": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Get Tickets Route",
+        "description": "Lấy danh sách các phiếu bảo hành hợp lệ phục vụ chọn phiếu khi Xuất kho.",
+        "operationId": "get_tickets_route_api_v1_inventory_tickets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/inventory/dashboard": {
+      "get": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Get Dashboard Route",
+        "description": "Lấy thông tin tổng quan các chỉ số đo lường KPI kho.",
+        "operationId": "get_dashboard_route_api_v1_inventory_dashboard_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/inventory/users": {
+      "get": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Get Users Route",
+        "description": "Lấy toàn bộ danh sách nhân sự (Chỉ dành cho Quản lý kho).",
+        "operationId": "get_users_route_api_v1_inventory_users_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Create User Route",
+        "description": "Thêm mới một tài khoản nhân sự (CRUD: Create - Tiêu chí SE S1).\nPhân quyền: Chỉ MANAGER mới có quyền thêm nhân sự.",
+        "operationId": "create_user_route_api_v1_inventory_users_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/inventory/users/subordinates": {
+      "get": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Get Subordinate Users Route",
+        "description": "Lấy danh sách nhân sự cấp dưới trực thuộc kho:\nBắt buộc chỉ hiển thị Nhân viên kỹ thuật (TECH_STAFF) và Nhân viên vật tư (MATERIAL_STAFF).\nKhông hiển thị tài khoản Quản lý kho khác.",
+        "operationId": "get_subordinate_users_route_api_v1_inventory_users_subordinates_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/inventory/users/import": {
+      "post": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Import Users Route",
+        "description": "Nhập dữ liệu nhân sự (Nhân viên kỹ thuật & Nhân viên vật tư) từ file danh sách Excel/CSV/JSON.\nChỉ dành riêng cho Quản lý kho.",
+        "operationId": "import_users_route_api_v1_inventory_users_import_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/inventory/users/{email}": {
+      "get": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Get User Detail Route",
+        "description": "Tra cứu thông tin chi tiết một nhân sự theo email (CRUD: Read Detail - Tiêu chí SE S1).\nPhân quyền: MANAGER hoặc chính người dùng sở hữu tài khoản.",
+        "operationId": "get_user_detail_route_api_v1_inventory_users__email__get",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Email"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Update User Route",
+        "description": "Cập nhật thông tin hồ sơ nhân sự (CRUD: Update - Tiêu chí SE S1).\nPhân quyền: Chỉ MANAGER.",
+        "operationId": "update_user_route_api_v1_inventory_users__email__put",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Email"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Inventory Management"
+        ],
+        "summary": "Delete User Route",
+        "description": "Xóa tài khoản nhân sự khỏi hệ thống (CRUD: Delete - Tiêu chí SE S1).\nPhân quyền: Chỉ MANAGER.\nRàng buộc an toàn: Không được tự xóa tài khoản của chính mình.",
+        "operationId": "delete_user_route_api_v1_inventory_users__email__delete",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Email"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/register": {
+      "post": {
+        "tags": [
+          "Authentication & Roles"
+        ],
+        "summary": "Register",
+        "description": "Đăng ký cấp quyền người dùng mới:\n  - Họ tên cá nhân\n  - Email cá nhân (email thật, kiểm tra chuẩn regex)\n  - Mật khẩu cá nhân (bắt buộc tối thiểu 8 ký tự)\n  - Cấp quyền vai trò: TECH_STAFF, MATERIAL_STAFF hoặc MANAGER\nSau khi đăng ký sẽ được cấp Token vào thẳng giao diện của role đó, 1 email chỉ cố định 1 role.",
+        "operationId": "register_api_v1_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "type": "object",
+                "title": "Payload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication & Roles"
+        ],
+        "summary": "Login",
+        "description": "Đăng nhập hệ thống:\n  - Email cá nhân\n  - Mật khẩu cá nhân (kiểm tra chuẩn mật khẩu)\nTrả về JWT Token và role của tài khoản đó.",
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "type": "object",
+                "title": "Payload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "tags": [
+          "Authentication & Roles"
+        ],
+        "summary": "Logout",
+        "description": "Đăng xuất tài khoản an toàn: chuyển trạng thái sang Nghỉ sau ca làm (OFF_SHIFT) hoặc Tạm dừng (AWAY).",
+        "operationId": "logout_api_v1_auth_logout_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "default": {},
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/forgot-password": {
+      "post": {
+        "tags": [
+          "Authentication & Roles"
+        ],
+        "summary": "Forgot Password",
+        "description": "Yêu cầu cấp mã OTP khôi phục mật khẩu về email cá nhân:\n  - Email cá nhân hợp lệ\n  - Hệ thống sinh mã OTP 6 số ngẫu nhiên, lưu hạn dùng 10 phút.",
+        "operationId": "forgot_password_api_v1_auth_forgot_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "type": "object",
+                "title": "Payload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/verify-otp": {
+      "post": {
+        "tags": [
+          "Authentication & Roles"
+        ],
+        "summary": "Verify Otp Endpoint",
+        "description": "Xác thực mã OTP 6 số.",
+        "operationId": "verify_otp_endpoint_api_v1_auth_verify_otp_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "type": "object",
+                "title": "Payload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/reset-password": {
+      "post": {
+        "tags": [
+          "Authentication & Roles"
+        ],
+        "summary": "Reset Password",
+        "description": "Đặt lại mật khẩu mới:\n  - Email cá nhân\n  - Mã OTP 6 chữ số\n  - Mật khẩu mới (tối thiểu 8 ký tự)",
+        "operationId": "reset_password_api_v1_auth_reset_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "type": "object",
+                "title": "Payload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "Monitoring"
+        ],
+        "summary": "Health Check",
+        "description": "Endpoint kiểm tra trạng thái hoạt động của dịch vụ.",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Frontend"
+        ],
+        "summary": "Serve Frontend Homepage",
+        "description": "Phục vụ trang chủ giao diện người dùng trực tiếp trên trình duyệt.",
+        "operationId": "serve_frontend_homepage__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
       }
     }
   }

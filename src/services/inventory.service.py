@@ -20,6 +20,7 @@ Kết hợp với:
 """
 
 import time
+import copy
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 from src.repositories import inventory_repository, InventoryRepository
@@ -316,6 +317,75 @@ class InventoryService:
             "today_transactions_count": len(history),
             "operational_status": "Hoạt động bình thường"
         }
+
+    # ==============================================================================
+    # 5. CÁC THAO TÁC CRUD ĐẦY ĐỦ CHO THỰC THỂ PART & USER (TIÊU CHÍ SE S1)
+    # ==============================================================================
+
+    def create_part(self, payload: Dict[str, Any], operator_role: str) -> Dict[str, Any]:
+        """Tạo linh kiện mới trong danh mục kho (Create). Chỉ MANAGER hoặc MATERIAL_STAFF có quyền."""
+        if operator_role not in ["MANAGER", "MATERIAL_STAFF"]:
+            raise UnauthorizedRoleError("Chỉ Quản lý kho hoặc Nhân viên vật tư mới có quyền thêm linh kiện mới vào danh mục.")
+        return self.repo.create_part(payload)
+
+    def get_part_detail(self, part_code: str) -> Dict[str, Any]:
+        """Tra cứu chi tiết linh kiện theo mã (Read). Mọi vai trò đã đăng nhập đều có quyền tra cứu."""
+        clean_code = part_code.strip()
+        part = self.repo.find_part(clean_code)
+        if not part:
+            raise ResourceNotFoundError(f"Không tìm thấy linh kiện với mã '{clean_code}'.")
+        return part
+
+    def update_part(self, part_code: str, payload: Dict[str, Any], operator_role: str) -> Dict[str, Any]:
+        """Cập nhật thông tin linh kiện (Update). Chỉ MANAGER hoặc MATERIAL_STAFF có quyền."""
+        if operator_role not in ["MANAGER", "MATERIAL_STAFF"]:
+            raise UnauthorizedRoleError("Chỉ Quản lý kho hoặc Nhân viên vật tư mới có quyền cập nhật thông tin linh kiện.")
+        clean_code = part_code.strip()
+        updated = self.repo.update_part(clean_code, payload)
+        if not updated:
+            raise ResourceNotFoundError(f"Không tìm thấy linh kiện với mã '{clean_code}' để cập nhật.")
+        return updated
+
+    def delete_part(self, part_code: str, operator_role: str) -> bool:
+        """Xóa linh kiện khỏi danh mục kho (Delete). Chỉ MANAGER có quyền."""
+        if operator_role != "MANAGER":
+            raise UnauthorizedRoleError("Chỉ Quản lý kho mới có quyền xóa linh kiện khỏi hệ thống.")
+        return self.repo.delete_part(part_code)
+
+    def create_user_account(self, payload: Dict[str, Any], operator_role: str) -> Dict[str, Any]:
+        """Tạo mới tài khoản nhân sự (Create). Chỉ MANAGER có quyền tạo nhân sự cấp dưới."""
+        if operator_role != "MANAGER":
+            raise UnauthorizedRoleError("Chỉ Quản lý kho mới có quyền tạo mới tài khoản nhân sự.")
+        return self.repo.create_user(payload)
+
+    def get_user_detail(self, email: str) -> Dict[str, Any]:
+        """Tra cứu chi tiết tài khoản nhân sự theo email (Read)."""
+        clean_email = email.strip().lower()
+        user = self.repo.find_user_by_email(clean_email)
+        if not user:
+            raise ResourceNotFoundError(f"Không tìm thấy tài khoản với email '{clean_email}'.")
+        safe_user = copy.deepcopy(user)
+        safe_user.pop("password_hash", None)
+        return safe_user
+
+    def update_user_profile(self, email: str, payload: Dict[str, Any], operator_role: str) -> Dict[str, Any]:
+        """Cập nhật thông tin tài khoản nhân sự (Update). Chỉ MANAGER có quyền sửa nhân sự cấp dưới."""
+        if operator_role != "MANAGER":
+            raise UnauthorizedRoleError("Chỉ Quản lý kho mới có quyền cập nhật thông tin nhân sự.")
+        clean_email = email.strip().lower()
+        updated = self.repo.update_user_profile(clean_email, payload)
+        if not updated:
+            raise ResourceNotFoundError(f"Không tìm thấy tài khoản với email '{clean_email}' để cập nhật.")
+        return updated
+
+    def delete_user_account(self, email: str, operator_role: str, current_user_email: str) -> bool:
+        """Xóa tài khoản nhân sự (Delete). Chỉ MANAGER có quyền và không được tự xóa chính mình."""
+        if operator_role != "MANAGER":
+            raise UnauthorizedRoleError("Chỉ Quản lý kho mới có quyền xóa tài khoản nhân sự.")
+        clean_email = email.strip().lower()
+        if clean_email == current_user_email.strip().lower():
+            raise AppError(status_code=400, error_code="ERR_CANNOT_DELETE_SELF", message="Bạn không thể tự xóa tài khoản của chính mình.")
+        return self.repo.delete_user(clean_email)
 
 
 # Đối tượng Service dùng chung trong toàn bộ ứng dụng

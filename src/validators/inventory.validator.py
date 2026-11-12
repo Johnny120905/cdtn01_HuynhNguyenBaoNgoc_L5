@@ -465,3 +465,142 @@ def validate_user_import_payload(data: Any) -> list:
 
     return cleaned_users
 
+
+def validate_part_create_payload(data: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Kiểm tra tính hợp lệ khi tạo mới một linh kiện vào danh mục kho (CRUD: Create - Tiêu chí S1).
+    Ràng buộc:
+      - part_code: Bắt buộc, độ dài 3-30 ký tự, định dạng mã chuẩn.
+      - part_name: Bắt buộc, độ dài 2-100 ký tự.
+      - min_threshold: Số nguyên dương >= 1 (mặc định 10).
+    """
+    if not isinstance(data, dict):
+        raise AppError(status_code=400, error_code="ERR_INVALID_BODY", message="Dữ liệu gửi lên phải là một đối tượng JSON hợp lệ.")
+
+    part_code = data.get("part_code")
+    if not part_code or not isinstance(part_code, str) or not part_code.strip():
+        raise AppError(status_code=400, error_code="ERR_INVALID_PART_CODE", message="Mã linh kiện (part_code) là bắt buộc.")
+    clean_code = part_code.strip().upper()
+    if len(clean_code) < 3 or len(clean_code) > 30:
+        raise AppError(status_code=400, error_code="ERR_INVALID_PART_CODE_LENGTH", message="Mã linh kiện phải từ 3 đến 30 ký tự.")
+
+    part_name = data.get("part_name")
+    if not part_name or not isinstance(part_name, str) or not part_name.strip():
+        raise AppError(status_code=400, error_code="ERR_INVALID_PART_NAME", message="Tên linh kiện (part_name) là bắt buộc.")
+    clean_name = part_name.strip()
+    if len(clean_name) < 2 or len(clean_name) > 100:
+        raise AppError(status_code=400, error_code="ERR_INVALID_PART_NAME_LENGTH", message="Tên linh kiện phải từ 2 đến 100 ký tự.")
+
+    min_threshold = data.get("min_threshold", 10)
+    try:
+        min_threshold = int(min_threshold)
+        if min_threshold < 1 or min_threshold > 500:
+            raise ValueError()
+    except (ValueError, TypeError):
+        raise AppError(status_code=400, error_code="ERR_INVALID_THRESHOLD", message="Ngưỡng cảnh báo tối thiểu phải là số nguyên từ 1 đến 500.")
+
+    category = data.get("category", "Linh kiện thay thế")
+    if not isinstance(category, str):
+        category = "Linh kiện thay thế"
+
+    compatible_model = data.get("compatible_model", "Tất cả")
+    if not isinstance(compatible_model, str):
+        compatible_model = "Tất cả"
+
+    supplier = data.get("supplier", "Mekong Official Supplier")
+    if not isinstance(supplier, str):
+        supplier = "Mekong Official Supplier"
+
+    unit = data.get("unit", "Cái")
+    if not isinstance(unit, str):
+        unit = "Cái"
+
+    center_id = data.get("center_id", "L5-WH-890")
+
+    return {
+        "part_code": clean_code,
+        "part_name": clean_name,
+        "category": category.strip(),
+        "compatible_model": compatible_model.strip(),
+        "supplier": supplier.strip(),
+        "unit": unit.strip(),
+        "min_threshold": min_threshold,
+        "center_id": center_id.strip() if isinstance(center_id, str) else "L5-WH-890"
+    }
+
+
+def validate_part_update_payload(data: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Kiểm tra tính hợp lệ khi cập nhật thông tin linh kiện (CRUD: Update - Tiêu chí S1).
+    Không cho phép cập nhật part_code.
+    """
+    if not isinstance(data, dict):
+        raise AppError(status_code=400, error_code="ERR_INVALID_BODY", message="Dữ liệu gửi lên phải là một đối tượng JSON hợp lệ.")
+
+    cleaned = {}
+    if "part_name" in data:
+        val = data["part_name"]
+        if not val or not isinstance(val, str) or len(val.strip()) < 2:
+            raise AppError(status_code=400, error_code="ERR_INVALID_PART_NAME", message="Tên linh kiện phải có ít nhất 2 ký tự.")
+        cleaned["part_name"] = val.strip()
+
+    if "category" in data and isinstance(data["category"], str):
+        cleaned["category"] = data["category"].strip()
+
+    if "compatible_model" in data and isinstance(data["compatible_model"], str):
+        cleaned["compatible_model"] = data["compatible_model"].strip()
+
+    if "supplier" in data and isinstance(data["supplier"], str):
+        cleaned["supplier"] = data["supplier"].strip()
+
+    if "unit" in data and isinstance(data["unit"], str):
+        cleaned["unit"] = data["unit"].strip()
+
+    if "min_threshold" in data:
+        try:
+            th = int(data["min_threshold"])
+            if th < 1 or th > 500:
+                raise ValueError()
+            cleaned["min_threshold"] = th
+        except (ValueError, TypeError):
+            raise AppError(status_code=400, error_code="ERR_INVALID_THRESHOLD", message="Ngưỡng cảnh báo tối thiểu phải là số nguyên từ 1 đến 500.")
+
+    return cleaned
+
+
+def validate_user_update_payload(data: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Kiểm tra tính hợp lệ khi cập nhật thông tin nhân sự (CRUD: Update - Tiêu chí S1).
+    Không cho phép cập nhật email hay password_hash trực tiếp qua endpoint này.
+    """
+    if not isinstance(data, dict):
+        raise AppError(status_code=400, error_code="ERR_INVALID_BODY", message="Dữ liệu gửi lên phải là một đối tượng JSON hợp lệ.")
+
+    cleaned = {}
+    if "full_name" in data:
+        val = data["full_name"]
+        if not val or not isinstance(val, str) or len(val.strip()) < 2:
+            raise AppError(status_code=400, error_code="ERR_INVALID_NAME", message="Họ tên phải có ít nhất 2 ký tự.")
+        cleaned["full_name"] = val.strip()
+        cleaned["name"] = val.strip()
+
+    if "phone" in data and isinstance(data["phone"], str):
+        cleaned["phone"] = data["phone"].strip()
+
+    if "role" in data:
+        val = data["role"]
+        if val not in VALID_ROLES:
+            raise AppError(status_code=400, error_code="ERR_INVALID_ROLE", message=f"Vai trò không hợp lệ. Chỉ chấp nhận: {', '.join(VALID_ROLES)}.")
+        cleaned["role"] = val
+        role_labels = {"MANAGER": "Quản lý kho", "MATERIAL_STAFF": "Nhân viên vật tư", "TECH_STAFF": "Nhân viên kỹ thuật"}
+        cleaned["role_label"] = role_labels.get(val, "Nhân sự kho")
+
+    if "status" in data:
+        val = data["status"]
+        if val not in ["ACTIVE", "INACTIVE", "OFF_SHIFT", "ONLINE", "LOCKED"]:
+            raise AppError(status_code=400, error_code="ERR_INVALID_STATUS", message="Trạng thái nhân sự không hợp lệ.")
+        cleaned["status"] = val
+
+    return cleaned
+
+

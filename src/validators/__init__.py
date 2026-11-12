@@ -21,6 +21,9 @@ validate_forgot_password_payload = getattr(_mod, "validate_forgot_password_paylo
 validate_reset_password_payload = getattr(_mod, "validate_reset_password_payload")
 validate_user_import_payload = getattr(_mod, "validate_user_import_payload",
     "validate_password_complexity")
+validate_part_create_payload = getattr(_mod, "validate_part_create_payload")
+validate_part_update_payload = getattr(_mod, "validate_part_update_payload")
+validate_user_update_payload = getattr(_mod, "validate_user_update_payload")
 validate_password_complexity = getattr(_mod, "validate_password_complexity")
 
 __all__ = [
@@ -32,6 +35,9 @@ __all__ = [
     "validate_forgot_password_payload",
     "validate_reset_password_payload",
     "validate_user_import_payload",
-    "validate_password_complexity"
+    "validate_password_complexity",
+    "validate_part_create_payload",
+    "validate_part_update_payload",
+    "validate_user_update_payload"
 ]
 

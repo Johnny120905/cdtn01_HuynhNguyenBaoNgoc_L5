@@ -31,7 +31,16 @@ The token payload encapsulates `email`, `role` (`TECH_STAFF` | `MATERIAL_STAFF` 
 | `GET` | `/api/v1/inventory/stock` | Query entire stock catalog for current branch | Authenticated |
 | `POST` | `/api/v1/inventory/transactions` | Execute atomic stock transaction (`OUT`, `IN`, `RETURN`) | Role-specific |
 | `PUT` | `/api/v1/inventory/parts/{part_code}/threshold` | Configure safety threshold `min_threshold` | `MANAGER` only |
-| `GET` | `/api/v1/inventory/parts` | Retrieve 40 spare parts catalog metadata | Authenticated |
+| `GET` | `/api/v1/inventory/parts` | Retrieve spare parts catalog metadata (CRUD: Read All) | Authenticated |
+| `POST` | `/api/v1/inventory/parts` | [SE S1] Create new spare part entry (CRUD: Create) | `MANAGER`, `MATERIAL` |
+| `GET` | `/api/v1/inventory/parts/{part_code}` | [SE S1] Retrieve spare part details by code (CRUD: Read Detail) | Authenticated |
+| `PUT` | `/api/v1/inventory/parts/{part_code}` | [SE S1] Update spare part metadata (CRUD: Update) | `MANAGER`, `MATERIAL` |
+| `DELETE` | `/api/v1/inventory/parts/{part_code}` | [SE S1] Delete spare part entry (CRUD: Delete, Guard: Stock=0) | `MANAGER` only |
+| `GET` | `/api/v1/inventory/users` | Retrieve all personnel records | `MANAGER` only |
+| `POST` | `/api/v1/inventory/users` | [SE S1] Create new personnel account (CRUD: Create) | `MANAGER` only |
+| `GET` | `/api/v1/inventory/users/{email}` | [SE S1] Retrieve personnel profile by email (CRUD: Read Detail) | `MANAGER` / Owner |
+| `PUT` | `/api/v1/inventory/users/{email}` | [SE S1] Update personnel profile (CRUD: Update) | `MANAGER` only |
+| `DELETE` | `/api/v1/inventory/users/{email}` | [SE S1] Delete personnel account (CRUD: Delete, Guard: Not Self) | `MANAGER` only |
 | `GET` | `/api/v1/inventory/alerts/threshold` | List spare parts below minimum safety threshold | `MANAGER`, `MATERIAL` |
 | `GET` | `/api/v1/inventory/transactions` | Query immutable audit log records (limit=50) | `MANAGER`, `TECH` |
 | `GET` | `/api/v1/inventory/tickets` | Query active repair tickets (`OPEN`, `IN_PROGRESS`) | Authenticated |
@@ -130,3 +139,29 @@ The token payload encapsulates `email`, `role` (`TECH_STAFF` | `MATERIAL_STAFF` 
    - `403 ERR_UNAUTHORIZED_ROLE`: Non-manager role attempting modification.
    - `404 ERR_RESOURCE_NOT_FOUND`: Part code does not exist.
 7. **Constraints & Limits:** $0 \le min\_threshold \le 100,000$.
+
+---
+
+### 3.4. [SE S1] Spare Parts Catalog CRUD (`/api/v1/inventory/parts`)
+1. **POST `/api/v1/inventory/parts` (Create):** Thêm mới linh kiện vào danh mục. Yêu cầu quyền `MANAGER` hoặc `MATERIAL_STAFF`.
+   - Body: `{"part_code": "PRT-...", "part_name": "...", "min_threshold": 10, ...}`
+   - Trả về 201 Created kèm dữ liệu linh kiện mới tạo.
+2. **GET `/api/v1/inventory/parts/{part_code}` (Read Detail):** Tra cứu thông tin linh kiện theo mã. Trả về 200 OK hoặc 404.
+3. **PUT `/api/v1/inventory/parts/{part_code}` (Update):** Cập nhật tên, danh mục, model tương thích, nhà cung cấp, ngưỡng an toàn. Yêu cầu quyền `MANAGER` hoặc `MATERIAL_STAFF`.
+   - Trả về 200 OK kèm thông tin đã cập nhật.
+4. **DELETE `/api/v1/inventory/parts/{part_code}` (Delete):** Xóa linh kiện khỏi danh mục. Yêu cầu quyền `MANAGER`.
+   - Ràng buộc an toàn: Nếu linh kiện vẫn còn tồn kho thực tế > 0 thì từ chối với lỗi 400 `ERR_CANNOT_DELETE_ACTIVE_STOCK`.
+   - Trả về 200 OK sau khi xóa thành công.
+
+---
+
+### 3.5. [SE S1] Personnel Accounts CRUD (`/api/v1/inventory/users`)
+1. **POST `/api/v1/inventory/users` (Create):** Quản lý kho tạo mới tài khoản nhân sự cấp dưới. Yêu cầu quyền `MANAGER`.
+   - Body: `{"full_name": "...", "email": "...", "password": "...", "role": "TECH_STAFF"|"MATERIAL_STAFF"}`
+   - Trả về 201 Created (tự động băm SHA-256 mật khẩu, không trả về password_hash - Tiêu chí S3).
+2. **GET `/api/v1/inventory/users/{email}` (Read Detail):** Tra cứu hồ sơ nhân sự theo email. Yêu cầu quyền `MANAGER` hoặc chủ tài khoản. Trả về 200 OK.
+3. **PUT `/api/v1/inventory/users/{email}` (Update):** Cập nhật thông tin nhân sự (`full_name`, `phone`, `role`, `status`). Yêu cầu quyền `MANAGER`. Trả về 200 OK.
+4. **DELETE `/api/v1/inventory/users/{email}` (Delete):** Xóa tài khoản nhân sự. Yêu cầu quyền `MANAGER`.
+   - Ràng buộc an toàn: Quản lý không được phép tự xóa tài khoản của chính mình (lỗi 400 `ERR_CANNOT_DELETE_SELF`).
+   - Trả về 200 OK sau khi xóa thành công.
+

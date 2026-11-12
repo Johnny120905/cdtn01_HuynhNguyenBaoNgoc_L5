@@ -11,7 +11,7 @@
     "otp_expires_at": "2026-10-25T14:30:00.000Z",
     "is_active": true,
     "status": "ONLINE",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmFkZGIxM2M3ZGNlOWM2NzA0YTFkZGEyIiwiZW1haWwiOiJxdWFubHlraG8udGVzdEBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJUclx1MWVhN24gVlx1MDEwM24gUXVcdTFlYTNuIExcdTAwZmQiLCJyb2xlIjoiTUFOQUdFUiIsImNlbnRlcl9pZCI6Ikw1LVdILTg5MCIsImV4cCI6MTc5MzQ0NDE5MCwiaWF0IjoxNzkzMzU3NzkwfQ.6uFRbpMI1zUfSUV4-v7PJOxwLbkpXC_joRzhAMEL8bA",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmFkZGIxM2M3ZGNlOWM2NzA0YTFkZGEyIiwiZW1haWwiOiJxdWFubHlraG8udGVzdEBnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJUclx1MWVhN24gVlx1MDEwM24gUXVcdTFlYTNuIExcdTAwZmQiLCJyb2xlIjoiTUFOQUdFUiIsImNlbnRlcl9pZCI6Ikw1LVdILTg5MCIsImV4cCI6MTc5NDU2MjE3MywiaWF0IjoxNzk0NDc1NzczfQ.GNDYvZfa7OWxUWqS1GQ4wx7X-gb_Hy34vWr1U5kNufw",
     "active": 1
   },
   {
@@ -55,9 +55,9 @@
     "center_id": "L5-WH-890",
     "active": 1,
     "is_active": true,
-    "status": "ONLINE",
+    "status": "OFF_SHIFT",
     "created_at": "2026-10-26T09:02:12.454212",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmFkZjE3MTQ1MzdlNWQxNzc3M2VmODZmIiwiZW1haWwiOiJ2dXRoZWxvbmcxMDA5QGdtYWlsLmNvbSIsImZ1bGxfbmFtZSI6IlZcdTAxNjkgVGhcdTFlYmYgTG9uZyIsInJvbGUiOiJURUNIX1NUQUZGIiwiY2VudGVyX2lkIjoiTDUtV0gtODkwIiwiZXhwIjoxNzkzNDM4ODQ4LCJpYXQiOjE3OTMzNTI0NDh9.aAgZxElSACqS6F3lHJ0WTxiDVjyGmfihwyEOWr9-4uc",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmFkZjE3MTQ1MzdlNWQxNzc3M2VmODZmIiwiZW1haWwiOiJ2dXRoZWxvbmcxMDA5QGdtYWlsLmNvbSIsImZ1bGxfbmFtZSI6IlZcdTAxNjkgVGhcdTFlYmYgTG9uZyIsInJvbGUiOiJURUNIX1NUQUZGIiwiY2VudGVyX2lkIjoiTDUtV0gtODkwIiwiZXhwIjoxNzkzNDQ2MTE1LCJpYXQiOjE3OTMzNTk3MTV9.kfzRXZS6VWwz7erWiDZeCGWawcHcvUlA9V_dEjpWEHs",
     "is_verified": true
   },
   {
@@ -88,7 +88,7 @@
     "created_at": "2026-10-25T17:49:11.609716",
     "is_active": true,
     "active": 1,
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmFkZTQxMTc5NWE0OWIzNzQxOTU2NDNjIiwiZW1haWwiOiJodXluaG5ndXllbmJhb25nb2MyazVAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiSHVcdTFlZjNuaCBOZ3V5XHUxZWM1biBCXHUxZWEzbyBOZ1x1MWVjZGMiLCJyb2xlIjoiTUFURVJJQUxfU1RBRkYiLCJjZW50ZXJfaWQiOiJMNS1XSC04OTAiLCJleHAiOjE3OTM0Mzg4NDgsImlhdCI6MTc5MzM1MjQ0OH0.Rhemr2uaVAgHTltGNRJiXSwdMAaUTS44uaWgoTELRPA",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmFkZTQxMTc5NWE0OWIzNzQxOTU2NDNjIiwiZW1haWwiOiJodXluaG5ndXllbmJhb25nb2MyazVAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiSHVcdTFlZjNuaCBOZ3V5XHUxZWM1biBCXHUxZWEzbyBOZ1x1MWVjZGMiLCJyb2xlIjoiTUFURVJJQUxfU1RBRkYiLCJjZW50ZXJfaWQiOiJMNS1XSC04OTAiLCJleHAiOjE3OTM0NDYxOTYsImlhdCI6MTc5MzM1OTc5Nn0.PluMmbd8-NXYO8iXWJSEXkWCwUcC0_KSaeEyeHjzKIg",
     "otp_code": "446806",
     "otp_expires_at": "2026-10-28T11:20:50.877616",
     "username": "huynhnguyenbaongoc2k5",
@@ -109,9 +109,9 @@
     "center_id": "L5-WH-890",
     "active": 1,
     "is_active": true,
-    "status": "ONLINE",
+    "status": "OFF_SHIFT",
     "created_at": "2026-10-26T08:55:19.484359",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmFkZjE1Nzc1MzdlNWQxNzc3M2VmODZlIiwiZW1haWwiOiJsZXRoaXRodXluZ2FuOTg1QGdtYWlsLmNvbSIsImZ1bGxfbmFtZSI6IkxcdTAwZWEgVGhcdTFlY2IgVGh1XHUxZWYzIE5nXHUwMGUybiIsInJvbGUiOiJNQU5BR0VSIiwiY2VudGVyX2lkIjoiTDUtV0gtODkwIiwiZXhwIjoxNzkzNDM4ODQ4LCJpYXQiOjE3OTMzNTI0NDh9.DsCI48UVdY1PKuv15XY3MjanjH-gH3MwFGSJ-hVh04s",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmFkZjE1Nzc1MzdlNWQxNzc3M2VmODZlIiwiZW1haWwiOiJsZXRoaXRodXluZ2FuOTg1QGdtYWlsLmNvbSIsImZ1bGxfbmFtZSI6IkxcdTAwZWEgVGhcdTFlY2IgVGh1XHUxZWYzIE5nXHUwMGUybiIsInJvbGUiOiJNQU5BR0VSIiwiY2VudGVyX2lkIjoiTDUtV0gtODkwIiwiZXhwIjoxNzkzNDQ2MDg0LCJpYXQiOjE3OTMzNTk2ODR9.80hTCY0a3tpt5_f0gwrHyuPgEFdE3K-jVKfBlS7LGfs",
     "is_verified": true
   },
   {
@@ -289,5 +289,53 @@
     "status": "ACTIVE",
     "token": "",
     "created_at": "2026-10-30T10:56:30.434273"
+  },
+  {
+    "_id": "6ae4821ba0247402afbf2bc2",
+    "username": "sec.tech.1793360411432",
+    "name": "Kỹ Thuật Viên Bảo Mật",
+    "full_name": "Kỹ Thuật Viên Bảo Mật",
+    "phone": "0961570243",
+    "email": "sec.tech.1793360411432@gmail.com",
+    "password_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "role": "TECH_STAFF",
+    "role_label": "Nhân viên kỹ thuật",
+    "center_id": "L5-WH-890",
+    "active": 1,
+    "status": "ACTIVE",
+    "token": "",
+    "created_at": "2026-10-30T11:40:11.432466"
+  },
+  {
+    "_id": "6aec59b9963da8b6067957e0",
+    "username": "sec.tech.1793874361993",
+    "name": "Kỹ Thuật Viên Bảo Mật",
+    "full_name": "Kỹ Thuật Viên Bảo Mật",
+    "phone": "0961570243",
+    "email": "sec.tech.1793874361993@gmail.com",
+    "password_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "role": "TECH_STAFF",
+    "role_label": "Nhân viên kỹ thuật",
+    "center_id": "L5-WH-890",
+    "active": 1,
+    "status": "ACTIVE",
+    "token": "",
+    "created_at": "2026-11-05T10:26:01.993307"
+  },
+  {
+    "_id": "6af585c379998d66ece7f29a",
+    "username": "sec.tech.1794475459742",
+    "name": "Kỹ Thuật Viên Bảo Mật",
+    "full_name": "Kỹ Thuật Viên Bảo Mật",
+    "phone": "0961570243",
+    "email": "sec.tech.1794475459742@gmail.com",
+    "password_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "role": "TECH_STAFF",
+    "role_label": "Nhân viên kỹ thuật",
+    "center_id": "L5-WH-890",
+    "active": 1,
+    "status": "ACTIVE",
+    "token": "",
+    "created_at": "2026-11-12T09:24:19.742550"
   }
 ]

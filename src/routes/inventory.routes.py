@@ -34,7 +34,10 @@ from src.validators import (
     validate_login_payload,
     validate_forgot_password_payload,
     validate_reset_password_payload,
-    validate_user_import_payload
+    validate_user_import_payload,
+    validate_part_create_payload,
+    validate_part_update_payload,
+    validate_user_update_payload
 )
 from src.services import inventory_service
 from src.repositories import inventory_repository
@@ -241,11 +244,83 @@ def update_threshold_route(
 
 @router.get("/parts", status_code=status.HTTP_200_OK)
 def get_parts_catalog_route(user: Dict[str, Any] = Depends(get_current_user)):
-    """Lấy toàn bộ danh mục linh kiện hệ thống phục vụ tìm kiếm và lập giao dịch."""
+    """Lấy toàn bộ danh mục linh kiện hệ thống phục vụ tìm kiếm và lập giao dịch (CRUD: Read All)."""
     parts = inventory_repository.find_all_parts()
     return {
         "status": "success",
         "data": parts
+    }
+
+
+@router.post("/parts", status_code=status.HTTP_201_CREATED)
+def create_part_route(
+    payload: Dict[str, Any] = Body(...),
+    user: Dict[str, Any] = Depends(get_current_user)
+):
+    """
+    Thêm mới một linh kiện vào danh mục kho (CRUD: Create - Tiêu chí SE S1).
+    Phân quyền: MANAGER hoặc MATERIAL_STAFF.
+    """
+    role = user.get("role", "TECH_STAFF")
+    cleaned_data = validate_part_create_payload(payload)
+    new_part = inventory_service.create_part(cleaned_data, operator_role=role)
+    return {
+        "status": "success",
+        "message": f"Tạo mới linh kiện '{new_part.get('part_code')}' thành công.",
+        "data": new_part
+    }
+
+
+@router.get("/parts/{part_code}", status_code=status.HTTP_200_OK)
+def get_part_detail_route(
+    part_code: str,
+    user: Dict[str, Any] = Depends(get_current_user)
+):
+    """
+    Tra cứu thông tin chi tiết một linh kiện theo mã (CRUD: Read Detail - Tiêu chí SE S1).
+    """
+    part = inventory_service.get_part_detail(part_code)
+    return {
+        "status": "success",
+        "data": part
+    }
+
+
+@router.put("/parts/{part_code}", status_code=status.HTTP_200_OK)
+def update_part_route(
+    part_code: str,
+    payload: Dict[str, Any] = Body(...),
+    user: Dict[str, Any] = Depends(get_current_user)
+):
+    """
+    Cập nhật thông tin linh kiện trong danh mục kho (CRUD: Update - Tiêu chí SE S1).
+    Phân quyền: MANAGER hoặc MATERIAL_STAFF.
+    """
+    role = user.get("role", "TECH_STAFF")
+    cleaned_data = validate_part_update_payload(payload)
+    updated_part = inventory_service.update_part(part_code, cleaned_data, operator_role=role)
+    return {
+        "status": "success",
+        "message": f"Cập nhật linh kiện '{part_code}' thành công.",
+        "data": updated_part
+    }
+
+
+@router.delete("/parts/{part_code}", status_code=status.HTTP_200_OK)
+def delete_part_route(
+    part_code: str,
+    user: Dict[str, Any] = Depends(get_current_user)
+):
+    """
+    Xóa linh kiện khỏi danh mục kho (CRUD: Delete - Tiêu chí SE S1).
+    Phân quyền: Chỉ MANAGER.
+    Ràng buộc an toàn: Không cho phép xóa nếu linh kiện vẫn còn tồn kho thực tế > 0.
+    """
+    role = user.get("role", "TECH_STAFF")
+    inventory_service.delete_part(part_code, operator_role=role)
+    return {
+        "status": "success",
+        "message": f"Đã xóa thành công linh kiện '{part_code}' khỏi hệ thống kho."
     }
 
 
@@ -357,6 +432,97 @@ def import_users_route(
         "status": "success",
         "message": f"Đã nạp thành công {count} nhân sự vào hệ thống kho.",
         "imported_count": count
+    }
+
+
+@router.post("/users", status_code=status.HTTP_201_CREATED)
+def create_user_route(
+    payload: Dict[str, Any] = Body(...),
+    user: Dict[str, Any] = Depends(get_current_user)
+):
+    """
+    Thêm mới một tài khoản nhân sự (CRUD: Create - Tiêu chí SE S1).
+    Phân quyền: Chỉ MANAGER mới có quyền thêm nhân sự.
+    """
+    role = user.get("role", "TECH_STAFF")
+    clean_data = validate_register_payload(payload)
+    raw_pwd = clean_data["password"]
+    pwd_hash = hashlib.sha256(raw_pwd.encode("utf-8")).hexdigest()
+
+    user_doc = {
+        "full_name": clean_data["full_name"],
+        "email": clean_data["email"],
+        "password_hash": pwd_hash,
+        "role": clean_data["role"],
+        "center_id": clean_data.get("center_id", DEFAULT_CENTER_ID),
+        "status": "ACTIVE"
+    }
+    created = inventory_service.create_user_account(user_doc, operator_role=role)
+    return {
+        "status": "success",
+        "message": f"Tạo tài khoản nhân sự '{created.get('email')}' thành công.",
+        "data": created
+    }
+
+
+@router.get("/users/{email}", status_code=status.HTTP_200_OK)
+def get_user_detail_route(
+    email: str,
+    user: Dict[str, Any] = Depends(get_current_user)
+):
+    """
+    Tra cứu thông tin chi tiết một nhân sự theo email (CRUD: Read Detail - Tiêu chí SE S1).
+    Phân quyền: MANAGER hoặc chính người dùng sở hữu tài khoản.
+    """
+    current_email = user.get("email", "").lower()
+    role = user.get("role", "")
+    target_email = email.strip().lower()
+    if role != "MANAGER" and current_email != target_email:
+        raise UnauthorizedRoleError("Bạn chỉ có quyền xem thông tin tài khoản của chính mình.")
+    
+    user_detail = inventory_service.get_user_detail(target_email)
+    return {
+        "status": "success",
+        "data": user_detail
+    }
+
+
+@router.put("/users/{email}", status_code=status.HTTP_200_OK)
+def update_user_route(
+    email: str,
+    payload: Dict[str, Any] = Body(...),
+    user: Dict[str, Any] = Depends(get_current_user)
+):
+    """
+    Cập nhật thông tin hồ sơ nhân sự (CRUD: Update - Tiêu chí SE S1).
+    Phân quyền: Chỉ MANAGER.
+    """
+    role = user.get("role", "TECH_STAFF")
+    cleaned_data = validate_user_update_payload(payload)
+    updated = inventory_service.update_user_profile(email, cleaned_data, operator_role=role)
+    return {
+        "status": "success",
+        "message": f"Cập nhật tài khoản '{email}' thành công.",
+        "data": updated
+    }
+
+
+@router.delete("/users/{email}", status_code=status.HTTP_200_OK)
+def delete_user_route(
+    email: str,
+    user: Dict[str, Any] = Depends(get_current_user)
+):
+    """
+    Xóa tài khoản nhân sự khỏi hệ thống (CRUD: Delete - Tiêu chí SE S1).
+    Phân quyền: Chỉ MANAGER.
+    Ràng buộc an toàn: Không được tự xóa tài khoản của chính mình.
+    """
+    role = user.get("role", "TECH_STAFF")
+    current_email = user.get("email", "")
+    inventory_service.delete_user_account(email, operator_role=role, current_user_email=current_email)
+    return {
+        "status": "success",
+        "message": f"Đã xóa thành công tài khoản '{email}' khỏi hệ thống."
     }
 
 

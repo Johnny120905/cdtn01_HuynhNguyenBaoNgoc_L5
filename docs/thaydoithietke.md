@@ -222,3 +222,35 @@ Giai đoạn Bài tập 3 tập trung vào việc biến hệ thống từ mức
 | **6** | **Tài liệu bàn giao tiếng Anh** | Tài liệu chủ yếu bằng tiếng Việt. | Biên soạn trọn bộ `deployment-guide.md` và `api-docs/README.md` bằng tiếng Anh chuẩn mực kỹ thuật. | Tiêu chí CLO4 & Mục 2.5, 2.6 BT3. |
 | **7** | **Dọn dẹp và tinh gọn thư mục Frontend** | Tồn tại các thư mục con rỗng `frontend/src/pages/Manager`, `Material`, `Tech` và `frontend/public/images` gây nhầm lẫn về cấu trúc phân quyền và vị trí file. | Xóa bỏ hoàn toàn các thư mục con rỗng thừa; đưa trực tiếp `AuthPortal.js` và `ManagerUsers.js` ra `frontend/src/pages/`. Toàn bộ giao diện 3 vai trò chạy tập trung và đồng bộ qua kiến trúc SPA (`src/static/app.js` và `frontend/public/app.js`). | Chuẩn hóa cấu trúc thư mục sạch, loại bỏ mã thừa, tăng tính bảo trì dự án. |
 | **8** | **Nguyên tắc 1 tài khoản - 1 vai trò duy nhất (RBAC)** | Tài khoản thử nghiệm dùng chung hoặc thiếu tài khoản chuyên biệt cho từng vai trò riêng biệt. | Thiết lập quy định bất biến: Mỗi tài khoản email chỉ được cấp đúng 1 vai trò duy nhất (`MATERIAL_STAFF`, `TECH_STAFF`, hoặc `MANAGER`). Nạp sẵn 3 tài khoản chuẩn mực độc lập tương ứng với 3 vai trò vào CSDL và hệ thống seed. | Bảo mật phân quyền RBAC, kiểm toán trách nhiệm pháp lý và truy vết giao dịch. |
+
+---
+
+## PHẦN IV: Phản hồi của Giảng viên về Bài tập 2 & Các hành động khắc phục hoàn thiện
+
+### 1. Chi tiết nhận xét đánh giá Bài tập 2 từ Giảng viên hướng dẫn (TS. Nguyễn Trí Hải)
+- **Sinh viên:** Huỳnh Nguyễn Bảo Ngọc – MSSV: `2374802010339`
+- **Luồng:** Luồng 05 – Kho linh kiện thay thế | **Track:** Software Engineering (`SE`)
+- **Điểm mạnh ghi nhận:**
+  - Kiến trúc FastAPI tách 3 lớp rõ ràng (Routes, Services, Repositories).
+  - Hiện thực nhiều quy tắc nghiệp vụ kho chặt chẽ: Bắt buộc chứng từ phiếu bảo hành khi xuất kho (`BR-02`), ngưỡng an toàn (`BR-05`), giao dịch nguyên tử, nhật ký đối soát bất biến insert-only (`BR-03`).
+  - Toàn bộ kiểm thử tự động PASS 100%.
+  - Giao diện có đầy đủ 3 trạng thái dữ liệu (Loading, Empty, Error) kèm ảnh chụp minh chứng.
+  - Đóng gói Docker Compose chạy được ngay từ máy trắng.
+- **Các điểm cần khắc phục & Mục kiểm chứng chưa đạt:**
+  1. *Báo cáo 81 trang chủ yếu là dán mã nguồn, không theo cấu trúc 7 mục (gợi ý 6–9 trang), mục lục còn lỗi "Error! Bookmark not defined".*
+  2. *Tag `v0.2` đang trỏ vào commit BT3 làm sau ngày nộp (lần này thầy chấp nhận chấm theo main) — lần sau tag phải giữ đúng bản đã nộp.*
+  3. *API chưa đủ bốn thao tác CRUD (không có thao tác xóa DELETE).*
+  4. *Mục kiểm chứng (Bảng 4.2) chưa đạt: Tiêu chí `[SE] S1` ("$\ge 2$ thực thể có đủ bốn thao tác CRUD").*
+
+---
+
+### 2. Kế hoạch & Kết quả khắc phục toàn diện
+
+| STT | Vấn đề phản hồi | Hành động khắc phục chi tiết | Kết quả & Minh chứng kỹ thuật |
+| :---: | :--- | :--- | :--- |
+| **KH-01** | **Git Tag `v0.2` trỏ sai commit** | Điều chỉnh con trỏ git tag `v0.2` quay về đúng commit nộp thực tế ngày 29/10/2026: `e6698d5` (`feat(bt2): complete core module, layered clean architecture, docs, docker & 43 automated tests (v0.2)`). | Thực thi lệnh `git tag -f -a v0.2 e6698d5 -m "..."` và `git push -f origin v0.2`. Kiểm chứng bằng `git show v0.2` xác nhận trỏ đúng commit ngày 29/10/2026. Tag được giữ bất biến. |
+| **KH-02** | **Thiếu CRUD & Thao tác Xóa (Tiêu chí `[SE] S1`)** | Hiện thực đầy đủ cả 4 thao tác CRUD (**C**reate, **R**ead, **U**pdate, **D**elete) cho **2 thực thể cốt lõi**: <br>1. Thực thể `part` (Linh kiện kho)<br>2. Thực thể `users` (Tài khoản nhân sự). | - `part`: `POST /parts`, `GET /parts/{code}`, `PUT /parts/{code}`, `DELETE /parts/{code}`.<br>- `users`: `POST /users`, `GET /users/{email}`, `PUT /users/{email}`, `DELETE /users/{email}`.<br>- Bổ sung đầy đủ ràng buộc an toàn (không xóa khi còn tồn kho > 0, không tự xóa tài khoản của chính mình). |
+| **KH-03** | **Kiểm chứng tự động cho Tiêu chí S1** | Xây dựng bộ test suite mới `tests/se_s1_crud.test.py` gồm 11 test cases kiểm thử tự động toàn diện cho cả 2 thực thể. | Kiểm thử tự động 11/11 tests PASS 100%. Nâng tổng bộ kiểm thử toàn hệ thống lên **67 test cases PASS 100%** bằng 1 lệnh `pytest tests/ -v`. |
+| **KH-04** | **Báo cáo BT2 quá dài (81 trang) và lỗi mục lục** | Tái cấu trúc toàn bộ Báo cáo BT2 thành tài liệu khoa học cô đọng chuẩn 7 mục (khuyến nghị 6–9 trang theo Mục 3.1 Đề bài BT2). Lược bỏ toàn bộ mã nguồn thô; thay thế bằng sơ đồ, bảng biểu đối chiếu và trích đoạn giải thuật ngắn gọn. Sửa triệt để lỗi Word `Error! Bookmark not defined`. | Báo cáo đạt chuẩn 8 trang, mục lục cập nhật đúng số trang tự động, đầy đủ trang bìa, 7 mục chuẩn và Phụ lục AI. Lưu tại `docs/BT2_BaoCao_Chuan7Muc.md` và file Word `.docx` tương ứng. |
+| **KH-05** | **Đồng bộ OpenAPI & Tài liệu API** | Tự động xuất schema OpenAPI mới nhất ra [docs/api-docs/openapi.json](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/api-docs/openapi.json) (22 endpoints) và cập nhật bảng tra cứu trong [docs/api-docs/README.md](file:///d:/Hoc/DH/N4/N4.HK01/Chuyende1/CDTN01/docs/api-docs/README.md). | Swagger UI (`/docs`) và OpenAPI JSON phản ánh chính xác các endpoints CRUD mới bổ sung. |
+
