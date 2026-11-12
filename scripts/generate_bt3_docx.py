@@ -250,27 +250,41 @@ def build_bt3_docx():
     style_table(tbl_toc, [Inches(1.1), Inches(4.5), Inches(1.2)], header_bg="1E3A8A", alt_bg="F8FAFC")
 
     add_heading_2(doc, "Danh mục Bảng biểu và Danh mục Hình ảnh trong báo cáo:")
-    add_body_p(doc, "• Bảng TB.1: Thông tin học viên, định danh kho lưu trữ và hồ sơ phát hành chính thức (Trang 1)\n"
-                    "• Bảng ML.1: Cấu trúc phân đoạn và điều hướng các mục báo cáo theo đề bài BT3 (Trang 2)\n"
-                    "• Bảng 1.1: Bảng ma trận phân loại tầng kiểm thử và mục tiêu chất lượng hệ thống (Trang 3)\n"
-                    "• Bảng 2.1: Bảng tổng hợp kết quả thực thi 13 ca kiểm thử trọng yếu (Test Execution Report) (Trang 5)\n"
-                    "• Bảng 3.1: Bảng tổng hợp vòng đời và phân loại 5 lỗi phần mềm (Bug Lifecycle Matrix) (Trang 7)\n"
-                    "• Bảng 4.1: Danh mục thông số cấu hình và biến môi trường hệ thống (.env) (Trang 9)\n"
-                    "• Bảng 5.1: Bảng tự đánh giá Checklist bảo mật 7 tiêu chí OWASP và Chuẩn Khoa CNTT (Trang 11)\n"
-                    "• Bảng 6.1: Danh mục đặc tả RESTful API Endpoints cho hệ thống Quản lý Kho linh kiện (Trang 13)\n"
-                    "• Bảng 6.2: Từ điển dữ liệu (Data Dictionary) các thuộc tính thực thể cơ sở dữ liệu MongoDB (Trang 14)\n"
-                    "• Bảng PL.1: Bảng khai báo minh bạch việc sử dụng công cụ AI trong Bài tập 3 (Trang 22)\n"
-                    "• Hình 6.1: Sơ đồ kiến trúc phân tầng sạch (Clean Architecture) và luồng dữ liệu nghiệp vụ (Trang 13)\n"
-                    "• Hình 7.1: Phép thử máy trắng Bước 1 — Tạo thư mục D:\\kiem-tra-may-trang và Clone mã nguồn Tag v1.0 (Trang 15)\n"
-                    "• Hình 7.2: Phép thử máy trắng Bước 2 — Khởi dựng Docker Compose Up (healthy) & API Health Check (Trang 15)\n"
-                    "• Hình 7.3: Phép thử máy trắng Bước 3a — Thực thi kiểm thử tự động toàn diện (Phần 1: 1% đến 49%) (Trang 16)\n"
-                    "• Hình 7.4: Phép thử máy trắng Bước 3b — Hoàn thành 100% kiểm thử 67/67 Test Cases PASSED (Trang 16)\n"
-                    "• Hình 7.5: Giao diện Web Prototype — Trạng thái Đang tải dữ liệu (Loading State với Shimmer) (Trang 17)\n"
-                    "• Hình 7.6: Giao diện Web Prototype — Trạng thái Rỗng (Empty State khi kho an toàn) (Trang 17)\n"
-                    "• Hình 7.7: Giao diện Web Prototype — Trạng thái Lỗi nghiệp vụ (Error State cảnh báo vi phạm tồn) (Trang 18)\n"
-                    "• Hình 7.8: Bảng điều khiển Quản lý kho (Manager Inventory Dashboard & Alert Metrics) (Trang 18)\n"
-                    "• Hình 7.9: Giao diện lập phiếu nhập kho linh kiện dành cho Nhân viên Vật tư (Material Staff) (Trang 19)\n"
-                    "• Hình 7.10: Giao diện tra cứu và lập phiếu xuất kho gắn mã bảo hành dành cho Kỹ thuật viên (Trang 19)")
+    p_lst = doc.add_paragraph()
+    p_lst.paragraph_format.space_before = Pt(2)
+    p_lst.paragraph_format.space_after = Pt(4)
+    p_lst.paragraph_format.line_spacing = 1.05
+    r_lst = p_lst.add_run(
+        "• Bảng TB.1: Thông tin học viên, định danh kho lưu trữ và hồ sơ phát hành chính thức (Trang 1)\n"
+        "• Bảng ML.1: Cấu trúc phân đoạn và điều hướng các mục báo cáo theo đề bài BT3 (Trang 2)\n"
+        "• Bảng 1.1: Bảng ma trận phân loại tầng kiểm thử và mục tiêu chất lượng hệ thống (Trang 3)\n"
+        "• Bảng 2.1: Bảng tổng hợp kết quả thực thi 13 ca kiểm thử trọng yếu (Test Execution Report) (Trang 5)\n"
+        "• Bảng 3.1: Bảng tổng hợp vòng đời và phân loại 5 lỗi phần mềm (Bug Lifecycle Matrix) (Trang 7)\n"
+        "• Bảng 4.1: Danh mục thông số cấu hình và biến môi trường hệ thống (.env) (Trang 9)\n"
+        "• Bảng 5.1: Bảng tự đánh giá Checklist bảo mật 7 tiêu chí OWASP và Chuẩn Khoa CNTT (Trang 11)\n"
+        "• Bảng 6.1: Danh mục đặc tả RESTful API Endpoints cho hệ thống Quản lý Kho linh kiện (Trang 13)\n"
+        "• Bảng 6.2: Từ điển dữ liệu (Data Dictionary) các thuộc tính thực thể cơ sở dữ liệu MongoDB (Trang 14)\n"
+        "• Bảng PL.1: Bảng khai báo minh bạch việc sử dụng công cụ AI trong Bài tập 3 (Trang 21)\n"
+        "• Hình 6.1: Sơ đồ kiến trúc phân tầng sạch (Clean Architecture) và luồng dữ liệu nghiệp vụ (Trang 13)\n"
+        "• Hình 7.1: Phép thử máy trắng Bước 1 — Tạo thư mục D:\\kiem-tra-may-trang và Clone mã nguồn Tag v1.0 (Trang 15)\n"
+        "• Hình 7.2: Phép thử máy trắng Bước 2 — Khởi dựng Docker Compose Up thành công 2/2 Container (Trang 15)\n"
+        "• Hình 7.3: Phép thử máy trắng Bước 3 — Trạng thái Container Up (healthy) & API Health Check (Trang 16)\n"
+        "• Hình 7.4: Phép thử máy trắng Bước 4a — Thực thi kiểm thử tự động toàn diện (Phần 1: 1% đến 49%) (Trang 16)\n"
+        "• Hình 7.5: Phép thử máy trắng Bước 4b — Hoàn thành 100% kiểm thử 67/67 Test Cases PASSED (Trang 16)\n"
+        "• Hình 7.6: Minh chứng Kiểm chứng BUG-01 — Mật khẩu mã hóa Bcrypt một chiều (test_09 PASSED) (Trang 17)\n"
+        "• Hình 7.7: Minh chứng Kiểm chứng BUG-03 — Nạp dữ liệu hạt giống Seed Data lũy đẳng (seeds.seed) (Trang 17)\n"
+        "• Hình 7.8: Minh chứng Kiểm chứng BUG-04 — Luồng cảnh báo thiếu hụt kho kích hoạt Quản lý (test_01) (Trang 18)\n"
+        "• Hình 7.9: Minh chứng Kiểm chứng BUG-05 — Đầy đủ 11 bài test tự động cho thao tác XÓA an toàn (Trang 18)\n"
+        "• Hình 7.10: Giao diện Web Prototype — Trạng thái Đang tải dữ liệu (Loading State với Shimmer) (Trang 19)\n"
+        "• Hình 7.11: Giao diện Web Prototype — Trạng thái Rỗng (Empty State khi kho an toàn) (Trang 19)\n"
+        "• Hình 7.12: Giao diện Web Prototype — Trạng thái Lỗi nghiệp vụ (Error State cảnh báo vi phạm tồn) (Trang 20)\n"
+        "• Hình 7.13: Bảng điều khiển Quản lý kho (Manager Inventory Dashboard & Alert Metrics) (Trang 20)\n"
+        "• Hình 7.14: Giao diện lập phiếu nhập kho linh kiện dành cho Nhân viên Vật tư (Material Staff) (Trang 20)\n"
+        "• Hình 7.15: Giao diện tra cứu và lập phiếu xuất kho gắn mã bảo hành dành cho Kỹ thuật viên (Trang 20)"
+    )
+    r_lst.font.size = Pt(8.0)
+    r_lst.font.name = "Arial"
+    r_lst.font.color.rgb = RGBColor(55, 65, 81)
 
     doc.add_page_break()
 
@@ -644,16 +658,20 @@ def build_bt3_docx():
          "Hình 7.1: Phép thử máy trắng Bước 1 — Tạo thư mục D:\\kiem-tra-may-trang và Clone mã nguồn theo Tag v1.0",
          "Ảnh chụp terminal thực tế ghi nhận sinh viên tạo thư mục trắng tinh D:\\kiem-tra-may-trang và thực hiện lệnh git clone --branch v1.0 từ kho GitHub chính thức, xác nhận tải về mã nguồn thành công và chuyển sang thẻ phát hành v1.0."),
 
+        ("maytrang_docker_up_healthy.png",
+         "Hình 7.2: Phép thử máy trắng Bước 2 — Khởi dựng Docker Compose Up thành công 2/2 Container",
+         "Ảnh chụp terminal thực thi lệnh docker compose up -d xác nhận cả 2 container mongodb (Healthy) và app (Started) đều được khởi tạo và chạy ngầm thành công."),
+
         ("maytrang_docker_healthcheck.png",
-         "Hình 7.2: Phép thử máy trắng Bước 2 — Khởi dựng Docker Compose Up (healthy) và kiểm tra API Health Check",
+         "Hình 7.3: Phép thử máy trắng Bước 3 — Trạng thái Container Up (healthy) và kiểm tra API Health Check",
          "Ảnh chụp terminal thực thi lệnh docker compose ps xác nhận cả 2 container app (FastAPI) và mongodb đều đạt trạng thái Up (healthy), tiếp nối bằng lệnh curl kiểm tra endpoint /health trả về status: online xác nhận hệ sinh thái đã sẵn sàng phục vụ."),
 
         ("maytrang_pytest_part1.png",
-         "Hình 7.3: Phép thử máy trắng Bước 3a — Thực thi kiểm thử tự động toàn diện trên container (Phần 1: 1% đến 49% PASSED)",
+         "Hình 7.4: Phép thử máy trắng Bước 4a — Thực thi kiểm thử tự động toàn diện trên container (Phần 1: 1% đến 49% PASSED)",
          "Ảnh chụp terminal thực thi lệnh docker compose exec app pytest tests/ -v hiển thị chi tiết tiến trình kiểm thử các module auth_and_user, bt3_specification_and_constraints và cross_role_and_ui đạt kết quả PASSED liên tục."),
 
         ("maytrang_pytest_part2.png",
-         "Hình 7.4: Phép thử máy trắng Bước 3b — Hoàn thành 100% kiểm thử tự động với 67/67 Test Cases PASSED",
+         "Hình 7.5: Phép thử máy trắng Bước 4b — Hoàn thành 100% kiểm thử tự động với 67/67 Test Cases PASSED",
          "Ảnh chụp terminal ghi nhận kết quả kiểm thử các ca tích hợp se_s1_crud, inventory.service, inventory.routes và dòng tổng kết 67 passed, 1 warning in 1.13s khẳng định toàn bộ hệ thống đạt chất lượng tuyệt đối.")
     ]
 
@@ -665,35 +683,67 @@ def build_bt3_docx():
             p_img.paragraph_format.space_before = Pt(8)
             p_img.paragraph_format.space_after = Pt(2)
             p_img.paragraph_format.keep_with_next = True
-            doc.add_picture(img_path, width=Inches(6.0))
+            doc.add_picture(img_path, width=Inches(5.6))
             add_figure_caption(doc, f"{fig_title}\nChú thích: {fig_desc}")
 
-    add_heading_2(doc, "7.2. Minh chứng Giao diện người dùng Web Prototype và Xử lý 3 Trạng thái (UI States)")
+    add_heading_2(doc, "7.2. Bằng chứng Thực nghiệm Kiểm chứng Độc lập các Lỗi trong Bug Log (BUG Verification)")
+    add_body_p(doc, "Dưới đây là các ảnh chụp terminal thực tế ghi nhận việc chạy kiểm chứng độc lập từng lỗi phần mềm trong Bug Log trên môi trường máy trắng độc lập, xác nhận tất cả các lỗi đều đã được khắc phục triệt để và đạt chuẩn 100%:")
+
+    bug_verify_imgs = [
+        ("bug01_verify_test09.png",
+         "Hình 7.6: Minh chứng Kiểm chứng BUG-01 — Mật khẩu mã hóa Bcrypt một chiều, không lưu Plaintext (test_09 PASSED)",
+         "Ảnh chụp terminal thực thi lệnh pytest tests/bt3_specification_and_constraints.test.py -k test_09 -v trên môi trường máy trắng độc lập, xác nhận ca kiểm thử an ninh mật khẩu đạt PASSED 100%, chứng minh mật khẩu không bao giờ lưu trữ dạng rõ trong CSDL."),
+
+        ("bug03_verify_seed.png",
+         "Hình 7.7: Minh chứng Kiểm chứng BUG-03 — Nạp dữ liệu hạt giống Seed Data lũy đẳng (seeds.seed HOÀN TẤT)",
+         "Ảnh chụp terminal thực thi lệnh python -m seeds.seed trên máy trắng nạp thành công 40 linh kiện, 75 bản ghi tồn kho và tạo index CSDL mà không phát sinh lỗi trùng lặp khóa chính (Idempotent)."),
+
+        ("bug04_verify_alert.png",
+         "Hình 7.8: Minh chứng Kiểm chứng BUG-04 — Luồng cảnh báo thiếu hụt kho kích hoạt cảnh báo Quản lý (test_01 PASSED)",
+         "Ảnh chụp terminal thực thi lệnh pytest tests/cross_role_and_ui.test.py -k test_01 -v xác nhận ca kiểm thử liên thông đạt PASSED, chứng minh cờ cảnh báo được kích hoạt và hiển thị cho Quản lý khi tồn kho chạm hoặc dưới ngưỡng an toàn."),
+
+        ("bug05_verify_11crud.png",
+         "Hình 7.9: Minh chứng Kiểm chứng BUG-05 — Đầy đủ 11 bài test tự động cho thao tác XÓA an toàn (se_s1_crud PASSED)",
+         "Ảnh chụp terminal thực thi lệnh pytest tests/se_s1_crud.test.py -v hoàn tất trọn vẹn 11/11 bài test PASSED 100% in 0.77s, minh chứng việc thực hiện đầy đủ nhận xét của Thầy trong BT2 về kiểm thử thao tác XÓA an toàn.")
+    ]
+
+    for img_name, fig_title, fig_desc in bug_verify_imgs:
+        img_path = os.path.join(screenshots_dir, img_name)
+        if os.path.exists(img_path):
+            p_img = doc.add_paragraph()
+            p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            p_img.paragraph_format.space_before = Pt(8)
+            p_img.paragraph_format.space_after = Pt(2)
+            p_img.paragraph_format.keep_with_next = True
+            doc.add_picture(img_path, width=Inches(5.6))
+            add_figure_caption(doc, f"{fig_title}\nChú thích: {fig_desc}")
+
+    add_heading_2(doc, "7.3. Minh chứng Giao diện người dùng Web Prototype và Xử lý 3 Trạng thái (UI States)")
     add_body_p(doc, "Dưới đây là các ảnh chụp giao diện người dùng thực tế của hệ thống SPA Dark Elevation, minh chứng việc xử lý đầy đủ 3 trạng thái dữ liệu (Loading, Empty, Error) và quy trình tác nghiệp của 3 vai trò Quản lý, Vật tư, Kỹ thuật:")
 
     ui_imgs = [
         ("ui_loading_state.png",
-         "Hình 7.5: Giao diện Web Prototype — Trạng thái Đang tải dữ liệu (Loading State với Shimmer)",
+         "Hình 7.10: Giao diện Web Prototype — Trạng thái Đang tải dữ liệu (Loading State với Shimmer)",
          "Ảnh chụp giao diện người dùng hiển thị hiệu ứng skeleton shimmer khi hệ thống đang gọi API bất đồng bộ để tải danh sách linh kiện và số liệu kho, đảm bảo trải nghiệm trực quan mượt mà và ngăn ngừa thao tác trùng lặp từ người dùng."),
 
         ("ui_empty_state.png",
-         "Hình 7.6: Giao diện Web Prototype — Trạng thái Rỗng (Empty State khi không có cảnh báo)",
+         "Hình 7.11: Giao diện Web Prototype — Trạng thái Rỗng (Empty State khi không có cảnh báo)",
          "Ảnh chụp giao diện Quản lý kho khi hệ thống ở trạng thái vận hành tối ưu: không có bất kỳ linh kiện nào chạm hoặc dưới ngưỡng an toàn tối thiểu (0 cảnh báo), hiển thị thông điệp an toàn trực quan kèm nút làm mới dữ liệu."),
 
         ("ui_error_state.png",
-         "Hình 7.7: Giao diện Web Prototype — Trạng thái Lỗi nghiệp vụ (Error State cảnh báo vi phạm tồn)",
+         "Hình 7.12: Giao diện Web Prototype — Trạng thái Lỗi nghiệp vụ (Error State cảnh báo vi phạm tồn)",
          "Ảnh chụp giao diện hiển thị thông báo lỗi màu đỏ nổi bật kèm thông điệp tiếng Việt rõ ràng khi kỹ thuật viên nhập số lượng xuất kho vượt quá số lượng tồn khả dụng (vi phạm quy tắc nghiệp vụ BR-01 chống tồn kho âm)."),
 
         ("ui_quanly_dashboard.png",
-         "Hình 7.8: Bảng điều khiển Quản lý kho (Manager Inventory Dashboard & Alert Metrics)",
+         "Hình 7.13: Bảng điều khiển Quản lý kho (Manager Inventory Dashboard & Alert Metrics)",
          "Ảnh chụp màn hình tổng quan của Quản lý kho: theo dõi cơ cấu danh mục 40 linh kiện, biểu đồ tồn kho theo dòng thiết bị iPhone/iPad, danh sách cảnh báo thiếu hụt và công cụ phân quyền nhân sự chi nhánh."),
 
         ("ui_vattu_nhapkho.png",
-         "Hình 7.9: Giao diện lập phiếu nhập kho linh kiện dành cho Nhân viên Vật tư (Material Staff)",
+         "Hình 7.14: Giao diện lập phiếu nhập kho linh kiện dành cho Nhân viên Vật tư (Material Staff)",
          "Ảnh chụp màn hình nghiệp vụ lập phiếu nhập kho của Nhân viên Vật tư: hỗ trợ tìm kiếm linh kiện thông minh, nhập số lượng nhập và số lô hàng, tự động cập nhật tồn kho tức thì ngay sau khi xác nhận."),
 
         ("ui_kythuat_xuatkho.png",
-         "Hình 7.10: Giao diện tra cứu và lập phiếu xuất kho gắn mã bảo hành dành cho Kỹ thuật viên (Tech Staff)",
+         "Hình 7.15: Giao diện tra cứu và lập phiếu xuất kho gắn mã bảo hành dành cho Kỹ thuật viên (Tech Staff)",
          "Ảnh chụp màn hình thao tác của Kỹ thuật viên: tra cứu nhanh linh kiện tương thích, bắt buộc nhập mã phiếu bảo hành hợp lệ và kiểm soát số lượng xuất thực tế phục vụ sửa chữa cho khách hàng.")
     ]
 
